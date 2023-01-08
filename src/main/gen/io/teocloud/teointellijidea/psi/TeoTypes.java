@@ -33,15 +33,16 @@ public interface TeoTypes {
   IElementType COLLECTION_OPTIONAL = new TeoTokenType("COLLECTION_OPTIONAL");
   IElementType COMMENT = new TeoTokenType("COMMENT");
   IElementType CONFIG_KEYWORDS = new TeoTokenType("CONFIG_KEYWORDS");
-  IElementType CRLF = new TeoTokenType("CRLF");
   IElementType DICTIONARY_LITERAL = new TeoTokenType("DICTIONARY_LITERAL");
   IElementType ENUM_KEYWORD = new TeoTokenType("ENUM_KEYWORD");
   IElementType ENUM_MEMBER_DEFINITION = new TeoTokenType("ENUM_MEMBER_DEFINITION");
+  IElementType EOL = new TeoTokenType("EOL");
   IElementType EQUAL_SIGN = new TeoTokenType("EQUAL_SIGN");
   IElementType FROM_KEYWORD = new TeoTokenType("FROM_KEYWORD");
   IElementType IDENTIFIER = new TeoTokenType("identifier");
   IElementType IMPORT_KEYWORD = new TeoTokenType("IMPORT_KEYWORD");
   IElementType ITEM_OPTIONAL = new TeoTokenType("ITEM_OPTIONAL");
+  IElementType ITEM__9_0 = new TeoTokenType("item__9_0");
   IElementType LET_KEYWORD = new TeoTokenType("LET_KEYWORD");
   IElementType MODEL_KEYWORD = new TeoTokenType("MODEL_KEYWORD");
   IElementType NUMBER_LITERAL = new TeoTokenType("NUMBER_LITERAL");
@@ -49,6 +50,8 @@ public interface TeoTypes {
   IElementType STRING_LITERAL = new TeoTokenType("STRING_LITERAL");
   IElementType SUBSCRIPT = new TeoTokenType("subscript");
   IElementType TUPLE_LITERAL = new TeoTokenType("TUPLE_LITERAL");
+  IElementType WS = new TeoTokenType("WS");
+  IElementType WS_EOL = new TeoTokenType("WS_EOL");
   IElementType _PAIR_ = new TeoTokenType("<pair>");
 
   class Factory {

@@ -42,12 +42,12 @@ STRING_LITERAL={STRING_BAD} \"
 
 %%
 
-{EOL} {yybegin(YYINITIAL); return TokenType.EOL; }
-{WS} {yybegin(YYINITIAL); return TokenType.WS; }
-{WS_EOL} {yybegin(YYINITIAL); return TokenType.WS_EOL; }
-{COMMENT} {yybegin(YYINITIAL); return TokenType.COMMENT; }
-{STRING_LITERAL} {yybegin(YYINITIAL); return TokenType.STRING_LITERAL; }
-{NUMBER_LITERAL} {yybegin(YYINITIAL); return TokenType.NUMBER_LITERAL; }
-{BOOL_LITERAL} {yybegin(YYINITIAL); return TokenType.BOOL_LITERAL; }
+{EOL} {yybegin(YYINITIAL); return TeoTypes.EOL; }
+{WS} {yybegin(YYINITIAL); return TeoTypes.WS; }
+{WS_EOL} {yybegin(YYINITIAL); return TeoTypes.WS_EOL; }
+{COMMENT} {yybegin(YYINITIAL); return TeoTypes.COMMENT; }
+{STRING_LITERAL} {yybegin(YYINITIAL); return TeoTypes.STRING_LITERAL; }
+{NUMBER_LITERAL} {yybegin(YYINITIAL); return TeoTypes.NUMBER_LITERAL; }
+{BOOL_LITERAL} {yybegin(YYINITIAL); return TeoTypes.BOOL_LITERAL; }
 
-[^]                                                         { return TokenType.BAD_CHARACTER; }
+[^] { return TokenType.BAD_CHARACTER; }

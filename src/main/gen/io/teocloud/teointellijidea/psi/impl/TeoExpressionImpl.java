@@ -51,4 +51,10 @@ public class TeoExpressionImpl extends ASTWrapperPsiElement implements TeoExpres
     return findChildByClass(TeoNullishCoalescing.class);
   }
 
+  @Override
+  @Nullable
+  public TeoPipeline getPipeline() {
+    return findChildByClass(TeoPipeline.class);
+  }
+
 }

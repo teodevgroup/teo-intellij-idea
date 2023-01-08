@@ -19,4 +19,7 @@ public interface TeoExpression extends PsiElement {
   @Nullable
   TeoNullishCoalescing getNullishCoalescing();
 
+  @Nullable
+  TeoPipeline getPipeline();
+
 }

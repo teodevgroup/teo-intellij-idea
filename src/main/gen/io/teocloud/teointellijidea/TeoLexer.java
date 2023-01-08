@@ -496,37 +496,37 @@ class TeoLexer implements FlexLexer {
             // fall through
           case 9: break;
           case 2: 
-            { yybegin(YYINITIAL); return TokenType.EOL;
+            { yybegin(YYINITIAL); return TeoTypes.EOL;
             } 
             // fall through
           case 10: break;
           case 3: 
-            { yybegin(YYINITIAL); return TokenType.WS;
+            { yybegin(YYINITIAL); return TeoTypes.WS;
             } 
             // fall through
           case 11: break;
           case 4: 
-            { yybegin(YYINITIAL); return TokenType.NUMBER_LITERAL;
+            { yybegin(YYINITIAL); return TeoTypes.NUMBER_LITERAL;
             } 
             // fall through
           case 12: break;
           case 5: 
-            { yybegin(YYINITIAL); return TokenType.WS_EOL;
+            { yybegin(YYINITIAL); return TeoTypes.WS_EOL;
             } 
             // fall through
           case 13: break;
           case 6: 
-            { yybegin(YYINITIAL); return TokenType.COMMENT;
+            { yybegin(YYINITIAL); return TeoTypes.COMMENT;
             } 
             // fall through
           case 14: break;
           case 7: 
-            { yybegin(YYINITIAL); return TokenType.STRING_LITERAL;
+            { yybegin(YYINITIAL); return TeoTypes.STRING_LITERAL;
             } 
             // fall through
           case 15: break;
           case 8: 
-            { yybegin(YYINITIAL); return TokenType.BOOL_LITERAL;
+            { yybegin(YYINITIAL); return TeoTypes.BOOL_LITERAL;
             } 
             // fall through
           case 16: break;

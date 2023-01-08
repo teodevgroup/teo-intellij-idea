@@ -15,40 +15,40 @@
 
 teoFile ::= item_*
 
-private item_ ::= (import|constant|model_definition|enum_definition|config_block|COMMENT|CRLF)
+private item_ ::= (import|constant|model_definition|enum_definition|config_block|COMMENT|EOL|WS|WS_EOL|)
 
-<import> ::= IMPORT_KEYWORD { IDENTIFIER * } FROM_KEYWORD STRING_LITERAL
+import ::= IMPORT_KEYWORD { IDENTIFIER * } FROM_KEYWORD STRING_LITERAL
 
-<constant> ::= LET_KEYWORD IDENTIFIER EQUAL_SIGN <expression>
+constant ::= LET_KEYWORD IDENTIFIER EQUAL_SIGN expression
 
-<model_definition> ::= <item_decorator>* MODEL_KEYWORD IDENTIFIER { (<block_decorator> | <field_definition>)+ }
+model_definition ::= item_decorator* MODEL_KEYWORD IDENTIFIER { (block_decorator | field_definition)+ }
 
-<enum_definition> ::= <item_decorator>* ENUM_KEYWORD IDENTIFIER { (ENUM_MEMBER_DEFINITION)* }
+enum_definition ::= item_decorator* ENUM_KEYWORD IDENTIFIER { (ENUM_MEMBER_DEFINITION)* }
 
-<item_decorator> ::= "@"<unit>
+item_decorator ::= "@"unit
 
-<block_decorator> ::= "@@"<unit>
+block_decorator ::= "@@"unit
 
-<pipeline> ::= "$"<unit>
+pipeline ::= "$"unit
 
-<config_block> ::= CONFIG_KEYWORDS IDENTIFIER? { <pair>* }
+config_block ::= CONFIG_KEYWORDS IDENTIFIER? { pair* }
 
-<field_definition> ::= <item_decorator>* IDENTIFIER ":" <type>
+field_definition ::= item_decorator* IDENTIFIER ":" type
 
-<type> ::= IDENTIFIER ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
+type ::= IDENTIFIER ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
 
-<nullish_coalescing> ::= <expression> ("??" <expression>)+
+nullish_coalescing ::= expression ("??" expression)+
 
-<group> ::= "(" <expression> ")"
+group ::= "(" expression ")"
 
-<expression> ::= (<literal> | IDENTIFIER | <group> | <nullish_coalescing>) (subscript | "." identifier | argument_list)*
+expression ::= (literal | IDENTIFIER | group | nullish_coalescing | pipeline) (subscript | "." identifier | argument_list)*
 
-<argument_list> ::= "(" (argument | named_argument)* ")"
+argument_list ::= "(" (argument | named_argument)* ")"
 
-<argument> ::= <expression>
+argument ::= expression
 
-<named_argument> ::= IDENTIFIER ":" <expression>
+named_argument ::= IDENTIFIER ":" expression
 
-<unit> ::= IDENTIFIER (subscript | "." identifier | argument_list)*
+unit ::= IDENTIFIER (subscript | "." identifier | argument_list)*
 
-<literal> ::= STRING_LITERAL | NUMBER_LITERAL | BOOL_LITERAL | ARRAY_LITERAL | DICTIONARY_LITERAL | TUPLE_LITERAL | RANGE_LITERAL
+literal ::= STRING_LITERAL | NUMBER_LITERAL | BOOL_LITERAL | ARRAY_LITERAL | DICTIONARY_LITERAL | TUPLE_LITERAL | RANGE_LITERAL
