@@ -1,0 +1,54 @@
+{
+  parserClass="io.teocloud.teointellijidea.parser.TeoParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Teo"
+  psiImplClassSuffix="Impl"
+  psiPackage="io.teocloud.teointellijidea.psi"
+  psiImplPackage="io.teocloud.teointellijidea.psi.impl"
+
+  elementTypeHolderClass="io.teocloud.teointellijidea.psi.TeoTypes"
+  elementTypeClass="io.teocloud.teointellijidea.psi.TeoElementType"
+  tokenTypeClass="io.teocloud.teointellijidea.psi.TeoTokenType"
+}
+
+teoFile ::= item_*
+
+private item_ ::= (import|constant|model_definition|enum_definition|config_block|COMMENT|CRLF)
+
+<import> ::= IMPORT_KEYWORD { IDENTIFIER * } FROM_KEYWORD STRING_LITERAL
+
+<constant> ::= LET_KEYWORD IDENTIFIER EQUAL_SIGN <expression>
+
+<model_definition> ::= <item_decorator>* MODEL_KEYWORD IDENTIFIER { (<block_decorator> | <field_definition>)+ }
+
+<enum_definition> ::= <item_decorator>* ENUM_KEYWORD IDENTIFIER { (ENUM_MEMBER_DEFINITION)* }
+
+<item_decorator> ::= "@"<unit>
+
+<block_decorator> ::= "@@"<unit>
+
+<pipeline> ::= "$"<unit>
+
+<config_block> ::= CONFIG_KEYWORDS IDENTIFIER? { <pair>* }
+
+<field_definition> ::= <item_decorator>* IDENTIFIER ":" <type>
+
+<type> ::= IDENTIFIER ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
+
+<nullish_coalescing> ::= <expression> ("??" <expression>)+
+
+<group> ::= "(" <expression> ")"
+
+<expression> ::= (<literal> | IDENTIFIER | <group> | <nullish_coalescing>) (subscript | "." identifier | argument_list)*
+
+<argument_list> ::= "(" (argument | named_argument)* ")"
+
+<argument> ::= <expression>
+
+<named_argument> ::= IDENTIFIER ":" <expression>
+
+<unit> ::= IDENTIFIER (subscript | "." identifier | argument_list)*
+
+<literal> ::= STRING_LITERAL | NUMBER_LITERAL | BOOL_LITERAL | ARRAY_LITERAL | DICTIONARY_LITERAL | TUPLE_LITERAL | RANGE_LITERAL
