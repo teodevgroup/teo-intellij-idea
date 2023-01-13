@@ -77,5 +77,6 @@ STRING_LITERAL={STRING_BAD} \"
 {NUMBER_LITERAL} {yybegin(YYINITIAL); return TeoTypes.NUMBER_LITERAL; }
 {BOOL_LITERAL} {yybegin(YYINITIAL); return TeoTypes.BOOL_LITERAL; }
 {DOLLAR_SIGN} {yybegin(YYINITIAL); return TeoTypes.DOLLAR_SIGN; }
+{COLON} {yybegin(YYINITIAL); return TeoTypes.COLON; }
 
 [^] { return TokenType.BAD_CHARACTER; }
