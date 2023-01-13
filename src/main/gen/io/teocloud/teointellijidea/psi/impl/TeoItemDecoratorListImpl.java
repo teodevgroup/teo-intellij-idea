@@ -11,20 +11,32 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoTypeImpl extends ASTWrapperPsiElement implements TeoType {
+public class TeoItemDecoratorListImpl extends ASTWrapperPsiElement implements TeoItemDecoratorList {
 
-  public TeoTypeImpl(@NotNull ASTNode node) {
+  public TeoItemDecoratorListImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitType(this);
+    visitor.visitItemDecoratorList(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TeoVisitor) accept((TeoVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public List<TeoWsEol> getWsEolList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TeoItemDecorator> getItemDecoratorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoItemDecorator.class);
   }
 
 }

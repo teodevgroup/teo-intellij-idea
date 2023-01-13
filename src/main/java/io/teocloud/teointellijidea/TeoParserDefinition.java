@@ -35,7 +35,7 @@ public class TeoParserDefinition implements ParserDefinition {
     @NotNull
     @Override
     public TokenSet getStringLiteralElements() {
-        return TokenSet.EMPTY;
+        return TeoTokenSets.STRING_LITERAL;
     }
 
     @NotNull

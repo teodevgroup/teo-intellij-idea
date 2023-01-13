@@ -15,33 +15,39 @@
 
 teoFile ::= item_*
 
-private item_ ::= (import|constant|model_definition|enum_definition|config_block|COMMENT|EOL|WS|WS_EOL|)
+private item_ ::= (import_statement|let_declaration|model_definition|enum_definition|config_block|COMMENT|NEWLINE|WHITESPACE)
 
-import ::= IMPORT_KEYWORD { IDENTIFIER * } FROM_KEYWORD STRING_LITERAL
+WS_EOL ::= (NEWLINE | WHITESPACE)+
 
-constant ::= LET_KEYWORD IDENTIFIER EQUAL_SIGN expression
+import_statement ::= IMPORT_KEYWORD ((WS_EOL? import_identifier_list WS_EOL?)|WHITESPACE+) STRING_LITERAL
 
-model_definition ::= item_decorator* MODEL_KEYWORD IDENTIFIER { (block_decorator | field_definition)+ }
+import_identifier_list ::= BLOCK_OPEN WS_EOL? (IDENTIFIER (COMMA IDENTIFIER)* COMMA?)? WS_EOL? BLOCK_CLOSE WS_EOL? FROM_KEYWORD WS_EOL?
 
+let_declaration ::= LET_KEYWORD WHITESPACE+ IDENTIFIER WHITESPACE* EQUAL_SIGN WHITESPACE* expression
+
+model_definition ::= item_decorator_list? MODEL_KEYWORD WS_EOL model_name WS_EOL? BLOCK_OPEN WS_EOL? (block_decorator | field_definition)* WS_EOL? BLOCK_CLOSE
+
+item_decorator_list ::= item_decorator (WS_EOL item_decorator)* WS_EOL
+model_name ::= IDENTIFIER
 enum_definition ::= item_decorator* ENUM_KEYWORD IDENTIFIER { (ENUM_MEMBER_DEFINITION)* }
 
-item_decorator ::= "@"unit
+item_decorator ::= AT unit
 
-block_decorator ::= "@@"unit
+block_decorator ::= DOUBLE_AT unit
 
-pipeline ::= "$"unit
+pipeline ::= DOLLAR_SIGN unit
 
 config_block ::= CONFIG_KEYWORDS IDENTIFIER? { pair* }
 
-field_definition ::= item_decorator* IDENTIFIER ":" type
+field_definition ::= item_decorator_list? IDENTIFIER WHITESPACE* COLON WHITESPACE* field_type
 
-type ::= IDENTIFIER ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
+field_type ::= IDENTIFIER ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
 
 nullish_coalescing ::= expression ("??" expression)+
 
 group ::= "(" expression ")"
 
-expression ::= (literal | IDENTIFIER | group | nullish_coalescing | pipeline) (subscript | "." identifier | argument_list)*
+expression ::= (literal | IDENTIFIER | group | nullish_coalescing | pipeline) (subscript | "." IDENTIFIER | argument_list)*
 
 argument_list ::= "(" (argument | named_argument)* ")"
 
@@ -49,6 +55,6 @@ argument ::= expression
 
 named_argument ::= IDENTIFIER ":" expression
 
-unit ::= IDENTIFIER (subscript | "." identifier | argument_list)*
+unit ::= IDENTIFIER (subscript | "." IDENTIFIER | argument_list)*
 
 literal ::= STRING_LITERAL | NUMBER_LITERAL | BOOL_LITERAL | ARRAY_LITERAL | DICTIONARY_LITERAL | TUPLE_LITERAL | RANGE_LITERAL

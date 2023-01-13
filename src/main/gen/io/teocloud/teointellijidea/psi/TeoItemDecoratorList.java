@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TeoFieldDefinition extends PsiElement {
+public interface TeoItemDecoratorList extends PsiElement {
 
   @NotNull
-  TeoFieldType getFieldType();
+  List<TeoWsEol> getWsEolList();
 
-  @Nullable
-  TeoItemDecoratorList getItemDecoratorList();
+  @NotNull
+  List<TeoItemDecorator> getItemDecoratorList();
 
 }

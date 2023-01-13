@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TeoConstant extends PsiElement {
+public interface TeoImportIdentifierList extends PsiElement {
 
   @NotNull
-  TeoExpression getExpression();
+  List<TeoWsEol> getWsEolList();
 
 }

@@ -11,14 +11,14 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoImportImpl extends ASTWrapperPsiElement implements TeoImport {
+public class TeoWsEolImpl extends ASTWrapperPsiElement implements TeoWsEol {
 
-  public TeoImportImpl(@NotNull ASTNode node) {
+  public TeoWsEolImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitImport(this);
+    visitor.visitWsEol(this);
   }
 
   @Override

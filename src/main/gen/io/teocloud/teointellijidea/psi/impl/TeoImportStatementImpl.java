@@ -11,14 +11,14 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoModelDefinitionImpl extends ASTWrapperPsiElement implements TeoModelDefinition {
+public class TeoImportStatementImpl extends ASTWrapperPsiElement implements TeoImportStatement {
 
-  public TeoModelDefinitionImpl(@NotNull ASTNode node) {
+  public TeoImportStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitModelDefinition(this);
+    visitor.visitImportStatement(this);
   }
 
   @Override
@@ -34,27 +34,9 @@ public class TeoModelDefinitionImpl extends ASTWrapperPsiElement implements TeoM
   }
 
   @Override
-  @NotNull
-  public List<TeoBlockDecorator> getBlockDecoratorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoBlockDecorator.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TeoFieldDefinition> getFieldDefinitionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoFieldDefinition.class);
-  }
-
-  @Override
   @Nullable
-  public TeoItemDecoratorList getItemDecoratorList() {
-    return findChildByClass(TeoItemDecoratorList.class);
-  }
-
-  @Override
-  @NotNull
-  public TeoModelName getModelName() {
-    return findNotNullChildByClass(TeoModelName.class);
+  public TeoImportIdentifierList getImportIdentifierList() {
+    return findChildByClass(TeoImportIdentifierList.class);
   }
 
 }

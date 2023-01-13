@@ -11,32 +11,20 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoFieldDefinitionImpl extends ASTWrapperPsiElement implements TeoFieldDefinition {
+public class TeoModelNameImpl extends ASTWrapperPsiElement implements TeoModelName {
 
-  public TeoFieldDefinitionImpl(@NotNull ASTNode node) {
+  public TeoModelNameImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitFieldDefinition(this);
+    visitor.visitModelName(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TeoVisitor) accept((TeoVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public TeoFieldType getFieldType() {
-    return findNotNullChildByClass(TeoFieldType.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoItemDecoratorList getItemDecoratorList() {
-    return findChildByClass(TeoItemDecoratorList.class);
   }
 
 }

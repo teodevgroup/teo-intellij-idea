@@ -11,14 +11,14 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoConstantImpl extends ASTWrapperPsiElement implements TeoConstant {
+public class TeoImportIdentifierListImpl extends ASTWrapperPsiElement implements TeoImportIdentifierList {
 
-  public TeoConstantImpl(@NotNull ASTNode node) {
+  public TeoImportIdentifierListImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitConstant(this);
+    visitor.visitImportIdentifierList(this);
   }
 
   @Override
@@ -29,8 +29,8 @@ public class TeoConstantImpl extends ASTWrapperPsiElement implements TeoConstant
 
   @Override
   @NotNull
-  public TeoExpression getExpression() {
-    return findNotNullChildByClass(TeoExpression.class);
+  public List<TeoWsEol> getWsEolList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
   }
 
 }

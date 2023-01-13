@@ -11,14 +11,14 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoFieldDefinitionImpl extends ASTWrapperPsiElement implements TeoFieldDefinition {
+public class TeoLetDeclarationImpl extends ASTWrapperPsiElement implements TeoLetDeclaration {
 
-  public TeoFieldDefinitionImpl(@NotNull ASTNode node) {
+  public TeoLetDeclarationImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitFieldDefinition(this);
+    visitor.visitLetDeclaration(this);
   }
 
   @Override
@@ -29,14 +29,8 @@ public class TeoFieldDefinitionImpl extends ASTWrapperPsiElement implements TeoF
 
   @Override
   @NotNull
-  public TeoFieldType getFieldType() {
-    return findNotNullChildByClass(TeoFieldType.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoItemDecoratorList getItemDecoratorList() {
-    return findChildByClass(TeoItemDecoratorList.class);
+  public TeoExpression getExpression() {
+    return findNotNullChildByClass(TeoExpression.class);
   }
 
 }

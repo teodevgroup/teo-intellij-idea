@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class TeoVisitor extends PsiElementVisitor {
 
+  public void visitWsEol(@NotNull TeoWsEol o) {
+    visitPsiElement(o);
+  }
+
   public void visitArgument(@NotNull TeoArgument o) {
     visitPsiElement(o);
   }
@@ -23,10 +27,6 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitConstant(@NotNull TeoConstant o) {
-    visitPsiElement(o);
-  }
-
   public void visitEnumDefinition(@NotNull TeoEnumDefinition o) {
     visitPsiElement(o);
   }
@@ -39,15 +39,31 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFieldType(@NotNull TeoFieldType o) {
+    visitPsiElement(o);
+  }
+
   public void visitGroup(@NotNull TeoGroup o) {
     visitPsiElement(o);
   }
 
-  public void visitImport(@NotNull TeoImport o) {
+  public void visitImportIdentifierList(@NotNull TeoImportIdentifierList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitImportStatement(@NotNull TeoImportStatement o) {
     visitPsiElement(o);
   }
 
   public void visitItemDecorator(@NotNull TeoItemDecorator o) {
+    visitPsiElement(o);
+  }
+
+  public void visitItemDecoratorList(@NotNull TeoItemDecoratorList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLetDeclaration(@NotNull TeoLetDeclaration o) {
     visitPsiElement(o);
   }
 
@@ -56,6 +72,10 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitModelDefinition(@NotNull TeoModelDefinition o) {
+    visitPsiElement(o);
+  }
+
+  public void visitModelName(@NotNull TeoModelName o) {
     visitPsiElement(o);
   }
 
@@ -68,10 +88,6 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitPipeline(@NotNull TeoPipeline o) {
-    visitPsiElement(o);
-  }
-
-  public void visitType(@NotNull TeoType o) {
     visitPsiElement(o);
   }
 

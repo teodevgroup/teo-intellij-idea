@@ -14,6 +14,9 @@ import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAtt
 
 public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
 
+    public static final TextAttributesKey KEYWORD = createTextAttributesKey("TEO_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
+
+    public static final TextAttributesKey MODEL_NAME = createTextAttributesKey("TEO_MODEL_NAME", DefaultLanguageHighlighterColors.CLASS_NAME);
     public static final TextAttributesKey BOOL_LITERAL =
             createTextAttributesKey("TEO_BOOL_LITERAL", DefaultLanguageHighlighterColors.CONSTANT);
     public static final TextAttributesKey STRING_LITERAL =
@@ -31,6 +34,8 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] NUMBER_KEYS = new TextAttributesKey[]{NUMBER_LITERAL};
     private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING_LITERAL};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
+    private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
+    private static final TextAttributesKey[] MODEL_NAME_KEYS = new TextAttributesKey[]{MODEL_NAME};
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
     @NotNull
@@ -41,6 +46,17 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
 
     @Override
     public TextAttributesKey @NotNull [] getTokenHighlights(IElementType tokenType) {
+        if (tokenType.equals(TeoTypes.ENUM_KEYWORD) ||
+                tokenType.equals(TeoTypes.MODEL_KEYWORD) ||
+                tokenType.equals(TeoTypes.IMPORT_KEYWORD) ||
+                tokenType.equals(TeoTypes.CONFIG_KEYWORDS) ||
+                tokenType.equals(TeoTypes.LET_KEYWORD) ||
+                tokenType.equals(TeoTypes.FROM_KEYWORD)) {
+            return KEYWORD_KEYS;
+        }
+        if (tokenType.equals(TeoTypes.MODEL_NAME)) {
+            return MODEL_NAME_KEYS;
+        }
         if (tokenType.equals(TeoTypes.BOOL_LITERAL)) {
             return BOOL_KEYS;
         }
