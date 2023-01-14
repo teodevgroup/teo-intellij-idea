@@ -29,8 +29,56 @@ public class TeoEnumDefinitionImpl extends ASTWrapperPsiElement implements TeoEn
 
   @Override
   @NotNull
-  public List<TeoItemDecorator> getItemDecoratorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoItemDecorator.class);
+  public List<TeoBlockDecorator> getBlockDecoratorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoBlockDecorator.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TeoComment> getCommentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoComment.class);
+  }
+
+  @Override
+  @Nullable
+  public TeoDocComment getDocComment() {
+    return findChildByClass(TeoDocComment.class);
+  }
+
+  @Override
+  @NotNull
+  public TeoEnumName getEnumName() {
+    return findNotNullChildByClass(TeoEnumName.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TeoEnumValueDeclaration> getEnumValueDeclarationList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoEnumValueDeclaration.class);
+  }
+
+  @Override
+  @Nullable
+  public TeoItemDecoratorList getItemDecoratorList() {
+    return findChildByClass(TeoItemDecoratorList.class);
+  }
+
+  @Override
+  @NotNull
+  public TeoPaddedBlockClose getPaddedBlockClose() {
+    return findNotNullChildByClass(TeoPaddedBlockClose.class);
+  }
+
+  @Override
+  @NotNull
+  public TeoPaddedBlockOpen getPaddedBlockOpen() {
+    return findNotNullChildByClass(TeoPaddedBlockOpen.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TeoWsEol> getWsEolList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
   }
 
 }

@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface TeoItemDecorator extends PsiElement {
 
   @NotNull
-  TeoUnit getUnit();
+  TeoIdentifierUnit getIdentifierUnit();
 
 }

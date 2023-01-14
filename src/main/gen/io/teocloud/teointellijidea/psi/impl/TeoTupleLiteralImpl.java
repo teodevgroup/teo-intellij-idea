@@ -29,12 +29,6 @@ public class TeoTupleLiteralImpl extends ASTWrapperPsiElement implements TeoTupl
 
   @Override
   @NotNull
-  public List<TeoWsEol> getWsEolList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
-  }
-
-  @Override
-  @NotNull
   public List<TeoExpression> getExpressionList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoExpression.class);
   }
@@ -43,6 +37,18 @@ public class TeoTupleLiteralImpl extends ASTWrapperPsiElement implements TeoTupl
   @NotNull
   public List<TeoPaddedComma> getPaddedCommaList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoPaddedComma.class);
+  }
+
+  @Override
+  @NotNull
+  public TeoPaddedParenClose getPaddedParenClose() {
+    return findNotNullChildByClass(TeoPaddedParenClose.class);
+  }
+
+  @Override
+  @NotNull
+  public TeoPaddedParenOpen getPaddedParenOpen() {
+    return findNotNullChildByClass(TeoPaddedParenOpen.class);
   }
 
 }

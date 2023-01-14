@@ -48,7 +48,8 @@ FROM_KEYWORD="from"
 LET_KEYWORD="let"
 
 // literals
-COMMENT="//" .*
+TRIPLE_LINE_COMMENT="///" .*
+DOUBLE_LINE_COMMENT="//" .*
 
 ALPHA=[:letter:]
 
@@ -103,8 +104,10 @@ STRING_LITERAL={STRING_BAD} \"
 {LET_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.LET_KEYWORD; }
 {IDENTIFIER} {yybegin(YYINITIAL); return TeoTypes.IDENTIFIER; }
 
+// comments
+{TRIPLE_LINE_COMMENT} {yybegin(YYINITIAL); return TeoTypes.TRIPLE_LINE_COMMENT; }
+{DOUBLE_LINE_COMMENT} {yybegin(YYINITIAL); return TeoTypes.DOUBLE_LINE_COMMENT; }
 // literals
-{COMMENT} {yybegin(YYINITIAL); return TeoTypes.COMMENT; }
 {NULL_LITERAL} {yybegin(YYINITIAL); return TeoTypes.NULL_LITERAL; }
 {STRING_LITERAL} {yybegin(YYINITIAL); return TeoTypes.STRING_LITERAL; }
 {NUMERIC_LITERAL} {yybegin(YYINITIAL); return TeoTypes.NUMERIC_LITERAL; }

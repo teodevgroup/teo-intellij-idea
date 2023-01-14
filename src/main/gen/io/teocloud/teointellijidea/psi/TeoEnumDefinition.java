@@ -8,6 +8,30 @@ import com.intellij.psi.PsiElement;
 public interface TeoEnumDefinition extends PsiElement {
 
   @NotNull
-  List<TeoItemDecorator> getItemDecoratorList();
+  List<TeoBlockDecorator> getBlockDecoratorList();
+
+  @NotNull
+  List<TeoComment> getCommentList();
+
+  @Nullable
+  TeoDocComment getDocComment();
+
+  @NotNull
+  TeoEnumName getEnumName();
+
+  @NotNull
+  List<TeoEnumValueDeclaration> getEnumValueDeclarationList();
+
+  @Nullable
+  TeoItemDecoratorList getItemDecoratorList();
+
+  @NotNull
+  TeoPaddedBlockClose getPaddedBlockClose();
+
+  @NotNull
+  TeoPaddedBlockOpen getPaddedBlockOpen();
+
+  @NotNull
+  List<TeoWsEol> getWsEolList();
 
 }

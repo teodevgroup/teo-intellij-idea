@@ -29,8 +29,8 @@ public class TeoItemDecoratorImpl extends ASTWrapperPsiElement implements TeoIte
 
   @Override
   @NotNull
-  public TeoUnit getUnit() {
-    return findNotNullChildByClass(TeoUnit.class);
+  public TeoIdentifierUnit getIdentifierUnit() {
+    return findNotNullChildByClass(TeoIdentifierUnit.class);
   }
 
 }

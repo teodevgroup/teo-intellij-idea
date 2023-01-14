@@ -29,14 +29,14 @@ public class TeoNamedArgumentImpl extends ASTWrapperPsiElement implements TeoNam
 
   @Override
   @NotNull
-  public List<TeoWsEol> getWsEolList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
+  public TeoExpression getExpression() {
+    return findNotNullChildByClass(TeoExpression.class);
   }
 
   @Override
   @NotNull
-  public TeoExpression getExpression() {
-    return findNotNullChildByClass(TeoExpression.class);
+  public TeoPaddedColon getPaddedColon() {
+    return findNotNullChildByClass(TeoPaddedColon.class);
   }
 
 }

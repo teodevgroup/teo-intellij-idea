@@ -29,14 +29,20 @@ public class TeoDictionaryLiteralImpl extends ASTWrapperPsiElement implements Te
 
   @Override
   @NotNull
-  public List<TeoWsEol> getWsEolList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
+  public List<TeoNamedExpression> getNamedExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoNamedExpression.class);
   }
 
   @Override
   @NotNull
-  public List<TeoNamedExpression> getNamedExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoNamedExpression.class);
+  public TeoPaddedBlockClose getPaddedBlockClose() {
+    return findNotNullChildByClass(TeoPaddedBlockClose.class);
+  }
+
+  @Override
+  @NotNull
+  public TeoPaddedBlockOpen getPaddedBlockOpen() {
+    return findNotNullChildByClass(TeoPaddedBlockOpen.class);
   }
 
   @Override

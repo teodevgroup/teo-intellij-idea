@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface TeoLetDeclaration extends PsiElement {
 
+  @Nullable
+  TeoDocComment getDocComment();
+
   @NotNull
   TeoExpression getExpression();
 

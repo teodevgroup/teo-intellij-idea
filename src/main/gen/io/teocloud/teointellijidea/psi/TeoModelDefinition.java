@@ -8,10 +8,13 @@ import com.intellij.psi.PsiElement;
 public interface TeoModelDefinition extends PsiElement {
 
   @NotNull
-  List<TeoWsEol> getWsEolList();
+  List<TeoBlockDecorator> getBlockDecoratorList();
 
   @NotNull
-  List<TeoBlockDecorator> getBlockDecoratorList();
+  List<TeoComment> getCommentList();
+
+  @Nullable
+  TeoDocComment getDocComment();
 
   @NotNull
   List<TeoFieldDefinition> getFieldDefinitionList();
@@ -21,5 +24,14 @@ public interface TeoModelDefinition extends PsiElement {
 
   @NotNull
   TeoModelName getModelName();
+
+  @NotNull
+  TeoPaddedBlockClose getPaddedBlockClose();
+
+  @NotNull
+  TeoPaddedBlockOpen getPaddedBlockOpen();
+
+  @NotNull
+  List<TeoWsEol> getWsEolList();
 
 }

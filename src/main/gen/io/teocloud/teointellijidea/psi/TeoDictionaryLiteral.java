@@ -8,10 +8,13 @@ import com.intellij.psi.PsiElement;
 public interface TeoDictionaryLiteral extends PsiElement {
 
   @NotNull
-  List<TeoWsEol> getWsEolList();
+  List<TeoNamedExpression> getNamedExpressionList();
 
   @NotNull
-  List<TeoNamedExpression> getNamedExpressionList();
+  TeoPaddedBlockClose getPaddedBlockClose();
+
+  @NotNull
+  TeoPaddedBlockOpen getPaddedBlockOpen();
 
   @NotNull
   List<TeoPaddedComma> getPaddedCommaList();

@@ -8,6 +8,12 @@ import com.intellij.psi.PsiElement;
 public interface TeoImportIdentifierList extends PsiElement {
 
   @NotNull
+  TeoPaddedBlockClose getPaddedBlockClose();
+
+  @NotNull
+  TeoPaddedBlockOpen getPaddedBlockOpen();
+
+  @NotNull
   List<TeoWsEol> getWsEolList();
 
 }

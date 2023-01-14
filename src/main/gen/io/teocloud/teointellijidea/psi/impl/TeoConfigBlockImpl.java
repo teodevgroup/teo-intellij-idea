@@ -35,14 +35,32 @@ public class TeoConfigBlockImpl extends ASTWrapperPsiElement implements TeoConfi
 
   @Override
   @NotNull
-  public List<TeoWsEol> getWsEolList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
+  public List<TeoComment> getCommentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoComment.class);
   }
 
   @Override
   @NotNull
   public List<TeoConfigItem> getConfigItemList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoConfigItem.class);
+  }
+
+  @Override
+  @NotNull
+  public TeoPaddedBlockClose getPaddedBlockClose() {
+    return findNotNullChildByClass(TeoPaddedBlockClose.class);
+  }
+
+  @Override
+  @NotNull
+  public TeoPaddedBlockOpen getPaddedBlockOpen() {
+    return findNotNullChildByClass(TeoPaddedBlockOpen.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TeoWsEol> getWsEolList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
   }
 
 }

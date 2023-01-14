@@ -8,12 +8,15 @@ import com.intellij.psi.PsiElement;
 public interface TeoTupleLiteral extends PsiElement {
 
   @NotNull
-  List<TeoWsEol> getWsEolList();
-
-  @NotNull
   List<TeoExpression> getExpressionList();
 
   @NotNull
   List<TeoPaddedComma> getPaddedCommaList();
+
+  @NotNull
+  TeoPaddedParenClose getPaddedParenClose();
+
+  @NotNull
+  TeoPaddedParenOpen getPaddedParenOpen();
 
 }

@@ -29,14 +29,20 @@ public class TeoArrayLiteralImpl extends ASTWrapperPsiElement implements TeoArra
 
   @Override
   @NotNull
-  public List<TeoWsEol> getWsEolList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
+  public List<TeoExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoExpression.class);
   }
 
   @Override
   @NotNull
-  public List<TeoExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoExpression.class);
+  public TeoPaddedBrackClose getPaddedBrackClose() {
+    return findNotNullChildByClass(TeoPaddedBrackClose.class);
+  }
+
+  @Override
+  @NotNull
+  public TeoPaddedBrackOpen getPaddedBrackOpen() {
+    return findNotNullChildByClass(TeoPaddedBrackOpen.class);
   }
 
   @Override

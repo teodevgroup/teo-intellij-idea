@@ -29,14 +29,20 @@ public class TeoModelDefinitionImpl extends ASTWrapperPsiElement implements TeoM
 
   @Override
   @NotNull
-  public List<TeoWsEol> getWsEolList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
+  public List<TeoBlockDecorator> getBlockDecoratorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoBlockDecorator.class);
   }
 
   @Override
   @NotNull
-  public List<TeoBlockDecorator> getBlockDecoratorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoBlockDecorator.class);
+  public List<TeoComment> getCommentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoComment.class);
+  }
+
+  @Override
+  @Nullable
+  public TeoDocComment getDocComment() {
+    return findChildByClass(TeoDocComment.class);
   }
 
   @Override
@@ -55,6 +61,24 @@ public class TeoModelDefinitionImpl extends ASTWrapperPsiElement implements TeoM
   @NotNull
   public TeoModelName getModelName() {
     return findNotNullChildByClass(TeoModelName.class);
+  }
+
+  @Override
+  @NotNull
+  public TeoPaddedBlockClose getPaddedBlockClose() {
+    return findNotNullChildByClass(TeoPaddedBlockClose.class);
+  }
+
+  @Override
+  @NotNull
+  public TeoPaddedBlockOpen getPaddedBlockOpen() {
+    return findNotNullChildByClass(TeoPaddedBlockOpen.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TeoWsEol> getWsEolList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
   }
 
 }

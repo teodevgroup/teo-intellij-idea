@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface TeoFieldDefinition extends PsiElement {
 
+  @Nullable
+  TeoDocComment getDocComment();
+
   @NotNull
   TeoFieldType getFieldType();
 

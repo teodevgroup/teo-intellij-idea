@@ -8,12 +8,12 @@ import com.intellij.psi.PsiElement;
 public interface TeoNamedExpression extends PsiElement {
 
   @NotNull
-  List<TeoWsEol> getWsEolList();
-
-  @NotNull
   List<TeoExpression> getExpressionList();
 
   @NotNull
   TeoPaddedColon getPaddedColon();
+
+  @NotNull
+  List<TeoWsEol> getWsEolList();
 
 }

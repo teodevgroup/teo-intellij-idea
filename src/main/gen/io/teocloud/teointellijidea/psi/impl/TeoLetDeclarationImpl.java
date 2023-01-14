@@ -28,6 +28,12 @@ public class TeoLetDeclarationImpl extends ASTWrapperPsiElement implements TeoLe
   }
 
   @Override
+  @Nullable
+  public TeoDocComment getDocComment() {
+    return findChildByClass(TeoDocComment.class);
+  }
+
+  @Override
   @NotNull
   public TeoExpression getExpression() {
     return findNotNullChildByClass(TeoExpression.class);

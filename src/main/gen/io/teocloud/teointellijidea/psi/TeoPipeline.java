@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface TeoPipeline extends PsiElement {
 
   @NotNull
-  TeoUnit getUnit();
+  TeoIdentifierUnit getIdentifierUnit();
 
 }

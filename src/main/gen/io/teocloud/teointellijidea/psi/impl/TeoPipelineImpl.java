@@ -29,8 +29,8 @@ public class TeoPipelineImpl extends ASTWrapperPsiElement implements TeoPipeline
 
   @Override
   @NotNull
-  public TeoUnit getUnit() {
-    return findNotNullChildByClass(TeoUnit.class);
+  public TeoIdentifierUnit getIdentifierUnit() {
+    return findNotNullChildByClass(TeoIdentifierUnit.class);
   }
 
 }

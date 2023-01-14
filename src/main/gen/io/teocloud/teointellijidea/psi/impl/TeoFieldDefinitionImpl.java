@@ -28,6 +28,12 @@ public class TeoFieldDefinitionImpl extends ASTWrapperPsiElement implements TeoF
   }
 
   @Override
+  @Nullable
+  public TeoDocComment getDocComment() {
+    return findChildByClass(TeoDocComment.class);
+  }
+
+  @Override
   @NotNull
   public TeoFieldType getFieldType() {
     return findNotNullChildByClass(TeoFieldType.class);

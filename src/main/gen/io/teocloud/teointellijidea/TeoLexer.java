@@ -170,12 +170,12 @@ class TeoLexer implements FlexLexer {
     "\1\0\1\1\2\2\1\3\1\4\1\5\1\6\1\7"+
     "\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17"+
     "\1\20\7\21\1\1\1\22\2\1\1\23\1\24\7\21"+
-    "\1\25\3\0\1\26\3\21\1\27\4\21\1\22\1\30"+
-    "\5\21\1\31\2\21\1\32\4\21\1\33\1\21\1\34"+
-    "\1\35\1\36\2\21\1\37";
+    "\1\25\3\0\1\26\3\21\1\27\4\21\1\25\1\30"+
+    "\1\22\1\31\5\21\1\32\2\21\1\33\4\21\1\34"+
+    "\1\21\1\35\1\36\1\37\2\21\1\40";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[74];
+    int [] result = new int[76];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -206,13 +206,13 @@ class TeoLexer implements FlexLexer {
     "\0\u01c3\0\u01ec\0\u0215\0\u023e\0\u0267\0\51\0\51\0\u0290"+
     "\0\u02b9\0\u02e2\0\u030b\0\u0334\0\u035d\0\u0386\0\u03af\0\u03d8"+
     "\0\u0267\0\u0401\0\51\0\u042a\0\u0453\0\u047c\0\366\0\u04a5"+
-    "\0\u04ce\0\u04f7\0\u0520\0\u03d8\0\366\0\u0549\0\u0572\0\u059b"+
-    "\0\u05c4\0\u05ed\0\366\0\u0616\0\u063f\0\366\0\u0668\0\u0691"+
-    "\0\u06ba\0\u06e3\0\366\0\u070c\0\366\0\366\0\366\0\u0735"+
-    "\0\u075e\0\366";
+    "\0\u04ce\0\u04f7\0\u0520\0\u0549\0\u0572\0\u03d8\0\366\0\u059b"+
+    "\0\u05c4\0\u05ed\0\u0616\0\u063f\0\366\0\u0668\0\u0691\0\366"+
+    "\0\u06ba\0\u06e3\0\u070c\0\u0735\0\366\0\u075e\0\366\0\366"+
+    "\0\366\0\u0787\0\u07b0\0\366";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[74];
+    int [] result = new int[76];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -252,27 +252,28 @@ class TeoLexer implements FlexLexer {
     "\1\57\3\24\3\0\3\24\24\0\1\24\1\60\15\24"+
     "\3\0\3\24\24\0\11\24\1\61\5\24\3\0\3\24"+
     "\24\0\4\24\1\62\12\24\3\0\3\24\24\0\16\24"+
-    "\1\63\3\0\3\24\3\0\1\47\2\0\36\47\2\0"+
-    "\6\47\44\0\1\64\4\0\51\51\21\0\3\24\1\65"+
-    "\13\24\3\0\3\24\24\0\11\24\1\66\5\24\3\0"+
-    "\3\24\24\0\1\67\16\24\3\0\3\24\24\0\1\24"+
-    "\1\70\6\24\1\71\6\24\3\0\3\24\24\0\1\72"+
-    "\16\24\3\0\3\24\24\0\3\24\1\73\13\24\3\0"+
-    "\3\24\24\0\4\24\1\74\12\24\3\0\3\24\24\0"+
-    "\13\24\1\75\3\24\3\0\3\24\24\0\6\24\1\76"+
-    "\10\24\3\0\3\24\24\0\1\77\16\24\3\0\3\24"+
-    "\24\0\11\24\1\100\5\24\3\0\3\24\24\0\1\24"+
-    "\1\101\15\24\3\0\3\24\24\0\14\24\1\102\2\24"+
-    "\3\0\3\24\24\0\15\24\1\103\1\24\3\0\3\24"+
-    "\24\0\7\24\1\104\7\24\3\0\3\24\24\0\12\24"+
-    "\1\105\4\24\3\0\3\24\24\0\13\24\1\106\3\24"+
-    "\3\0\3\24\24\0\13\24\1\107\3\24\3\0\3\24"+
-    "\24\0\13\24\1\110\3\24\3\0\3\24\24\0\4\24"+
-    "\1\111\12\24\3\0\3\24\24\0\14\24\1\112\2\24"+
-    "\3\0\3\24\3\0";
+    "\1\63\3\0\3\24\3\0\1\64\2\0\35\64\1\65"+
+    "\2\0\6\64\44\0\1\66\4\0\51\51\21\0\3\24"+
+    "\1\67\13\24\3\0\3\24\24\0\11\24\1\70\5\24"+
+    "\3\0\3\24\24\0\1\71\16\24\3\0\3\24\24\0"+
+    "\1\24\1\72\6\24\1\73\6\24\3\0\3\24\24\0"+
+    "\1\74\16\24\3\0\3\24\24\0\3\24\1\75\13\24"+
+    "\3\0\3\24\24\0\4\24\1\76\12\24\3\0\3\24"+
+    "\3\0\1\64\2\0\36\64\2\0\6\64\1\65\2\0"+
+    "\36\65\2\0\6\65\21\0\13\24\1\77\3\24\3\0"+
+    "\3\24\24\0\6\24\1\100\10\24\3\0\3\24\24\0"+
+    "\1\101\16\24\3\0\3\24\24\0\11\24\1\102\5\24"+
+    "\3\0\3\24\24\0\1\24\1\103\15\24\3\0\3\24"+
+    "\24\0\14\24\1\104\2\24\3\0\3\24\24\0\15\24"+
+    "\1\105\1\24\3\0\3\24\24\0\7\24\1\106\7\24"+
+    "\3\0\3\24\24\0\12\24\1\107\4\24\3\0\3\24"+
+    "\24\0\13\24\1\110\3\24\3\0\3\24\24\0\13\24"+
+    "\1\111\3\24\3\0\3\24\24\0\13\24\1\112\3\24"+
+    "\3\0\3\24\24\0\4\24\1\113\12\24\3\0\3\24"+
+    "\24\0\14\24\1\114\2\24\3\0\3\24\3\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[1927];
+    int [] result = new int[2009];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -311,10 +312,10 @@ class TeoLexer implements FlexLexer {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\1\0\1\11\1\1\12\11\1\1\2\11\1\1\1\11"+
-    "\13\1\2\11\10\1\3\0\1\11\37\1";
+    "\13\1\2\11\10\1\3\0\1\11\41\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[74];
+    int [] result = new int[76];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -631,157 +632,162 @@ class TeoLexer implements FlexLexer {
             { return TokenType.BAD_CHARACTER;
             } 
             // fall through
-          case 32: break;
+          case 33: break;
           case 2: 
             { yybegin(YYINITIAL); return TeoTypes.NEWLINE;
             } 
             // fall through
-          case 33: break;
+          case 34: break;
           case 3: 
             { yybegin(YYINITIAL); return TeoTypes.WHITESPACE;
             } 
             // fall through
-          case 34: break;
+          case 35: break;
           case 4: 
             { yybegin(YYINITIAL); return TeoTypes.BLOCK_OPEN;
             } 
             // fall through
-          case 35: break;
+          case 36: break;
           case 5: 
             { yybegin(YYINITIAL); return TeoTypes.BLOCK_CLOSE;
             } 
             // fall through
-          case 36: break;
+          case 37: break;
           case 6: 
             { yybegin(YYINITIAL); return TeoTypes.PAREN_OPEN;
             } 
             // fall through
-          case 37: break;
+          case 38: break;
           case 7: 
             { yybegin(YYINITIAL); return TeoTypes.PAREN_CLOSE;
             } 
             // fall through
-          case 38: break;
+          case 39: break;
           case 8: 
             { yybegin(YYINITIAL); return TeoTypes.BRACK_OPEN;
             } 
             // fall through
-          case 39: break;
+          case 40: break;
           case 9: 
             { yybegin(YYINITIAL); return TeoTypes.BRACK_CLOSE;
             } 
             // fall through
-          case 40: break;
+          case 41: break;
           case 10: 
             { yybegin(YYINITIAL); return TeoTypes.DOT;
             } 
             // fall through
-          case 41: break;
+          case 42: break;
           case 11: 
             { yybegin(YYINITIAL); return TeoTypes.COMMA;
             } 
             // fall through
-          case 42: break;
+          case 43: break;
           case 12: 
             { yybegin(YYINITIAL); return TeoTypes.QUESTION;
             } 
             // fall through
-          case 43: break;
+          case 44: break;
           case 13: 
             { yybegin(YYINITIAL); return TeoTypes.EQUAL_SIGN;
             } 
             // fall through
-          case 44: break;
+          case 45: break;
           case 14: 
             { yybegin(YYINITIAL); return TeoTypes.COLON;
             } 
             // fall through
-          case 45: break;
+          case 46: break;
           case 15: 
             { yybegin(YYINITIAL); return TeoTypes.AT;
             } 
             // fall through
-          case 46: break;
+          case 47: break;
           case 16: 
             { yybegin(YYINITIAL); return TeoTypes.DOLLAR_SIGN;
             } 
             // fall through
-          case 47: break;
+          case 48: break;
           case 17: 
             { yybegin(YYINITIAL); return TeoTypes.IDENTIFIER;
             } 
             // fall through
-          case 48: break;
+          case 49: break;
           case 18: 
             { yybegin(YYINITIAL); return TeoTypes.NUMERIC_LITERAL;
             } 
             // fall through
-          case 49: break;
+          case 50: break;
           case 19: 
             { yybegin(YYINITIAL); return TeoTypes.DOUBLE_QUESTION;
             } 
             // fall through
-          case 50: break;
+          case 51: break;
           case 20: 
             { yybegin(YYINITIAL); return TeoTypes.DOUBLE_AT;
             } 
             // fall through
-          case 51: break;
+          case 52: break;
           case 21: 
-            { yybegin(YYINITIAL); return TeoTypes.COMMENT;
+            { yybegin(YYINITIAL); return TeoTypes.DOUBLE_LINE_COMMENT;
             } 
             // fall through
-          case 52: break;
+          case 53: break;
           case 22: 
             { yybegin(YYINITIAL); return TeoTypes.STRING_LITERAL;
             } 
             // fall through
-          case 53: break;
+          case 54: break;
           case 23: 
             { yybegin(YYINITIAL); return TeoTypes.LET_KEYWORD;
             } 
             // fall through
-          case 54: break;
-          case 24: 
-            { yybegin(YYINITIAL); return TeoTypes.ENUM_KEYWORD;
-            } 
-            // fall through
           case 55: break;
-          case 25: 
-            { yybegin(YYINITIAL); return TeoTypes.FROM_KEYWORD;
+          case 24: 
+            { yybegin(YYINITIAL); return TeoTypes.TRIPLE_LINE_COMMENT;
             } 
             // fall through
           case 56: break;
-          case 26: 
-            { yybegin(YYINITIAL); return TeoTypes.MODEL_KEYWORD;
+          case 25: 
+            { yybegin(YYINITIAL); return TeoTypes.ENUM_KEYWORD;
             } 
             // fall through
           case 57: break;
-          case 27: 
-            { yybegin(YYINITIAL); return TeoTypes.ENTITY_KEYWORD;
+          case 26: 
+            { yybegin(YYINITIAL); return TeoTypes.FROM_KEYWORD;
             } 
             // fall through
           case 58: break;
-          case 28: 
-            { yybegin(YYINITIAL); return TeoTypes.CONFIG_KEYWORD;
+          case 27: 
+            { yybegin(YYINITIAL); return TeoTypes.MODEL_KEYWORD;
             } 
             // fall through
           case 59: break;
-          case 29: 
-            { yybegin(YYINITIAL); return TeoTypes.CLIENT_KEYWORD;
+          case 28: 
+            { yybegin(YYINITIAL); return TeoTypes.ENTITY_KEYWORD;
             } 
             // fall through
           case 60: break;
-          case 30: 
-            { yybegin(YYINITIAL); return TeoTypes.IMPORT_KEYWORD;
+          case 29: 
+            { yybegin(YYINITIAL); return TeoTypes.CONFIG_KEYWORD;
             } 
             // fall through
           case 61: break;
-          case 31: 
-            { yybegin(YYINITIAL); return TeoTypes.CONNECTOR_KEYWORD;
+          case 30: 
+            { yybegin(YYINITIAL); return TeoTypes.CLIENT_KEYWORD;
             } 
             // fall through
           case 62: break;
+          case 31: 
+            { yybegin(YYINITIAL); return TeoTypes.IMPORT_KEYWORD;
+            } 
+            // fall through
+          case 63: break;
+          case 32: 
+            { yybegin(YYINITIAL); return TeoTypes.CONNECTOR_KEYWORD;
+            } 
+            // fall through
+          case 64: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

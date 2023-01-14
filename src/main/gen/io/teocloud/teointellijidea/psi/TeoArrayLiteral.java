@@ -8,10 +8,13 @@ import com.intellij.psi.PsiElement;
 public interface TeoArrayLiteral extends PsiElement {
 
   @NotNull
-  List<TeoWsEol> getWsEolList();
+  List<TeoExpression> getExpressionList();
 
   @NotNull
-  List<TeoExpression> getExpressionList();
+  TeoPaddedBrackClose getPaddedBrackClose();
+
+  @NotNull
+  TeoPaddedBrackOpen getPaddedBrackOpen();
 
   @NotNull
   List<TeoPaddedComma> getPaddedCommaList();

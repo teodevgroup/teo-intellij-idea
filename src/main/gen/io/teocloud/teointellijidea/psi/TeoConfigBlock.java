@@ -11,9 +11,18 @@ public interface TeoConfigBlock extends PsiElement {
   TeoConfigKeywords getConfigKeywords();
 
   @NotNull
-  List<TeoWsEol> getWsEolList();
+  List<TeoComment> getCommentList();
 
   @NotNull
   List<TeoConfigItem> getConfigItemList();
+
+  @NotNull
+  TeoPaddedBlockClose getPaddedBlockClose();
+
+  @NotNull
+  TeoPaddedBlockOpen getPaddedBlockOpen();
+
+  @NotNull
+  List<TeoWsEol> getWsEolList();
 
 }
