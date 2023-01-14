@@ -19,6 +19,8 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey MODEL_NAME = createTextAttributesKey("TEO_MODEL_NAME", DefaultLanguageHighlighterColors.CLASS_NAME);
     public static final TextAttributesKey BOOL_LITERAL =
             createTextAttributesKey("TEO_BOOL_LITERAL", DefaultLanguageHighlighterColors.CONSTANT);
+    public static final TextAttributesKey NULL_LITERAL =
+            createTextAttributesKey("TEO_NULL_LITERAL", DefaultLanguageHighlighterColors.CONSTANT);
     public static final TextAttributesKey STRING_LITERAL =
             createTextAttributesKey("TEO_STRING_LITERAL", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey NUMERIC_LITERAL =
@@ -34,6 +36,7 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] BOOL_KEYS = new TextAttributesKey[]{BOOL_LITERAL};
     private static final TextAttributesKey[] NUMERIC_KEYS = new TextAttributesKey[]{NUMERIC_LITERAL};
     private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING_LITERAL};
+    private static final TextAttributesKey[] NULL_KEYS = new TextAttributesKey[]{NULL_LITERAL};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
     private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
     private static final TextAttributesKey[] MODEL_NAME_KEYS = new TextAttributesKey[]{MODEL_NAME};
@@ -70,6 +73,9 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         }
         if (tokenType.equals(TeoTypes.STRING_LITERAL)) {
             return STRING_KEYS;
+        }
+        if (tokenType.equals(TeoTypes.NULL_LITERAL)) {
+            return NULL_KEYS;
         }
         if (tokenType.equals(TeoTypes.COMMENT)) {
             return COMMENT_KEYS;

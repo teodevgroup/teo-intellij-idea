@@ -40,12 +40,12 @@ import_identifier_list ::= padded_block_open (IDENTIFIER (COMMA IDENTIFIER)* COM
 
 let_declaration ::= doc_comment? LET_KEYWORD WHITESPACE+ IDENTIFIER WHITESPACE* EQUAL_SIGN WHITESPACE* expression
 
-model_definition ::= doc_comment? item_decorator_list? MODEL_KEYWORD ws_eol model_name ws_eol? padded_block_open (block_decorator | field_definition | comment)* padded_block_close
+model_definition ::= doc_comment? item_decorator_list? MODEL_KEYWORD ws_eol model_name ws_eol? padded_block_open (block_decorator | field_definition | comment | ws_eol)* padded_block_close
 item_decorator_list ::= item_decorator (ws_eol item_decorator)* ws_eol
 model_name ::= IDENTIFIER
 
 enum_name ::= IDENTIFIER
-enum_definition ::= doc_comment? item_decorator_list? ENUM_KEYWORD ws_eol enum_name ws_eol? padded_block_open (block_decorator | enum_value_declaration | comment)* padded_block_close
+enum_definition ::= doc_comment? item_decorator_list? ENUM_KEYWORD ws_eol enum_name ws_eol? padded_block_open (block_decorator | enum_value_declaration | comment | ws_eol)* padded_block_close
 enum_value_declaration ::= doc_comment? item_decorator_list? ws_eol? IDENTIFIER NEWLINE
 
 item_decorator ::= AT identifier_unit
@@ -56,7 +56,7 @@ pipeline ::= DOLLAR_SIGN identifier_unit
 
 CONFIG_KEYWORDS ::= CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD
 
-config_block ::= CONFIG_KEYWORDS (WHITESPACE+ IDENTIFIER)? ws_eol+ padded_block_open (WHITESPACE* (config_item|comment) NEWLINE)* padded_block_close
+config_block ::= CONFIG_KEYWORDS (WHITESPACE+ IDENTIFIER)? ws_eol+ padded_block_open (ws_eol? (config_item|comment) NEWLINE)* padded_block_close
 
 config_item::= doc_comment? IDENTIFIER WHITESPACE+ expression
 
