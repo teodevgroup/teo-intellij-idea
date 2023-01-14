@@ -5,10 +5,7 @@ import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.psi.PsiElement;
 import io.teocloud.teointellijidea.psi.*;
-import io.teocloud.teointellijidea.psi.impl.TeoBlockDecoratorImpl;
-import io.teocloud.teointellijidea.psi.impl.TeoFieldTypeImpl;
-import io.teocloud.teointellijidea.psi.impl.TeoItemDecoratorImpl;
-import io.teocloud.teointellijidea.psi.impl.TeoModelNameImpl;
+import io.teocloud.teointellijidea.psi.impl.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -46,6 +43,11 @@ public class TeoAnnotator implements Annotator {
             @NotNull ASTNode identifierUnit = Objects.requireNonNull(element.getNode().findChildByType(TeoTypes.IDENTIFIER_UNIT));
             decoratorHighlight(node, holder);
             decoratorHighlight(identifierUnit, holder);
+        } else if (element instanceof TeoPipelineImpl) {
+            ASTNode node = element.getNode();
+            @NotNull ASTNode identifierUnit = Objects.requireNonNull(element.getNode().findChildByType(TeoTypes.IDENTIFIER_UNIT));
+            pipelineHighlight(node, holder);
+            pipelineHighlight(identifierUnit, holder);
         }
     }
 
@@ -55,6 +57,15 @@ public class TeoAnnotator implements Annotator {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .range(child.getTextRange())
                 .textAttributes(TeoSyntaxHighlighter.DECORATOR).create();
+        }
+    }
+
+    private void pipelineHighlight(@NotNull ASTNode node, @NotNull AnnotationHolder holder) {
+        @NotNull ASTNode[] children = node.getChildren(TeoTokenSets.PIPELINE_SET);
+        for (ASTNode child : children) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .range(child.getTextRange())
+                    .textAttributes(TeoSyntaxHighlighter.PIPELINE).create();
         }
     }
 }

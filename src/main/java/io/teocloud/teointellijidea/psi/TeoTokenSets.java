@@ -9,4 +9,6 @@ public interface TeoTokenSets {
     TokenSet STRING_LITERAL = TokenSet.create(TeoTypes.STRING_LITERAL);
 
     TokenSet DECORATOR_SET = TokenSet.create(TeoTypes.AT, TeoTypes.DOUBLE_AT, TeoTypes.IDENTIFIER);
+    TokenSet PIPELINE_SET = TokenSet.create(TeoTypes.DOLLAR_SIGN, TeoTypes.IDENTIFIER);
+
 }

@@ -34,6 +34,7 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey COMMENT =
             createTextAttributesKey("TEO_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
     public static final TextAttributesKey DECORATOR = createTextAttributesKey("TEO_DECORATOR", DefaultLanguageHighlighterColors.FUNCTION_DECLARATION);
+    public static final TextAttributesKey PIPELINE = createTextAttributesKey("TEO_PIPELINE", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey DOT = createTextAttributesKey("TEO_DOT", DefaultLanguageHighlighterColors.DOT);
     public static final TextAttributesKey COMMA = createTextAttributesKey("TEO_COMMA", DefaultLanguageHighlighterColors.COMMA);
     public static final TextAttributesKey BRACES = createTextAttributesKey("TEO_BRACES", DefaultLanguageHighlighterColors.BRACES);
