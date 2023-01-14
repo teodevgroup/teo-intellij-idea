@@ -33,10 +33,4 @@ public class TeoItemDecoratorListImpl extends ASTWrapperPsiElement implements Te
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoItemDecorator.class);
   }
 
-  @Override
-  @NotNull
-  public List<TeoWsEol> getWsEolList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
-  }
-
 }

@@ -33,16 +33,4 @@ public class TeoNamedExpressionImpl extends ASTWrapperPsiElement implements TeoN
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoExpression.class);
   }
 
-  @Override
-  @NotNull
-  public TeoPaddedColon getPaddedColon() {
-    return findNotNullChildByClass(TeoPaddedColon.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TeoWsEol> getWsEolList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
-  }
-
 }

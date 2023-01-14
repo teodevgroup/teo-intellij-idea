@@ -33,10 +33,4 @@ public class TeoSubscriptImpl extends ASTWrapperPsiElement implements TeoSubscri
     return findNotNullChildByClass(TeoExpression.class);
   }
 
-  @Override
-  @NotNull
-  public List<TeoWsEol> getWsEolList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
-  }
-
 }

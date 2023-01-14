@@ -10,13 +10,4 @@ public interface TeoDictionaryLiteral extends PsiElement {
   @NotNull
   List<TeoNamedExpression> getNamedExpressionList();
 
-  @NotNull
-  TeoPaddedBlockClose getPaddedBlockClose();
-
-  @NotNull
-  TeoPaddedBlockOpen getPaddedBlockOpen();
-
-  @NotNull
-  List<TeoPaddedComma> getPaddedCommaList();
-
 }

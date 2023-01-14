@@ -10,7 +10,4 @@ public interface TeoNamedArgument extends PsiElement {
   @NotNull
   TeoExpression getExpression();
 
-  @NotNull
-  TeoPaddedColon getPaddedColon();
-
 }

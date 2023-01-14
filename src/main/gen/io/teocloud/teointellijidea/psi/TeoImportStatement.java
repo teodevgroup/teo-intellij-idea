@@ -10,7 +10,4 @@ public interface TeoImportStatement extends PsiElement {
   @Nullable
   TeoImportIdentifierList getImportIdentifierList();
 
-  @NotNull
-  List<TeoWsEol> getWsEolList();
-
 }

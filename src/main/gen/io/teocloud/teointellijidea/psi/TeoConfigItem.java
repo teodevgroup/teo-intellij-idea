@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface TeoConfigItem extends PsiElement {
 
+  @NotNull
+  TeoConfigItemName getConfigItemName();
+
   @Nullable
   TeoDocComment getDocComment();
 

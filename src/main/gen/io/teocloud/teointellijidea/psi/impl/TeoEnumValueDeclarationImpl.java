@@ -39,10 +39,4 @@ public class TeoEnumValueDeclarationImpl extends ASTWrapperPsiElement implements
     return findChildByClass(TeoItemDecoratorList.class);
   }
 
-  @Override
-  @Nullable
-  public TeoWsEol getWsEol() {
-    return findChildByClass(TeoWsEol.class);
-  }
-
 }

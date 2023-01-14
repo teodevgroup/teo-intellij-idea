@@ -11,26 +11,20 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoPaddedParenCloseImpl extends ASTWrapperPsiElement implements TeoPaddedParenClose {
+public class TeoConfigItemNameImpl extends ASTWrapperPsiElement implements TeoConfigItemName {
 
-  public TeoPaddedParenCloseImpl(@NotNull ASTNode node) {
+  public TeoConfigItemNameImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitPaddedParenClose(this);
+    visitor.visitConfigItemName(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TeoVisitor) accept((TeoVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public TeoWsEol getWsEol() {
-    return findChildByClass(TeoWsEol.class);
   }
 
 }

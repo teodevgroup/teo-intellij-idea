@@ -407,13 +407,13 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // doc_comment? IDENTIFIER WHITESPACE+ expression
+  // doc_comment? config_item_name WHITESPACE+ expression
   public static boolean config_item(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "config_item")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, CONFIG_ITEM, "<config item>");
     r = config_item_0(b, l + 1);
-    r = r && consumeToken(b, IDENTIFIER);
+    r = r && config_item_name(b, l + 1);
     r = r && config_item_2(b, l + 1);
     r = r && expression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
@@ -439,6 +439,18 @@ public class TeoParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "config_item_2", c)) break;
     }
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // IDENTIFIER
+  public static boolean config_item_name(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_item_name")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, CONFIG_ITEM_NAME, r);
     return r;
   }
 
@@ -720,14 +732,14 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // doc_comment? item_decorator_list? IDENTIFIER WHITESPACE* COLON WHITESPACE* field_type
+  // doc_comment? item_decorator_list? field_name WHITESPACE* COLON WHITESPACE* field_type
   public static boolean field_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "field_definition")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, FIELD_DEFINITION, "<field definition>");
     r = field_definition_0(b, l + 1);
     r = r && field_definition_1(b, l + 1);
-    r = r && consumeToken(b, IDENTIFIER);
+    r = r && field_name(b, l + 1);
     r = r && field_definition_3(b, l + 1);
     r = r && consumeToken(b, COLON);
     r = r && field_definition_5(b, l + 1);
@@ -770,6 +782,18 @@ public class TeoParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "field_definition_5", c)) break;
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // IDENTIFIER
+  public static boolean field_name(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "field_name")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, FIELD_NAME, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -1284,14 +1308,14 @@ public class TeoParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // NEWLINE WHITESPACE*
-  public static boolean new_line_with_leading_ws(PsiBuilder b, int l) {
+  static boolean new_line_with_leading_ws(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "new_line_with_leading_ws")) return false;
     if (!nextTokenIs(b, NEWLINE)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, NEWLINE);
     r = r && new_line_with_leading_ws_1(b, l + 1);
-    exit_section_(b, m, NEW_LINE_WITH_LEADING_WS, r);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1370,13 +1394,13 @@ public class TeoParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // ws_eol? BLOCK_CLOSE
-  public static boolean padded_block_close(PsiBuilder b, int l) {
+  static boolean padded_block_close(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "padded_block_close")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PADDED_BLOCK_CLOSE, "<padded block close>");
+    Marker m = enter_section_(b);
     r = padded_block_close_0(b, l + 1);
     r = r && consumeToken(b, BLOCK_CLOSE);
-    exit_section_(b, l, m, r, false, null);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1389,14 +1413,14 @@ public class TeoParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // BLOCK_OPEN ws_eol?
-  public static boolean padded_block_open(PsiBuilder b, int l) {
+  static boolean padded_block_open(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "padded_block_open")) return false;
     if (!nextTokenIs(b, BLOCK_OPEN)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, BLOCK_OPEN);
     r = r && padded_block_open_1(b, l + 1);
-    exit_section_(b, m, PADDED_BLOCK_OPEN, r);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1409,13 +1433,13 @@ public class TeoParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // ws_eol? BRACK_CLOSE
-  public static boolean padded_brack_close(PsiBuilder b, int l) {
+  static boolean padded_brack_close(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "padded_brack_close")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PADDED_BRACK_CLOSE, "<padded brack close>");
+    Marker m = enter_section_(b);
     r = padded_brack_close_0(b, l + 1);
     r = r && consumeToken(b, BRACK_CLOSE);
-    exit_section_(b, l, m, r, false, null);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1428,14 +1452,14 @@ public class TeoParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // BRACK_OPEN ws_eol?
-  public static boolean padded_brack_open(PsiBuilder b, int l) {
+  static boolean padded_brack_open(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "padded_brack_open")) return false;
     if (!nextTokenIs(b, BRACK_OPEN)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, BRACK_OPEN);
     r = r && padded_brack_open_1(b, l + 1);
-    exit_section_(b, m, PADDED_BRACK_OPEN, r);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1448,14 +1472,14 @@ public class TeoParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // ws_eol? COLON ws_eol?
-  public static boolean padded_colon(PsiBuilder b, int l) {
+  static boolean padded_colon(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "padded_colon")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PADDED_COLON, "<padded colon>");
+    Marker m = enter_section_(b);
     r = padded_colon_0(b, l + 1);
     r = r && consumeToken(b, COLON);
     r = r && padded_colon_2(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1475,14 +1499,14 @@ public class TeoParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // ws_eol? COMMA ws_eol?
-  public static boolean padded_comma(PsiBuilder b, int l) {
+  static boolean padded_comma(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "padded_comma")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PADDED_COMMA, "<padded comma>");
+    Marker m = enter_section_(b);
     r = padded_comma_0(b, l + 1);
     r = r && consumeToken(b, COMMA);
     r = r && padded_comma_2(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1502,13 +1526,13 @@ public class TeoParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // ws_eol? PAREN_CLOSE
-  public static boolean padded_paren_close(PsiBuilder b, int l) {
+  static boolean padded_paren_close(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "padded_paren_close")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PADDED_PAREN_CLOSE, "<padded paren close>");
+    Marker m = enter_section_(b);
     r = padded_paren_close_0(b, l + 1);
     r = r && consumeToken(b, PAREN_CLOSE);
-    exit_section_(b, l, m, r, false, null);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1521,14 +1545,14 @@ public class TeoParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // PAREN_OPEN ws_eol?
-  public static boolean padded_paren_open(PsiBuilder b, int l) {
+  static boolean padded_paren_open(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "padded_paren_open")) return false;
     if (!nextTokenIs(b, PAREN_OPEN)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, PAREN_OPEN);
     r = r && padded_paren_open_1(b, l + 1);
-    exit_section_(b, m, PADDED_PAREN_OPEN, r);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1767,18 +1791,18 @@ public class TeoParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // (NEWLINE | WHITESPACE)+
-  public static boolean ws_eol(PsiBuilder b, int l) {
+  static boolean ws_eol(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ws_eol")) return false;
-    if (!nextTokenIs(b, "<ws eol>", NEWLINE, WHITESPACE)) return false;
+    if (!nextTokenIs(b, "", NEWLINE, WHITESPACE)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, WS_EOL, "<ws eol>");
+    Marker m = enter_section_(b);
     r = ws_eol_0(b, l + 1);
     while (r) {
       int c = current_position_(b);
       if (!ws_eol_0(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "ws_eol", c)) break;
     }
-    exit_section_(b, l, m, r, false, null);
+    exit_section_(b, m, null, r);
     return r;
   }
 

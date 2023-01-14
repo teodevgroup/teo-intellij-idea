@@ -33,10 +33,4 @@ public class TeoNamedArgumentImpl extends ASTWrapperPsiElement implements TeoNam
     return findNotNullChildByClass(TeoExpression.class);
   }
 
-  @Override
-  @NotNull
-  public TeoPaddedColon getPaddedColon() {
-    return findNotNullChildByClass(TeoPaddedColon.class);
-  }
-
 }

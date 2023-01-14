@@ -10,7 +10,4 @@ public interface TeoSubscript extends PsiElement {
   @NotNull
   TeoExpression getExpression();
 
-  @NotNull
-  List<TeoWsEol> getWsEolList();
-
 }

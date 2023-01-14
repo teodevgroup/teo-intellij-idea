@@ -10,10 +10,4 @@ public interface TeoNamedExpression extends PsiElement {
   @NotNull
   List<TeoExpression> getExpressionList();
 
-  @NotNull
-  TeoPaddedColon getPaddedColon();
-
-  @NotNull
-  List<TeoWsEol> getWsEolList();
-
 }

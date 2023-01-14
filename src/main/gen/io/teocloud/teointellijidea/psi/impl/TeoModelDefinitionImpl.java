@@ -63,22 +63,4 @@ public class TeoModelDefinitionImpl extends ASTWrapperPsiElement implements TeoM
     return findNotNullChildByClass(TeoModelName.class);
   }
 
-  @Override
-  @NotNull
-  public TeoPaddedBlockClose getPaddedBlockClose() {
-    return findNotNullChildByClass(TeoPaddedBlockClose.class);
-  }
-
-  @Override
-  @NotNull
-  public TeoPaddedBlockOpen getPaddedBlockOpen() {
-    return findNotNullChildByClass(TeoPaddedBlockOpen.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TeoWsEol> getWsEolList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
-  }
-
 }

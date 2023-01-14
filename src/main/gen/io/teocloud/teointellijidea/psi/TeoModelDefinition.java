@@ -25,13 +25,4 @@ public interface TeoModelDefinition extends PsiElement {
   @NotNull
   TeoModelName getModelName();
 
-  @NotNull
-  TeoPaddedBlockClose getPaddedBlockClose();
-
-  @NotNull
-  TeoPaddedBlockOpen getPaddedBlockOpen();
-
-  @NotNull
-  List<TeoWsEol> getWsEolList();
-
 }

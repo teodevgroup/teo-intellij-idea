@@ -10,13 +10,4 @@ public interface TeoArrayLiteral extends PsiElement {
   @NotNull
   List<TeoExpression> getExpressionList();
 
-  @NotNull
-  TeoPaddedBrackClose getPaddedBrackClose();
-
-  @NotNull
-  TeoPaddedBrackOpen getPaddedBrackOpen();
-
-  @NotNull
-  List<TeoPaddedComma> getPaddedCommaList();
-
 }

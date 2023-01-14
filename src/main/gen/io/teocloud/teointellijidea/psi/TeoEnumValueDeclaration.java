@@ -13,7 +13,4 @@ public interface TeoEnumValueDeclaration extends PsiElement {
   @Nullable
   TeoItemDecoratorList getItemDecoratorList();
 
-  @Nullable
-  TeoWsEol getWsEol();
-
 }

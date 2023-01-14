@@ -10,7 +10,4 @@ public interface TeoNullishCoalescing extends PsiElement {
   @NotNull
   List<TeoUnit> getUnitList();
 
-  @NotNull
-  List<TeoWsEol> getWsEolList();
-
 }

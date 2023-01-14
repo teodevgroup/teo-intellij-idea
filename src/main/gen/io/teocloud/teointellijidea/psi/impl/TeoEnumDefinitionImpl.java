@@ -63,22 +63,4 @@ public class TeoEnumDefinitionImpl extends ASTWrapperPsiElement implements TeoEn
     return findChildByClass(TeoItemDecoratorList.class);
   }
 
-  @Override
-  @NotNull
-  public TeoPaddedBlockClose getPaddedBlockClose() {
-    return findNotNullChildByClass(TeoPaddedBlockClose.class);
-  }
-
-  @Override
-  @NotNull
-  public TeoPaddedBlockOpen getPaddedBlockOpen() {
-    return findNotNullChildByClass(TeoPaddedBlockOpen.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TeoWsEol> getWsEolList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
-  }
-
 }

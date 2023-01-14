@@ -33,10 +33,4 @@ public class TeoArgumentListImpl extends ASTWrapperPsiElement implements TeoArgu
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoArgument.class);
   }
 
-  @Override
-  @NotNull
-  public List<TeoPaddedComma> getPaddedCommaList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoPaddedComma.class);
-  }
-
 }

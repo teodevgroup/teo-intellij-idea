@@ -25,13 +25,4 @@ public interface TeoEnumDefinition extends PsiElement {
   @Nullable
   TeoItemDecoratorList getItemDecoratorList();
 
-  @NotNull
-  TeoPaddedBlockClose getPaddedBlockClose();
-
-  @NotNull
-  TeoPaddedBlockOpen getPaddedBlockOpen();
-
-  @NotNull
-  List<TeoWsEol> getWsEolList();
-
 }

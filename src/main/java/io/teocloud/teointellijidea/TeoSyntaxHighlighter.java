@@ -16,7 +16,13 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
 
     public static final TextAttributesKey KEYWORD = createTextAttributesKey("TEO_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
 
+    public static final TextAttributesKey CONFIG_ITEM_NAME = createTextAttributesKey("TEO_CONFIG_ITEM_NAME", DefaultLanguageHighlighterColors.CONSTANT);
+
     public static final TextAttributesKey MODEL_NAME = createTextAttributesKey("TEO_MODEL_NAME", DefaultLanguageHighlighterColors.CLASS_NAME);
+    public static final TextAttributesKey FIELD_NAME = createTextAttributesKey("TEO_FIELD_NAME", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
+    public static final TextAttributesKey FIELD_TYPE = createTextAttributesKey("TEO_FIELD_TYPE", DefaultLanguageHighlighterColors.CLASS_REFERENCE);
+    public static final TextAttributesKey ENUM_MEMBER = createTextAttributesKey("TEO_ENUM_MEMBER", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
+
     public static final TextAttributesKey BOOL_LITERAL =
             createTextAttributesKey("TEO_BOOL_LITERAL", DefaultLanguageHighlighterColors.CONSTANT);
     public static final TextAttributesKey NULL_LITERAL =
@@ -27,10 +33,13 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
             createTextAttributesKey("TEO_NUMERIC_LITERAL", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey COMMENT =
             createTextAttributesKey("TEO_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
-    public static final TextAttributesKey DECORATOR = createTextAttributesKey("TEO_DECORATOR", DefaultLanguageHighlighterColors.CONSTANT);
+    public static final TextAttributesKey DECORATOR = createTextAttributesKey("TEO_DECORATOR", DefaultLanguageHighlighterColors.FUNCTION_CALL);
+    public static final TextAttributesKey DOT = createTextAttributesKey("TEO_DOT", DefaultLanguageHighlighterColors.DOT);
+    public static final TextAttributesKey COMMA = createTextAttributesKey("TEO_COMMA", DefaultLanguageHighlighterColors.COMMA);
+    public static final TextAttributesKey BRACES = createTextAttributesKey("TEO_BRACES", DefaultLanguageHighlighterColors.BRACES);
+    public static final TextAttributesKey BRACKETS = createTextAttributesKey("TEO_BRACKETS", DefaultLanguageHighlighterColors.BRACKETS);
     public static final TextAttributesKey BAD_CHARACTER =
             createTextAttributesKey("TEO_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
-
 
     private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
     private static final TextAttributesKey[] BOOL_KEYS = new TextAttributesKey[]{BOOL_LITERAL};
@@ -41,6 +50,11 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
     private static final TextAttributesKey[] MODEL_NAME_KEYS = new TextAttributesKey[]{MODEL_NAME};
     private static final TextAttributesKey[] DECORATOR_KEYS = new TextAttributesKey[]{DECORATOR};
+    private static final TextAttributesKey[] DOT_KEYS = new TextAttributesKey[]{DOT};
+    private static final TextAttributesKey[] COMMA_KEYS = new TextAttributesKey[]{COMMA};
+    private static final TextAttributesKey[] BRACKET_KEYS = new TextAttributesKey[]{BRACKETS};
+    private static final TextAttributesKey[] BRACE_KEYS = new TextAttributesKey[]{BRACES};
+    private static final TextAttributesKey[] ENUM_MEMBER_KEYS = new TextAttributesKey[]{ENUM_MEMBER};
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
     @NotNull
@@ -82,6 +96,18 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         }
         if (tokenType.equals(TeoTypes.AT) || tokenType.equals(TeoTypes.DOUBLE_AT)) {
             return DECORATOR_KEYS;
+        }
+        if (tokenType.equals(TeoTypes.DOT)) {
+            return DOT_KEYS;
+        }
+        if (tokenType.equals(TeoTypes.COMMA)) {
+            return COMMA_KEYS;
+        }
+        if (tokenType.equals(TeoTypes.BRACK_CLOSE) || tokenType.equals(TeoTypes.BRACK_OPEN)) {
+            return BRACKET_KEYS;
+        }
+        if (tokenType.equals(TeoTypes.BLOCK_OPEN) || tokenType.equals(TeoTypes.BLOCK_CLOSE)) {
+            return BRACE_KEYS;
         }
         if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;

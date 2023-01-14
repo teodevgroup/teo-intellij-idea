@@ -55,6 +55,10 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitConfigItemName(@NotNull TeoConfigItemName o) {
+    visitPsiElement(o);
+  }
+
   public void visitDictionaryLiteral(@NotNull TeoDictionaryLiteral o) {
     visitPsiElement(o);
   }
@@ -84,6 +88,10 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitFieldDefinition(@NotNull TeoFieldDefinition o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFieldName(@NotNull TeoFieldName o) {
     visitPsiElement(o);
   }
 
@@ -139,43 +147,7 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitNewLineWithLeadingWs(@NotNull TeoNewLineWithLeadingWs o) {
-    visitPsiElement(o);
-  }
-
   public void visitNullishCoalescing(@NotNull TeoNullishCoalescing o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPaddedBlockClose(@NotNull TeoPaddedBlockClose o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPaddedBlockOpen(@NotNull TeoPaddedBlockOpen o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPaddedBrackClose(@NotNull TeoPaddedBrackClose o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPaddedBrackOpen(@NotNull TeoPaddedBrackOpen o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPaddedColon(@NotNull TeoPaddedColon o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPaddedComma(@NotNull TeoPaddedComma o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPaddedParenClose(@NotNull TeoPaddedParenClose o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPaddedParenOpen(@NotNull TeoPaddedParenOpen o) {
     visitPsiElement(o);
   }
 
@@ -196,10 +168,6 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitUnit(@NotNull TeoUnit o) {
-    visitPsiElement(o);
-  }
-
-  public void visitWsEol(@NotNull TeoWsEol o) {
     visitPsiElement(o);
   }
 

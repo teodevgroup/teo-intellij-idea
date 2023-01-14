@@ -10,7 +10,4 @@ public interface TeoItemDecoratorList extends PsiElement {
   @NotNull
   List<TeoItemDecorator> getItemDecoratorList();
 
-  @NotNull
-  List<TeoWsEol> getWsEolList();
-
 }

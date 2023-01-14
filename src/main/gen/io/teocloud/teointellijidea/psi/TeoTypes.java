@@ -18,6 +18,7 @@ public interface TeoTypes {
   IElementType COMMENT = new TeoElementType("COMMENT");
   IElementType CONFIG_BLOCK = new TeoElementType("CONFIG_BLOCK");
   IElementType CONFIG_ITEM = new TeoElementType("CONFIG_ITEM");
+  IElementType CONFIG_ITEM_NAME = new TeoElementType("CONFIG_ITEM_NAME");
   IElementType CONFIG_KEYWORDS = new TeoElementType("CONFIG_KEYWORDS");
   IElementType DICTIONARY_LITERAL = new TeoElementType("DICTIONARY_LITERAL");
   IElementType DOC_COMMENT = new TeoElementType("DOC_COMMENT");
@@ -27,6 +28,7 @@ public interface TeoTypes {
   IElementType ENUM_VALUE_DECLARATION = new TeoElementType("ENUM_VALUE_DECLARATION");
   IElementType EXPRESSION = new TeoElementType("EXPRESSION");
   IElementType FIELD_DEFINITION = new TeoElementType("FIELD_DEFINITION");
+  IElementType FIELD_NAME = new TeoElementType("FIELD_NAME");
   IElementType FIELD_TYPE = new TeoElementType("FIELD_TYPE");
   IElementType GROUP = new TeoElementType("GROUP");
   IElementType IDENTIFIER_UNIT = new TeoElementType("IDENTIFIER_UNIT");
@@ -41,22 +43,12 @@ public interface TeoTypes {
   IElementType MODEL_NAME = new TeoElementType("MODEL_NAME");
   IElementType NAMED_ARGUMENT = new TeoElementType("NAMED_ARGUMENT");
   IElementType NAMED_EXPRESSION = new TeoElementType("NAMED_EXPRESSION");
-  IElementType NEW_LINE_WITH_LEADING_WS = new TeoElementType("NEW_LINE_WITH_LEADING_WS");
   IElementType NULLISH_COALESCING = new TeoElementType("NULLISH_COALESCING");
-  IElementType PADDED_BLOCK_CLOSE = new TeoElementType("PADDED_BLOCK_CLOSE");
-  IElementType PADDED_BLOCK_OPEN = new TeoElementType("PADDED_BLOCK_OPEN");
-  IElementType PADDED_BRACK_CLOSE = new TeoElementType("PADDED_BRACK_CLOSE");
-  IElementType PADDED_BRACK_OPEN = new TeoElementType("PADDED_BRACK_OPEN");
-  IElementType PADDED_COLON = new TeoElementType("PADDED_COLON");
-  IElementType PADDED_COMMA = new TeoElementType("PADDED_COMMA");
-  IElementType PADDED_PAREN_CLOSE = new TeoElementType("PADDED_PAREN_CLOSE");
-  IElementType PADDED_PAREN_OPEN = new TeoElementType("PADDED_PAREN_OPEN");
   IElementType PIPELINE = new TeoElementType("PIPELINE");
   IElementType SUBSCRIPT = new TeoElementType("SUBSCRIPT");
   IElementType TRIPLE_LINE_COMMENT_FULL_LINE = new TeoElementType("TRIPLE_LINE_COMMENT_FULL_LINE");
   IElementType TUPLE_LITERAL = new TeoElementType("TUPLE_LITERAL");
   IElementType UNIT = new TeoElementType("UNIT");
-  IElementType WS_EOL = new TeoElementType("WS_EOL");
 
   IElementType AT = new TeoTokenType("AT");
   IElementType BLOCK_CLOSE = new TeoTokenType("BLOCK_CLOSE");
@@ -126,6 +118,9 @@ public interface TeoTypes {
       else if (type == CONFIG_ITEM) {
         return new TeoConfigItemImpl(node);
       }
+      else if (type == CONFIG_ITEM_NAME) {
+        return new TeoConfigItemNameImpl(node);
+      }
       else if (type == CONFIG_KEYWORDS) {
         return new TeoConfigKeywordsImpl(node);
       }
@@ -152,6 +147,9 @@ public interface TeoTypes {
       }
       else if (type == FIELD_DEFINITION) {
         return new TeoFieldDefinitionImpl(node);
+      }
+      else if (type == FIELD_NAME) {
+        return new TeoFieldNameImpl(node);
       }
       else if (type == FIELD_TYPE) {
         return new TeoFieldTypeImpl(node);
@@ -195,35 +193,8 @@ public interface TeoTypes {
       else if (type == NAMED_EXPRESSION) {
         return new TeoNamedExpressionImpl(node);
       }
-      else if (type == NEW_LINE_WITH_LEADING_WS) {
-        return new TeoNewLineWithLeadingWsImpl(node);
-      }
       else if (type == NULLISH_COALESCING) {
         return new TeoNullishCoalescingImpl(node);
-      }
-      else if (type == PADDED_BLOCK_CLOSE) {
-        return new TeoPaddedBlockCloseImpl(node);
-      }
-      else if (type == PADDED_BLOCK_OPEN) {
-        return new TeoPaddedBlockOpenImpl(node);
-      }
-      else if (type == PADDED_BRACK_CLOSE) {
-        return new TeoPaddedBrackCloseImpl(node);
-      }
-      else if (type == PADDED_BRACK_OPEN) {
-        return new TeoPaddedBrackOpenImpl(node);
-      }
-      else if (type == PADDED_COLON) {
-        return new TeoPaddedColonImpl(node);
-      }
-      else if (type == PADDED_COMMA) {
-        return new TeoPaddedCommaImpl(node);
-      }
-      else if (type == PADDED_PAREN_CLOSE) {
-        return new TeoPaddedParenCloseImpl(node);
-      }
-      else if (type == PADDED_PAREN_OPEN) {
-        return new TeoPaddedParenOpenImpl(node);
       }
       else if (type == PIPELINE) {
         return new TeoPipelineImpl(node);
@@ -239,9 +210,6 @@ public interface TeoTypes {
       }
       else if (type == UNIT) {
         return new TeoUnitImpl(node);
-      }
-      else if (type == WS_EOL) {
-        return new TeoWsEolImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

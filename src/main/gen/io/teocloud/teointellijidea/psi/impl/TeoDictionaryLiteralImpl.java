@@ -33,22 +33,4 @@ public class TeoDictionaryLiteralImpl extends ASTWrapperPsiElement implements Te
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoNamedExpression.class);
   }
 
-  @Override
-  @NotNull
-  public TeoPaddedBlockClose getPaddedBlockClose() {
-    return findNotNullChildByClass(TeoPaddedBlockClose.class);
-  }
-
-  @Override
-  @NotNull
-  public TeoPaddedBlockOpen getPaddedBlockOpen() {
-    return findNotNullChildByClass(TeoPaddedBlockOpen.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TeoPaddedComma> getPaddedCommaList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoPaddedComma.class);
-  }
-
 }
