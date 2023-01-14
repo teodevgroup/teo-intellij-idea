@@ -11,44 +11,20 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoUnitImpl extends ASTWrapperPsiElement implements TeoUnit {
+public class TeoEnumChoiceLiteralImpl extends ASTWrapperPsiElement implements TeoEnumChoiceLiteral {
 
-  public TeoUnitImpl(@NotNull ASTNode node) {
+  public TeoEnumChoiceLiteralImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitUnit(this);
+    visitor.visitEnumChoiceLiteral(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TeoVisitor) accept((TeoVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<TeoArgumentList> getArgumentListList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoArgumentList.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoEnumChoiceLiteral getEnumChoiceLiteral() {
-    return findChildByClass(TeoEnumChoiceLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoGroup getGroup() {
-    return findChildByClass(TeoGroup.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TeoSubscript> getSubscriptList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoSubscript.class);
   }
 
 }

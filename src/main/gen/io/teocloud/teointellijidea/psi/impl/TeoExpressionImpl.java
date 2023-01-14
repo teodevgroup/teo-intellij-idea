@@ -57,4 +57,10 @@ public class TeoExpressionImpl extends ASTWrapperPsiElement implements TeoExpres
     return findChildByClass(TeoPipeline.class);
   }
 
+  @Override
+  @NotNull
+  public List<TeoSubscript> getSubscriptList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoSubscript.class);
+  }
+
 }

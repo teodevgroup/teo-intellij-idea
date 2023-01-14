@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TeoNullishCoalescing extends PsiElement {
+public interface TeoSubscript extends PsiElement {
 
   @NotNull
   List<TeoWsEol> getWsEolList();
 
   @NotNull
-  List<TeoUnit> getUnitList();
+  TeoExpression getExpression();
 
 }

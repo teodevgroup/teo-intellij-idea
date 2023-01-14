@@ -10,4 +10,13 @@ public interface TeoUnit extends PsiElement {
   @NotNull
   List<TeoArgumentList> getArgumentListList();
 
+  @Nullable
+  TeoEnumChoiceLiteral getEnumChoiceLiteral();
+
+  @Nullable
+  TeoGroup getGroup();
+
+  @NotNull
+  List<TeoSubscript> getSubscriptList();
+
 }

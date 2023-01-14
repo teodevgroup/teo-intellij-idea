@@ -25,7 +25,9 @@ PAREN_OPEN="("
 PAREN_CLOSE=")"
 BRACK_OPEN="["
 BRACK_CLOSE="]"
+DOT="."
 COMMA=","
+DOUBLE_QUESTION="??"
 QUESTION="?"
 EQUAL_SIGN="="
 COLON=":"
@@ -58,7 +60,9 @@ IDENTIFIER=([:letter:] ([:letter:]|[:digit:]|"_")*)
 
 BOOL_LITERAL="true"|"false"
 
-NUMBER_LITERAL="-"?{DIGIT}+ ("." {DIGIT}+)?
+NULL_LITERAL="null"
+
+NUMERIC_LITERAL="-"?{DIGIT}+ ("." {DIGIT}+)?
 
 ESC="\\" ( [^] | "u" {HEX}{HEX}{HEX}{HEX} )
 CHAR=[^\r\n\'\"\\]
@@ -77,7 +81,9 @@ STRING_LITERAL={STRING_BAD} \"
 {PAREN_CLOSE} {yybegin(YYINITIAL); return TeoTypes.PAREN_CLOSE; }
 {BRACK_OPEN} {yybegin(YYINITIAL); return TeoTypes.BRACK_OPEN; }
 {BRACK_CLOSE} {yybegin(YYINITIAL); return TeoTypes.BRACK_CLOSE; }
+{DOT} {yybegin(YYINITIAL); return TeoTypes.DOT; }
 {COMMA} {yybegin(YYINITIAL); return TeoTypes.COMMA; }
+{DOUBLE_QUESTION} {yybegin(YYINITIAL); return TeoTypes.DOUBLE_QUESTION; }
 {QUESTION} {yybegin(YYINITIAL); return TeoTypes.QUESTION; }
 {EQUAL_SIGN} {yybegin(YYINITIAL); return TeoTypes.EQUAL_SIGN; }
 {COLON} {yybegin(YYINITIAL); return TeoTypes.COLON; }
@@ -99,8 +105,9 @@ STRING_LITERAL={STRING_BAD} \"
 
 // literals
 {COMMENT} {yybegin(YYINITIAL); return TeoTypes.COMMENT; }
+{NULL_LITERAL} {yybegin(YYINITIAL); return TeoTypes.NULL_LITERAL; }
 {STRING_LITERAL} {yybegin(YYINITIAL); return TeoTypes.STRING_LITERAL; }
-{NUMBER_LITERAL} {yybegin(YYINITIAL); return TeoTypes.NUMBER_LITERAL; }
+{NUMERIC_LITERAL} {yybegin(YYINITIAL); return TeoTypes.NUMERIC_LITERAL; }
 {BOOL_LITERAL} {yybegin(YYINITIAL); return TeoTypes.BOOL_LITERAL; }
 
 [^] { return TokenType.BAD_CHARACTER; }

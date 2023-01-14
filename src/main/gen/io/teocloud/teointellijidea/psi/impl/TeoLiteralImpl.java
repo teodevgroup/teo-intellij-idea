@@ -27,4 +27,10 @@ public class TeoLiteralImpl extends ASTWrapperPsiElement implements TeoLiteral {
     else super.accept(visitor);
   }
 
+  @Override
+  @Nullable
+  public TeoEnumChoiceLiteral getEnumChoiceLiteral() {
+    return findChildByClass(TeoEnumChoiceLiteral.class);
+  }
+
 }

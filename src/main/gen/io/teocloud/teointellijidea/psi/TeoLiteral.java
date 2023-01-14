@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface TeoLiteral extends PsiElement {
 
+  @Nullable
+  TeoEnumChoiceLiteral getEnumChoiceLiteral();
+
 }

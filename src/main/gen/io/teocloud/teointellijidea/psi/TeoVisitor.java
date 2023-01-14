@@ -47,6 +47,10 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitEnumChoiceLiteral(@NotNull TeoEnumChoiceLiteral o) {
+    visitPsiElement(o);
+  }
+
   public void visitEnumDefinition(@NotNull TeoEnumDefinition o) {
     visitPsiElement(o);
   }
@@ -108,6 +112,10 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitPipeline(@NotNull TeoPipeline o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSubscript(@NotNull TeoSubscript o) {
     visitPsiElement(o);
   }
 

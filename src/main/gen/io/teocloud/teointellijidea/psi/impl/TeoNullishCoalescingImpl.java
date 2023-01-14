@@ -29,8 +29,14 @@ public class TeoNullishCoalescingImpl extends ASTWrapperPsiElement implements Te
 
   @Override
   @NotNull
-  public List<TeoExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoExpression.class);
+  public List<TeoWsEol> getWsEolList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TeoUnit> getUnitList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoUnit.class);
   }
 
 }

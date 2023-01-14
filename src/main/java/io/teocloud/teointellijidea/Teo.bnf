@@ -41,7 +41,7 @@ CONFIG_KEYWORDS ::= CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY
 
 config_block ::= CONFIG_KEYWORDS (WHITESPACE+ IDENTIFIER)? WS_EOL+ BLOCK_OPEN WS_EOL* (config_item WS_EOL*)* WS_EOL* BLOCK_CLOSE
 
-config_item::= IDENTIFIER expression
+config_item::= IDENTIFIER WHITESPACE+ expression
 
 field_definition ::= item_decorator_list? IDENTIFIER WHITESPACE* COLON WHITESPACE* field_type
 
@@ -52,11 +52,13 @@ ARITY ::= (BLOCK_OPEN BLOCK_CLOSE)|(BRACK_OPEN BRACK_CLOSE)
 ITEM_OPTIONAL ::= QUESTION
 COLLECTION_OPTIONAL ::= QUESTION
 
-nullish_coalescing ::= expression ("??" expression)+
+nullish_coalescing ::= unit (WS_EOL* DOUBLE_QUESTION WS_EOL* unit)+
 
 group ::= "(" expression ")"
 
-expression ::= (literal | IDENTIFIER | group | nullish_coalescing | pipeline) (subscript | "." IDENTIFIER | argument_list)*
+expression ::= (nullish_coalescing | literal | IDENTIFIER | group | pipeline) (subscript | "." IDENTIFIER | argument_list)*
+
+subscript ::= BRACK_OPEN WS_EOL* expression WS_EOL* BRACK_CLOSE
 
 argument_list ::= PAREN_OPEN (argument | named_argument)* PAREN_CLOSE
 
@@ -64,6 +66,8 @@ argument ::= expression
 
 named_argument ::= IDENTIFIER WHITESPACE* COLON WS_EOL* expression
 
-unit ::= IDENTIFIER (subscript | "." IDENTIFIER | argument_list)*
+unit ::= (group | NULL_LITERAL | BOOL_LITERAL | NUMERIC_LITERAL | STRING_LITERAL | enum_choice_literal | IDENTIFIER) (subscript | "." IDENTIFIER | argument_list)*
 
-literal ::= STRING_LITERAL | NUMBER_LITERAL | BOOL_LITERAL | ARRAY_LITERAL | DICTIONARY_LITERAL | TUPLE_LITERAL | RANGE_LITERAL
+literal ::= STRING_LITERAL | NUMBER_LITERAL | BOOL_LITERAL | ARRAY_LITERAL | DICTIONARY_LITERAL | TUPLE_LITERAL | RANGE_LITERAL | enum_choice_literal
+
+enum_choice_literal ::= DOT IDENTIFIER

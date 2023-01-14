@@ -22,4 +22,7 @@ public interface TeoExpression extends PsiElement {
   @Nullable
   TeoPipeline getPipeline();
 
+  @NotNull
+  List<TeoSubscript> getSubscriptList();
+
 }
