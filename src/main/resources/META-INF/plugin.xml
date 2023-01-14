@@ -40,6 +40,10 @@
         <annotator
                 language="Teo"
                 implementationClass="io.teocloud.teointellijidea.TeoAnnotator"/>
+        <completion.contributor
+                language="Teo"
+                implementationClass="io.teocloud.teointellijidea.TeoCompletionContributor"/>
+
     </extensions>
 
 </idea-plugin>
