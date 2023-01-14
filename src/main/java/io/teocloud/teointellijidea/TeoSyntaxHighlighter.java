@@ -25,6 +25,7 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
             createTextAttributesKey("TEO_NUMBER_LITERAL", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey COMMENT =
             createTextAttributesKey("TEO_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
+    public static final TextAttributesKey DECORATOR = createTextAttributesKey("TEO_DECORATOR", DefaultLanguageHighlighterColors.CONSTANT);
     public static final TextAttributesKey BAD_CHARACTER =
             createTextAttributesKey("TEO_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
 
@@ -36,6 +37,7 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
     private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
     private static final TextAttributesKey[] MODEL_NAME_KEYS = new TextAttributesKey[]{MODEL_NAME};
+    private static final TextAttributesKey[] DECORATOR_KEYS = new TextAttributesKey[]{DECORATOR};
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
     @NotNull
@@ -49,9 +51,12 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(TeoTypes.ENUM_KEYWORD) ||
                 tokenType.equals(TeoTypes.MODEL_KEYWORD) ||
                 tokenType.equals(TeoTypes.IMPORT_KEYWORD) ||
-                tokenType.equals(TeoTypes.CONFIG_KEYWORDS) ||
+                tokenType.equals(TeoTypes.FROM_KEYWORD) ||
                 tokenType.equals(TeoTypes.LET_KEYWORD) ||
-                tokenType.equals(TeoTypes.FROM_KEYWORD)) {
+                tokenType.equals(TeoTypes.CONFIG_KEYWORD) ||
+                tokenType.equals(TeoTypes.CONNECTOR_KEYWORD) ||
+                tokenType.equals(TeoTypes.CLIENT_KEYWORD) ||
+                tokenType.equals(TeoTypes.ENTITY_KEYWORD)) {
             return KEYWORD_KEYS;
         }
         if (tokenType.equals(TeoTypes.MODEL_NAME)) {
@@ -68,6 +73,9 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         }
         if (tokenType.equals(TeoTypes.COMMENT)) {
             return COMMENT_KEYS;
+        }
+        if (tokenType.equals(TeoTypes.AT) || tokenType.equals(TeoTypes.DOUBLE_AT)) {
+            return DECORATOR_KEYS;
         }
         if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;

@@ -15,12 +15,26 @@ import com.intellij.psi.TokenType;
 %eof{  return;
 %eof}
 
+// whitespaces
 NEWLINE="\r"|"\n"|"\r\n"
 WHITESPACE=[\ \t\f]
+// puncs
 BLOCK_OPEN="{"
 BLOCK_CLOSE="}"
+PAREN_OPEN="("
+PAREN_CLOSE=")"
+BRACK_OPEN="["
+BRACK_CLOSE="]"
 COMMA=","
+QUESTION="?"
 EQUAL_SIGN="="
+COLON=":"
+RANGE_CLOSE="..."
+RANGE_OPEN=".."
+DOUBLE_AT="@@"
+AT="@"
+DOLLAR_SIGN="$"
+// keywords
 ENUM_KEYWORD="enum"
 MODEL_KEYWORD="model"
 CONFIG_KEYWORD="config"
@@ -30,13 +44,8 @@ ENTITY_KEYWORD="entity"
 IMPORT_KEYWORD="import"
 FROM_KEYWORD="from"
 LET_KEYWORD="let"
-COLON=":"
-TRAILING_COMMA=","
-RANGE_OPEN=".."
-RANGE_CLOSE="..."
-AT="@"
-DOUBLE_AT="@@"
-DOLLAR_SIGN="$"
+
+// literals
 COMMENT="//" .*
 
 ALPHA=[:letter:]
@@ -58,25 +67,40 @@ STRING_LITERAL={STRING_BAD} \"
 
 %%
 
+// whitespaces
 {NEWLINE} {yybegin(YYINITIAL); return TeoTypes.NEWLINE; }
 {WHITESPACE} {yybegin(YYINITIAL); return TeoTypes.WHITESPACE; }
+// puncs
 {BLOCK_OPEN} {yybegin(YYINITIAL); return TeoTypes.BLOCK_OPEN; }
 {BLOCK_CLOSE} {yybegin(YYINITIAL); return TeoTypes.BLOCK_CLOSE; }
-{MODEL_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.MODEL_KEYWORD; }
-{ENUM_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.ENUM_KEYWORD; }
-{LET_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.LET_KEYWORD; }
-{IMPORT_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.IMPORT_KEYWORD; }
-{FROM_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.FROM_KEYWORD; }
-{EQUAL_SIGN} {yybegin(YYINITIAL); return TeoTypes.EQUAL_SIGN; }
+{PAREN_OPEN} {yybegin(YYINITIAL); return TeoTypes.PAREN_OPEN; }
+{PAREN_CLOSE} {yybegin(YYINITIAL); return TeoTypes.PAREN_CLOSE; }
+{BRACK_OPEN} {yybegin(YYINITIAL); return TeoTypes.BRACK_OPEN; }
+{BRACK_CLOSE} {yybegin(YYINITIAL); return TeoTypes.BRACK_CLOSE; }
 {COMMA} {yybegin(YYINITIAL); return TeoTypes.COMMA; }
-{IDENTIFIER} {yybegin(YYINITIAL); return TeoTypes.IDENTIFIER; }
+{QUESTION} {yybegin(YYINITIAL); return TeoTypes.QUESTION; }
+{EQUAL_SIGN} {yybegin(YYINITIAL); return TeoTypes.EQUAL_SIGN; }
+{COLON} {yybegin(YYINITIAL); return TeoTypes.COLON; }
 {DOUBLE_AT} {yybegin(YYINITIAL); return TeoTypes.DOUBLE_AT; }
 {AT} {yybegin(YYINITIAL); return TeoTypes.AT; }
+{DOLLAR_SIGN} {yybegin(YYINITIAL); return TeoTypes.DOLLAR_SIGN; }
+
+// identifiers
+{ENUM_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.ENUM_KEYWORD; }
+{MODEL_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.MODEL_KEYWORD; }
+{CONFIG_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.CONFIG_KEYWORD; }
+{CONNECTOR_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.CONNECTOR_KEYWORD; }
+{CLIENT_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.CLIENT_KEYWORD; }
+{ENTITY_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.ENTITY_KEYWORD; }
+{IMPORT_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.IMPORT_KEYWORD; }
+{FROM_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.FROM_KEYWORD; }
+{LET_KEYWORD} {yybegin(YYINITIAL); return TeoTypes.LET_KEYWORD; }
+{IDENTIFIER} {yybegin(YYINITIAL); return TeoTypes.IDENTIFIER; }
+
+// literals
 {COMMENT} {yybegin(YYINITIAL); return TeoTypes.COMMENT; }
 {STRING_LITERAL} {yybegin(YYINITIAL); return TeoTypes.STRING_LITERAL; }
 {NUMBER_LITERAL} {yybegin(YYINITIAL); return TeoTypes.NUMBER_LITERAL; }
 {BOOL_LITERAL} {yybegin(YYINITIAL); return TeoTypes.BOOL_LITERAL; }
-{DOLLAR_SIGN} {yybegin(YYINITIAL); return TeoTypes.DOLLAR_SIGN; }
-{COLON} {yybegin(YYINITIAL); return TeoTypes.COLON; }
 
 [^] { return TokenType.BAD_CHARACTER; }

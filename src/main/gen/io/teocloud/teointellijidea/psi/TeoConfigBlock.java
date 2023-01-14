@@ -7,4 +7,13 @@ import com.intellij.psi.PsiElement;
 
 public interface TeoConfigBlock extends PsiElement {
 
+  @NotNull
+  TeoConfigKeywords getConfigKeywords();
+
+  @NotNull
+  List<TeoWsEol> getWsEolList();
+
+  @NotNull
+  List<TeoConfigItem> getConfigItemList();
+
 }

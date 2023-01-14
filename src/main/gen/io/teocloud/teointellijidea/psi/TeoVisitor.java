@@ -7,6 +7,22 @@ import com.intellij.psi.PsiElement;
 
 public class TeoVisitor extends PsiElementVisitor {
 
+  public void visitArity(@NotNull TeoArity o) {
+    visitPsiElement(o);
+  }
+
+  public void visitCollectionOptional(@NotNull TeoCollectionOptional o) {
+    visitPsiElement(o);
+  }
+
+  public void visitConfigKeywords(@NotNull TeoConfigKeywords o) {
+    visitPsiElement(o);
+  }
+
+  public void visitItemOptional(@NotNull TeoItemOptional o) {
+    visitPsiElement(o);
+  }
+
   public void visitWsEol(@NotNull TeoWsEol o) {
     visitPsiElement(o);
   }
@@ -24,6 +40,10 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitConfigBlock(@NotNull TeoConfigBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitConfigItem(@NotNull TeoConfigItem o) {
     visitPsiElement(o);
   }
 

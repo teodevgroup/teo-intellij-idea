@@ -37,11 +37,20 @@ block_decorator ::= DOUBLE_AT unit
 
 pipeline ::= DOLLAR_SIGN unit
 
-config_block ::= CONFIG_KEYWORDS IDENTIFIER? { pair* }
+CONFIG_KEYWORDS ::= CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD
+
+config_block ::= CONFIG_KEYWORDS (WHITESPACE+ IDENTIFIER)? WS_EOL+ BLOCK_OPEN WS_EOL* (config_item WS_EOL*)* WS_EOL* BLOCK_CLOSE
+
+config_item::= IDENTIFIER expression
 
 field_definition ::= item_decorator_list? IDENTIFIER WHITESPACE* COLON WHITESPACE* field_type
 
 field_type ::= IDENTIFIER ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
+
+ARITY ::= (BLOCK_OPEN BLOCK_CLOSE)|(BRACK_OPEN BRACK_CLOSE)
+
+ITEM_OPTIONAL ::= QUESTION
+COLLECTION_OPTIONAL ::= QUESTION
 
 nullish_coalescing ::= expression ("??" expression)+
 
@@ -49,11 +58,11 @@ group ::= "(" expression ")"
 
 expression ::= (literal | IDENTIFIER | group | nullish_coalescing | pipeline) (subscript | "." IDENTIFIER | argument_list)*
 
-argument_list ::= "(" (argument | named_argument)* ")"
+argument_list ::= PAREN_OPEN (argument | named_argument)* PAREN_CLOSE
 
 argument ::= expression
 
-named_argument ::= IDENTIFIER ":" expression
+named_argument ::= IDENTIFIER WHITESPACE* COLON WS_EOL* expression
 
 unit ::= IDENTIFIER (subscript | "." IDENTIFIER | argument_list)*
 

@@ -36,6 +36,77 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // (BLOCK_OPEN BLOCK_CLOSE)|(BRACK_OPEN BRACK_CLOSE)
+  public static boolean ARITY(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ARITY")) return false;
+    if (!nextTokenIs(b, "<arity>", BLOCK_OPEN, BRACK_OPEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ARITY, "<arity>");
+    r = ARITY_0(b, l + 1);
+    if (!r) r = ARITY_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // BLOCK_OPEN BLOCK_CLOSE
+  private static boolean ARITY_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ARITY_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, BLOCK_OPEN, BLOCK_CLOSE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // BRACK_OPEN BRACK_CLOSE
+  private static boolean ARITY_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ARITY_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, BRACK_OPEN, BRACK_CLOSE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // QUESTION
+  public static boolean COLLECTION_OPTIONAL(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "COLLECTION_OPTIONAL")) return false;
+    if (!nextTokenIs(b, QUESTION)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, QUESTION);
+    exit_section_(b, m, COLLECTION_OPTIONAL, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD
+  public static boolean CONFIG_KEYWORDS(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "CONFIG_KEYWORDS")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, CONFIG_KEYWORDS, "<config keywords>");
+    r = consumeToken(b, CONFIG_KEYWORD);
+    if (!r) r = consumeToken(b, CONNECTOR_KEYWORD);
+    if (!r) r = consumeToken(b, CLIENT_KEYWORD);
+    if (!r) r = consumeToken(b, ENTITY_KEYWORD);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // QUESTION
+  public static boolean ITEM_OPTIONAL(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ITEM_OPTIONAL")) return false;
+    if (!nextTokenIs(b, QUESTION)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, QUESTION);
+    exit_section_(b, m, ITEM_OPTIONAL, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // (NEWLINE | WHITESPACE)+
   public static boolean WS_EOL(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "WS_EOL")) return false;
@@ -73,15 +144,16 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // "(" (argument | named_argument)* ")"
+  // PAREN_OPEN (argument | named_argument)* PAREN_CLOSE
   public static boolean argument_list(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "argument_list")) return false;
+    if (!nextTokenIs(b, PAREN_OPEN)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, ARGUMENT_LIST, "<argument list>");
-    r = consumeToken(b, "(");
+    Marker m = enter_section_(b);
+    r = consumeToken(b, PAREN_OPEN);
     r = r && argument_list_1(b, l + 1);
-    r = r && consumeToken(b, ")");
-    exit_section_(b, l, m, r, false, null);
+    r = r && consumeToken(b, PAREN_CLOSE);
+    exit_section_(b, m, ARGUMENT_LIST, r);
     return r;
   }
 
@@ -119,35 +191,137 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONFIG_KEYWORDS IDENTIFIER? { pair* }
+  // CONFIG_KEYWORDS (WHITESPACE+ IDENTIFIER)? WS_EOL+ BLOCK_OPEN WS_EOL* (config_item WS_EOL*)* WS_EOL* BLOCK_CLOSE
   public static boolean config_block(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "config_block")) return false;
-    if (!nextTokenIs(b, CONFIG_KEYWORDS)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, CONFIG_KEYWORDS);
+    Marker m = enter_section_(b, l, _NONE_, CONFIG_BLOCK, "<config block>");
+    r = CONFIG_KEYWORDS(b, l + 1);
     r = r && config_block_1(b, l + 1);
     r = r && config_block_2(b, l + 1);
-    exit_section_(b, m, CONFIG_BLOCK, r);
+    r = r && consumeToken(b, BLOCK_OPEN);
+    r = r && config_block_4(b, l + 1);
+    r = r && config_block_5(b, l + 1);
+    r = r && config_block_6(b, l + 1);
+    r = r && consumeToken(b, BLOCK_CLOSE);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // IDENTIFIER?
+  // (WHITESPACE+ IDENTIFIER)?
   private static boolean config_block_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "config_block_1")) return false;
-    consumeToken(b, IDENTIFIER);
+    config_block_1_0(b, l + 1);
     return true;
   }
 
-  // pair*
+  // WHITESPACE+ IDENTIFIER
+  private static boolean config_block_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_block_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = config_block_1_0_0(b, l + 1);
+    r = r && consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // WHITESPACE+
+  private static boolean config_block_1_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_block_1_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, WHITESPACE);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, WHITESPACE)) break;
+      if (!empty_element_parsed_guard_(b, "config_block_1_0_0", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // WS_EOL+
   private static boolean config_block_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "config_block_2")) return false;
-    while (true) {
+    boolean r;
+    Marker m = enter_section_(b);
+    r = WS_EOL(b, l + 1);
+    while (r) {
       int c = current_position_(b);
-      if (!consumeToken(b, PAIR)) break;
+      if (!WS_EOL(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "config_block_2", c)) break;
     }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // WS_EOL*
+  private static boolean config_block_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_block_4")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!WS_EOL(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "config_block_4", c)) break;
+    }
     return true;
+  }
+
+  // (config_item WS_EOL*)*
+  private static boolean config_block_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_block_5")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!config_block_5_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "config_block_5", c)) break;
+    }
+    return true;
+  }
+
+  // config_item WS_EOL*
+  private static boolean config_block_5_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_block_5_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = config_item(b, l + 1);
+    r = r && config_block_5_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // WS_EOL*
+  private static boolean config_block_5_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_block_5_0_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!WS_EOL(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "config_block_5_0_1", c)) break;
+    }
+    return true;
+  }
+
+  // WS_EOL*
+  private static boolean config_block_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_block_6")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!WS_EOL(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "config_block_6", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // IDENTIFIER expression
+  public static boolean config_item(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_item")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    r = r && expression(b, l + 1);
+    exit_section_(b, m, CONFIG_ITEM, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -307,7 +481,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   // ITEM_OPTIONAL?
   private static boolean field_type_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "field_type_1")) return false;
-    consumeToken(b, ITEM_OPTIONAL);
+    ITEM_OPTIONAL(b, l + 1);
     return true;
   }
 
@@ -323,7 +497,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "field_type_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, ARITY);
+    r = ARITY(b, l + 1);
     r = r && field_type_2_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
@@ -332,7 +506,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   // COLLECTION_OPTIONAL?
   private static boolean field_type_2_0_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "field_type_2_0_1")) return false;
-    consumeToken(b, COLLECTION_OPTIONAL);
+    COLLECTION_OPTIONAL(b, l + 1);
     return true;
   }
 
@@ -728,17 +902,41 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER ":" expression
+  // IDENTIFIER WHITESPACE* COLON WS_EOL* expression
   public static boolean named_argument(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "named_argument")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENTIFIER);
-    r = r && consumeToken(b, ":");
+    r = r && named_argument_1(b, l + 1);
+    r = r && consumeToken(b, COLON);
+    r = r && named_argument_3(b, l + 1);
     r = r && expression(b, l + 1);
     exit_section_(b, m, NAMED_ARGUMENT, r);
     return r;
+  }
+
+  // WHITESPACE*
+  private static boolean named_argument_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "named_argument_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeToken(b, WHITESPACE)) break;
+      if (!empty_element_parsed_guard_(b, "named_argument_1", c)) break;
+    }
+    return true;
+  }
+
+  // WS_EOL*
+  private static boolean named_argument_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "named_argument_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!WS_EOL(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "named_argument_3", c)) break;
+    }
+    return true;
   }
 
   /* ********************************************************** */

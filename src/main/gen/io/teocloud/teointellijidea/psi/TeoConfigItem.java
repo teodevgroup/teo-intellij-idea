@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TeoFieldType extends PsiElement {
+public interface TeoConfigItem extends PsiElement {
 
-  @Nullable
-  TeoArity getArity();
-
-  @Nullable
-  TeoCollectionOptional getCollectionOptional();
-
-  @Nullable
-  TeoItemOptional getItemOptional();
+  @NotNull
+  TeoExpression getExpression();
 
 }
