@@ -28,9 +28,15 @@ public class TeoArgumentImpl extends ASTWrapperPsiElement implements TeoArgument
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TeoExpression getExpression() {
-    return findNotNullChildByClass(TeoExpression.class);
+    return findChildByClass(TeoExpression.class);
+  }
+
+  @Override
+  @Nullable
+  public TeoNamedArgument getNamedArgument() {
+    return findChildByClass(TeoNamedArgument.class);
   }
 
 }

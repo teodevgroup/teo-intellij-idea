@@ -77,9 +77,9 @@ expression ::= (nullish_coalescing | literal | IDENTIFIER | group | pipeline) (s
 
 subscript ::= BRACK_OPEN ws_eol* expression ws_eol* BRACK_CLOSE
 
-argument_list ::= PAREN_OPEN (argument | named_argument)* PAREN_CLOSE
+argument_list ::= PAREN_OPEN (argument (padded_comma argument)* padded_comma?)? PAREN_CLOSE
 
-argument ::= expression
+argument ::= named_argument | expression
 
 named_argument ::= IDENTIFIER padded_colon expression
 

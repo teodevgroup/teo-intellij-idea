@@ -11,6 +11,6 @@ public interface TeoArgumentList extends PsiElement {
   List<TeoArgument> getArgumentList();
 
   @NotNull
-  List<TeoNamedArgument> getNamedArgumentList();
+  List<TeoPaddedComma> getPaddedCommaList();
 
 }

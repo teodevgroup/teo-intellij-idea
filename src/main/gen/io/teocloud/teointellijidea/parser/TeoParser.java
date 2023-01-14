@@ -107,18 +107,19 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // expression
+  // named_argument | expression
   public static boolean argument(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "argument")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ARGUMENT, "<argument>");
-    r = expression(b, l + 1);
+    r = named_argument(b, l + 1);
+    if (!r) r = expression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // PAREN_OPEN (argument | named_argument)* PAREN_CLOSE
+  // PAREN_OPEN (argument (padded_comma argument)* padded_comma?)? PAREN_CLOSE
   public static boolean argument_list(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "argument_list")) return false;
     if (!nextTokenIs(b, PAREN_OPEN)) return false;
@@ -131,24 +132,52 @@ public class TeoParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (argument | named_argument)*
+  // (argument (padded_comma argument)* padded_comma?)?
   private static boolean argument_list_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "argument_list_1")) return false;
+    argument_list_1_0(b, l + 1);
+    return true;
+  }
+
+  // argument (padded_comma argument)* padded_comma?
+  private static boolean argument_list_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "argument_list_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = argument(b, l + 1);
+    r = r && argument_list_1_0_1(b, l + 1);
+    r = r && argument_list_1_0_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (padded_comma argument)*
+  private static boolean argument_list_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "argument_list_1_0_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!argument_list_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "argument_list_1", c)) break;
+      if (!argument_list_1_0_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "argument_list_1_0_1", c)) break;
     }
     return true;
   }
 
-  // argument | named_argument
-  private static boolean argument_list_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "argument_list_1_0")) return false;
+  // padded_comma argument
+  private static boolean argument_list_1_0_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "argument_list_1_0_1_0")) return false;
     boolean r;
-    r = argument(b, l + 1);
-    if (!r) r = named_argument(b, l + 1);
+    Marker m = enter_section_(b);
+    r = padded_comma(b, l + 1);
+    r = r && argument(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
+  }
+
+  // padded_comma?
+  private static boolean argument_list_1_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "argument_list_1_0_2")) return false;
+    padded_comma(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */

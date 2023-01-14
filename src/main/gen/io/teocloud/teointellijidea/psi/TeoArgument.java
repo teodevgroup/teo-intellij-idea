@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface TeoArgument extends PsiElement {
 
-  @NotNull
+  @Nullable
   TeoExpression getExpression();
+
+  @Nullable
+  TeoNamedArgument getNamedArgument();
 
 }
