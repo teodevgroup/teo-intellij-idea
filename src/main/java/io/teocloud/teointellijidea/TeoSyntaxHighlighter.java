@@ -21,8 +21,8 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
             createTextAttributesKey("TEO_BOOL_LITERAL", DefaultLanguageHighlighterColors.CONSTANT);
     public static final TextAttributesKey STRING_LITERAL =
             createTextAttributesKey("TEO_STRING_LITERAL", DefaultLanguageHighlighterColors.STRING);
-    public static final TextAttributesKey NUMBER_LITERAL =
-            createTextAttributesKey("TEO_NUMBER_LITERAL", DefaultLanguageHighlighterColors.NUMBER);
+    public static final TextAttributesKey NUMERIC_LITERAL =
+            createTextAttributesKey("TEO_NUMERIC_LITERAL", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey COMMENT =
             createTextAttributesKey("TEO_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
     public static final TextAttributesKey DECORATOR = createTextAttributesKey("TEO_DECORATOR", DefaultLanguageHighlighterColors.CONSTANT);
@@ -32,7 +32,7 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
 
     private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
     private static final TextAttributesKey[] BOOL_KEYS = new TextAttributesKey[]{BOOL_LITERAL};
-    private static final TextAttributesKey[] NUMBER_KEYS = new TextAttributesKey[]{NUMBER_LITERAL};
+    private static final TextAttributesKey[] NUMERIC_KEYS = new TextAttributesKey[]{NUMERIC_LITERAL};
     private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING_LITERAL};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
     private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
@@ -65,8 +65,8 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(TeoTypes.BOOL_LITERAL)) {
             return BOOL_KEYS;
         }
-        if (tokenType.equals(TeoTypes.NUMBER_LITERAL)) {
-            return NUMBER_KEYS;
+        if (tokenType.equals(TeoTypes.NUMERIC_LITERAL)) {
+            return NUMERIC_KEYS;
         }
         if (tokenType.equals(TeoTypes.STRING_LITERAL)) {
             return STRING_KEYS;

@@ -8,6 +8,15 @@ import com.intellij.psi.PsiElement;
 public interface TeoLiteral extends PsiElement {
 
   @Nullable
+  TeoArrayLiteral getArrayLiteral();
+
+  @Nullable
+  TeoDictionaryLiteral getDictionaryLiteral();
+
+  @Nullable
   TeoEnumChoiceLiteral getEnumChoiceLiteral();
+
+  @Nullable
+  TeoTupleLiteral getTupleLiteral();
 
 }

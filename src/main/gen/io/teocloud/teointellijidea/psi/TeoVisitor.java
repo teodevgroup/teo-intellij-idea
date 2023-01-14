@@ -35,6 +35,10 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitArrayLiteral(@NotNull TeoArrayLiteral o) {
+    visitPsiElement(o);
+  }
+
   public void visitBlockDecorator(@NotNull TeoBlockDecorator o) {
     visitPsiElement(o);
   }
@@ -44,6 +48,10 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitConfigItem(@NotNull TeoConfigItem o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDictionaryLiteral(@NotNull TeoDictionaryLiteral o) {
     visitPsiElement(o);
   }
 
@@ -68,6 +76,10 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitGroup(@NotNull TeoGroup o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIdentifierUnit(@NotNull TeoIdentifierUnit o) {
     visitPsiElement(o);
   }
 
@@ -107,7 +119,19 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitNamedExpression(@NotNull TeoNamedExpression o) {
+    visitPsiElement(o);
+  }
+
   public void visitNullishCoalescing(@NotNull TeoNullishCoalescing o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPaddedColon(@NotNull TeoPaddedColon o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPaddedComma(@NotNull TeoPaddedComma o) {
     visitPsiElement(o);
   }
 
@@ -116,6 +140,10 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitSubscript(@NotNull TeoSubscript o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTupleLiteral(@NotNull TeoTupleLiteral o) {
     visitPsiElement(o);
   }
 

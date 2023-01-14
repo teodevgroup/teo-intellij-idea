@@ -66,8 +66,15 @@ argument ::= expression
 
 named_argument ::= IDENTIFIER WHITESPACE* COLON WS_EOL* expression
 
-unit ::= (group | NULL_LITERAL | BOOL_LITERAL | NUMERIC_LITERAL | STRING_LITERAL | enum_choice_literal | IDENTIFIER) (subscript | "." IDENTIFIER | argument_list)*
+padded_comma ::= WS_EOL* COMMA WS_EOL*
+padded_colon ::= WS_EOL* COLON WS_EOL*
+unit ::= (group | NULL_LITERAL | BOOL_LITERAL | NUMERIC_LITERAL | STRING_LITERAL | enum_choice_literal | tuple_literal | IDENTIFIER) (subscript | DOT IDENTIFIER | argument_list)*
+identifier_unit ::= IDENTIFIER (subscript | DOT IDENTIFIER | argument_list)*
+tuple_literal ::= PAREN_OPEN WS_EOL* (padded_comma | (expression padded_comma (expression (padded_comma expression)* padded_comma?)*)) WS_EOL* PAREN_CLOSE
+array_literal ::= BRACK_OPEN WS_EOL* (expression (padded_comma expression)* padded_comma?)? WS_EOL* BLOCK_CLOSE
+named_expression ::= expression WS_EOL* padded_colon WS_EOL* expression
+dictionary_literal ::= BLOCK_OPEN WS_EOL* (named_expression (padded_comma named_expression)* padded_comma?)? WS_EOL* BLOCK_CLOSE
 
-literal ::= STRING_LITERAL | NUMBER_LITERAL | BOOL_LITERAL | ARRAY_LITERAL | DICTIONARY_LITERAL | TUPLE_LITERAL | RANGE_LITERAL | enum_choice_literal
+literal ::= STRING_LITERAL | NUMERIC_LITERAL | BOOL_LITERAL | array_literal | dictionary_literal | tuple_literal | RANGE_LITERAL | enum_choice_literal
 
 enum_choice_literal ::= DOT IDENTIFIER

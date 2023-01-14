@@ -11,14 +11,14 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoLiteralImpl extends ASTWrapperPsiElement implements TeoLiteral {
+public class TeoIdentifierUnitImpl extends ASTWrapperPsiElement implements TeoIdentifierUnit {
 
-  public TeoLiteralImpl(@NotNull ASTNode node) {
+  public TeoIdentifierUnitImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitLiteral(this);
+    visitor.visitIdentifierUnit(this);
   }
 
   @Override
@@ -28,27 +28,15 @@ public class TeoLiteralImpl extends ASTWrapperPsiElement implements TeoLiteral {
   }
 
   @Override
-  @Nullable
-  public TeoArrayLiteral getArrayLiteral() {
-    return findChildByClass(TeoArrayLiteral.class);
+  @NotNull
+  public List<TeoArgumentList> getArgumentListList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoArgumentList.class);
   }
 
   @Override
-  @Nullable
-  public TeoDictionaryLiteral getDictionaryLiteral() {
-    return findChildByClass(TeoDictionaryLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoEnumChoiceLiteral getEnumChoiceLiteral() {
-    return findChildByClass(TeoEnumChoiceLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoTupleLiteral getTupleLiteral() {
-    return findChildByClass(TeoTupleLiteral.class);
+  @NotNull
+  public List<TeoSubscript> getSubscriptList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoSubscript.class);
   }
 
 }

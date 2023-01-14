@@ -5,21 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TeoUnit extends PsiElement {
+public interface TeoIdentifierUnit extends PsiElement {
 
   @NotNull
   List<TeoArgumentList> getArgumentListList();
 
-  @Nullable
-  TeoEnumChoiceLiteral getEnumChoiceLiteral();
-
-  @Nullable
-  TeoGroup getGroup();
-
   @NotNull
   List<TeoSubscript> getSubscriptList();
-
-  @Nullable
-  TeoTupleLiteral getTupleLiteral();
 
 }

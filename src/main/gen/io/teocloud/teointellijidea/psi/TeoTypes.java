@@ -11,17 +11,20 @@ public interface TeoTypes {
   IElementType ARGUMENT = new TeoElementType("ARGUMENT");
   IElementType ARGUMENT_LIST = new TeoElementType("ARGUMENT_LIST");
   IElementType ARITY = new TeoElementType("ARITY");
+  IElementType ARRAY_LITERAL = new TeoElementType("ARRAY_LITERAL");
   IElementType BLOCK_DECORATOR = new TeoElementType("BLOCK_DECORATOR");
   IElementType COLLECTION_OPTIONAL = new TeoElementType("COLLECTION_OPTIONAL");
   IElementType CONFIG_BLOCK = new TeoElementType("CONFIG_BLOCK");
   IElementType CONFIG_ITEM = new TeoElementType("CONFIG_ITEM");
   IElementType CONFIG_KEYWORDS = new TeoElementType("CONFIG_KEYWORDS");
+  IElementType DICTIONARY_LITERAL = new TeoElementType("DICTIONARY_LITERAL");
   IElementType ENUM_CHOICE_LITERAL = new TeoElementType("ENUM_CHOICE_LITERAL");
   IElementType ENUM_DEFINITION = new TeoElementType("ENUM_DEFINITION");
   IElementType EXPRESSION = new TeoElementType("EXPRESSION");
   IElementType FIELD_DEFINITION = new TeoElementType("FIELD_DEFINITION");
   IElementType FIELD_TYPE = new TeoElementType("FIELD_TYPE");
   IElementType GROUP = new TeoElementType("GROUP");
+  IElementType IDENTIFIER_UNIT = new TeoElementType("IDENTIFIER_UNIT");
   IElementType IMPORT_IDENTIFIER_LIST = new TeoElementType("IMPORT_IDENTIFIER_LIST");
   IElementType IMPORT_STATEMENT = new TeoElementType("IMPORT_STATEMENT");
   IElementType ITEM_DECORATOR = new TeoElementType("ITEM_DECORATOR");
@@ -32,13 +35,16 @@ public interface TeoTypes {
   IElementType MODEL_DEFINITION = new TeoElementType("MODEL_DEFINITION");
   IElementType MODEL_NAME = new TeoElementType("MODEL_NAME");
   IElementType NAMED_ARGUMENT = new TeoElementType("NAMED_ARGUMENT");
+  IElementType NAMED_EXPRESSION = new TeoElementType("NAMED_EXPRESSION");
   IElementType NULLISH_COALESCING = new TeoElementType("NULLISH_COALESCING");
+  IElementType PADDED_COLON = new TeoElementType("PADDED_COLON");
+  IElementType PADDED_COMMA = new TeoElementType("PADDED_COMMA");
   IElementType PIPELINE = new TeoElementType("PIPELINE");
   IElementType SUBSCRIPT = new TeoElementType("SUBSCRIPT");
+  IElementType TUPLE_LITERAL = new TeoElementType("TUPLE_LITERAL");
   IElementType UNIT = new TeoElementType("UNIT");
   IElementType WS_EOL = new TeoElementType("WS_EOL");
 
-  IElementType ARRAY_LITERAL = new TeoTokenType("ARRAY_LITERAL");
   IElementType AT = new TeoTokenType("AT");
   IElementType BLOCK_CLOSE = new TeoTokenType("BLOCK_CLOSE");
   IElementType BLOCK_OPEN = new TeoTokenType("BLOCK_OPEN");
@@ -51,7 +57,6 @@ public interface TeoTypes {
   IElementType COMMENT = new TeoTokenType("COMMENT");
   IElementType CONFIG_KEYWORD = new TeoTokenType("CONFIG_KEYWORD");
   IElementType CONNECTOR_KEYWORD = new TeoTokenType("CONNECTOR_KEYWORD");
-  IElementType DICTIONARY_LITERAL = new TeoTokenType("DICTIONARY_LITERAL");
   IElementType DOLLAR_SIGN = new TeoTokenType("DOLLAR_SIGN");
   IElementType DOT = new TeoTokenType("DOT");
   IElementType DOUBLE_AT = new TeoTokenType("DOUBLE_AT");
@@ -67,14 +72,12 @@ public interface TeoTypes {
   IElementType MODEL_KEYWORD = new TeoTokenType("MODEL_KEYWORD");
   IElementType NEWLINE = new TeoTokenType("NEWLINE");
   IElementType NULL_LITERAL = new TeoTokenType("NULL_LITERAL");
-  IElementType NUMBER_LITERAL = new TeoTokenType("NUMBER_LITERAL");
   IElementType NUMERIC_LITERAL = new TeoTokenType("NUMERIC_LITERAL");
   IElementType PAREN_CLOSE = new TeoTokenType("PAREN_CLOSE");
   IElementType PAREN_OPEN = new TeoTokenType("PAREN_OPEN");
   IElementType QUESTION = new TeoTokenType("QUESTION");
   IElementType RANGE_LITERAL = new TeoTokenType("RANGE_LITERAL");
   IElementType STRING_LITERAL = new TeoTokenType("STRING_LITERAL");
-  IElementType TUPLE_LITERAL = new TeoTokenType("TUPLE_LITERAL");
   IElementType WHITESPACE = new TeoTokenType("WHITESPACE");
 
   class Factory {
@@ -88,6 +91,9 @@ public interface TeoTypes {
       }
       else if (type == ARITY) {
         return new TeoArityImpl(node);
+      }
+      else if (type == ARRAY_LITERAL) {
+        return new TeoArrayLiteralImpl(node);
       }
       else if (type == BLOCK_DECORATOR) {
         return new TeoBlockDecoratorImpl(node);
@@ -103,6 +109,9 @@ public interface TeoTypes {
       }
       else if (type == CONFIG_KEYWORDS) {
         return new TeoConfigKeywordsImpl(node);
+      }
+      else if (type == DICTIONARY_LITERAL) {
+        return new TeoDictionaryLiteralImpl(node);
       }
       else if (type == ENUM_CHOICE_LITERAL) {
         return new TeoEnumChoiceLiteralImpl(node);
@@ -121,6 +130,9 @@ public interface TeoTypes {
       }
       else if (type == GROUP) {
         return new TeoGroupImpl(node);
+      }
+      else if (type == IDENTIFIER_UNIT) {
+        return new TeoIdentifierUnitImpl(node);
       }
       else if (type == IMPORT_IDENTIFIER_LIST) {
         return new TeoImportIdentifierListImpl(node);
@@ -152,14 +164,26 @@ public interface TeoTypes {
       else if (type == NAMED_ARGUMENT) {
         return new TeoNamedArgumentImpl(node);
       }
+      else if (type == NAMED_EXPRESSION) {
+        return new TeoNamedExpressionImpl(node);
+      }
       else if (type == NULLISH_COALESCING) {
         return new TeoNullishCoalescingImpl(node);
+      }
+      else if (type == PADDED_COLON) {
+        return new TeoPaddedColonImpl(node);
+      }
+      else if (type == PADDED_COMMA) {
+        return new TeoPaddedCommaImpl(node);
       }
       else if (type == PIPELINE) {
         return new TeoPipelineImpl(node);
       }
       else if (type == SUBSCRIPT) {
         return new TeoSubscriptImpl(node);
+      }
+      else if (type == TUPLE_LITERAL) {
+        return new TeoTupleLiteralImpl(node);
       }
       else if (type == UNIT) {
         return new TeoUnitImpl(node);

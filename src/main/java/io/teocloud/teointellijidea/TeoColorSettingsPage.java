@@ -15,7 +15,7 @@ public class TeoColorSettingsPage implements ColorSettingsPage {
 
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
             new AttributesDescriptor("Bool literal", TeoSyntaxHighlighter.BOOL_LITERAL),
-            new AttributesDescriptor("Number literal", TeoSyntaxHighlighter.NUMBER_LITERAL),
+            new AttributesDescriptor("Numeric literal", TeoSyntaxHighlighter.NUMERIC_LITERAL),
             new AttributesDescriptor("String literal", TeoSyntaxHighlighter.STRING_LITERAL),
             new AttributesDescriptor("Comment", TeoSyntaxHighlighter.COMMENT),
             new AttributesDescriptor("Bad value", TeoSyntaxHighlighter.BAD_CHARACTER)

@@ -11,14 +11,14 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoLiteralImpl extends ASTWrapperPsiElement implements TeoLiteral {
+public class TeoArrayLiteralImpl extends ASTWrapperPsiElement implements TeoArrayLiteral {
 
-  public TeoLiteralImpl(@NotNull ASTNode node) {
+  public TeoArrayLiteralImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitLiteral(this);
+    visitor.visitArrayLiteral(this);
   }
 
   @Override
@@ -28,27 +28,21 @@ public class TeoLiteralImpl extends ASTWrapperPsiElement implements TeoLiteral {
   }
 
   @Override
-  @Nullable
-  public TeoArrayLiteral getArrayLiteral() {
-    return findChildByClass(TeoArrayLiteral.class);
+  @NotNull
+  public List<TeoWsEol> getWsEolList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
   }
 
   @Override
-  @Nullable
-  public TeoDictionaryLiteral getDictionaryLiteral() {
-    return findChildByClass(TeoDictionaryLiteral.class);
+  @NotNull
+  public List<TeoExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoExpression.class);
   }
 
   @Override
-  @Nullable
-  public TeoEnumChoiceLiteral getEnumChoiceLiteral() {
-    return findChildByClass(TeoEnumChoiceLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoTupleLiteral getTupleLiteral() {
-    return findChildByClass(TeoTupleLiteral.class);
+  @NotNull
+  public List<TeoPaddedComma> getPaddedCommaList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoPaddedComma.class);
   }
 
 }

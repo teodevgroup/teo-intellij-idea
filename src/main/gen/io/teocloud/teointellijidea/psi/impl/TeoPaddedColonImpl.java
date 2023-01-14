@@ -11,14 +11,14 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoLiteralImpl extends ASTWrapperPsiElement implements TeoLiteral {
+public class TeoPaddedColonImpl extends ASTWrapperPsiElement implements TeoPaddedColon {
 
-  public TeoLiteralImpl(@NotNull ASTNode node) {
+  public TeoPaddedColonImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitLiteral(this);
+    visitor.visitPaddedColon(this);
   }
 
   @Override
@@ -28,27 +28,9 @@ public class TeoLiteralImpl extends ASTWrapperPsiElement implements TeoLiteral {
   }
 
   @Override
-  @Nullable
-  public TeoArrayLiteral getArrayLiteral() {
-    return findChildByClass(TeoArrayLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoDictionaryLiteral getDictionaryLiteral() {
-    return findChildByClass(TeoDictionaryLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoEnumChoiceLiteral getEnumChoiceLiteral() {
-    return findChildByClass(TeoEnumChoiceLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoTupleLiteral getTupleLiteral() {
-    return findChildByClass(TeoTupleLiteral.class);
+  @NotNull
+  public List<TeoWsEol> getWsEolList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWsEol.class);
   }
 
 }

@@ -51,4 +51,10 @@ public class TeoUnitImpl extends ASTWrapperPsiElement implements TeoUnit {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoSubscript.class);
   }
 
+  @Override
+  @Nullable
+  public TeoTupleLiteral getTupleLiteral() {
+    return findChildByClass(TeoTupleLiteral.class);
+  }
+
 }
