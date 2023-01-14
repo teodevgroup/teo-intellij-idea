@@ -7,4 +7,6 @@ public interface TeoTokenSets {
     TokenSet COMMENTS = TokenSet.create(TeoTypes.DOUBLE_LINE_COMMENT);
 
     TokenSet STRING_LITERAL = TokenSet.create(TeoTypes.STRING_LITERAL);
+
+    TokenSet DECORATOR_SET = TokenSet.create(TeoTypes.AT, TeoTypes.DOUBLE_AT, TeoTypes.IDENTIFIER);
 }
