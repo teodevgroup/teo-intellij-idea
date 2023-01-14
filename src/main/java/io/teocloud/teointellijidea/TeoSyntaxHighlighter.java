@@ -77,7 +77,7 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(TeoTypes.NULL_LITERAL)) {
             return NULL_KEYS;
         }
-        if (tokenType.equals(TeoTypes.COMMENT)) {
+        if (tokenType.equals(TeoTypes.DOUBLE_LINE_COMMENT) || tokenType.equals(TeoTypes.TRIPLE_LINE_COMMENT)) {
             return COMMENT_KEYS;
         }
         if (tokenType.equals(TeoTypes.AT) || tokenType.equals(TeoTypes.DOUBLE_AT)) {

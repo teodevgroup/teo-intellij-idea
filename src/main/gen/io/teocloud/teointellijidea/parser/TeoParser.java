@@ -214,6 +214,42 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // triple_line_comment_full_line triple_line_comment_full_line* WHITESPACE*
+  public static boolean bad_doc_comment(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "bad_doc_comment")) return false;
+    if (!nextTokenIs(b, "<bad doc comment>", TRIPLE_LINE_COMMENT, WHITESPACE)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, BAD_DOC_COMMENT, "<bad doc comment>");
+    r = triple_line_comment_full_line(b, l + 1);
+    r = r && bad_doc_comment_1(b, l + 1);
+    r = r && bad_doc_comment_2(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // triple_line_comment_full_line*
+  private static boolean bad_doc_comment_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "bad_doc_comment_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!triple_line_comment_full_line(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "bad_doc_comment_1", c)) break;
+    }
+    return true;
+  }
+
+  // WHITESPACE*
+  private static boolean bad_doc_comment_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "bad_doc_comment_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeToken(b, WHITESPACE)) break;
+      if (!empty_element_parsed_guard_(b, "bad_doc_comment_2", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
   // DOUBLE_AT identifier_unit
   public static boolean block_decorator(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "block_decorator")) return false;
@@ -947,7 +983,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // import_statement|let_declaration|model_definition|enum_definition|config_block|comment|NEWLINE|WHITESPACE
+  // import_statement|let_declaration|model_definition|enum_definition|config_block|comment|bad_doc_comment|NEWLINE|WHITESPACE
   static boolean item_(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_")) return false;
     boolean r;
@@ -957,6 +993,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     if (!r) r = enum_definition(b, l + 1);
     if (!r) r = config_block(b, l + 1);
     if (!r) r = comment(b, l + 1);
+    if (!r) r = bad_doc_comment(b, l + 1);
     if (!r) r = consumeToken(b, NEWLINE);
     if (!r) r = consumeToken(b, WHITESPACE);
     return r;

@@ -15,7 +15,7 @@
 
 teoFile ::= item_*
 
-private item_ ::= (import_statement|let_declaration|model_definition|enum_definition|config_block|comment|NEWLINE|WHITESPACE)
+private item_ ::= (import_statement|let_declaration|model_definition|enum_definition|config_block|comment|bad_doc_comment|NEWLINE|WHITESPACE)
 
 ws_eol ::= (NEWLINE | WHITESPACE)+
 new_line_with_leading_ws ::= NEWLINE WHITESPACE*
@@ -31,7 +31,7 @@ padded_paren_close ::= ws_eol? PAREN_CLOSE
 
 triple_line_comment_full_line ::= WHITESPACE* TRIPLE_LINE_COMMENT NEWLINE
 doc_comment ::= triple_line_comment_full_line triple_line_comment_full_line* WHITESPACE*
-
+bad_doc_comment ::= triple_line_comment_full_line triple_line_comment_full_line* WHITESPACE*
 comment ::= DOUBLE_LINE_COMMENT
 
 import_statement ::= IMPORT_KEYWORD ((ws_eol? import_identifier_list ws_eol?)|WHITESPACE+) STRING_LITERAL
