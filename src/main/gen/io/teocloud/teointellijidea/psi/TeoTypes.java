@@ -34,6 +34,7 @@ public interface TeoTypes {
   IElementType IDENTIFIER_UNIT = new TeoElementType("IDENTIFIER_UNIT");
   IElementType IMPORT_IDENTIFIER_LIST = new TeoElementType("IMPORT_IDENTIFIER_LIST");
   IElementType IMPORT_STATEMENT = new TeoElementType("IMPORT_STATEMENT");
+  IElementType INITIAL_UNIT_IDENTIFIER = new TeoElementType("INITIAL_UNIT_IDENTIFIER");
   IElementType ITEM_DECORATOR = new TeoElementType("ITEM_DECORATOR");
   IElementType ITEM_DECORATOR_LIST = new TeoElementType("ITEM_DECORATOR_LIST");
   IElementType ITEM_OPTIONAL = new TeoElementType("ITEM_OPTIONAL");
@@ -165,6 +166,9 @@ public interface TeoTypes {
       }
       else if (type == IMPORT_STATEMENT) {
         return new TeoImportStatementImpl(node);
+      }
+      else if (type == INITIAL_UNIT_IDENTIFIER) {
+        return new TeoInitialUnitIdentifierImpl(node);
       }
       else if (type == ITEM_DECORATOR) {
         return new TeoItemDecoratorImpl(node);

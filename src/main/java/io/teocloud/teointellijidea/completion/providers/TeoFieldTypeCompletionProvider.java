@@ -36,6 +36,7 @@ public class TeoFieldTypeCompletionProvider extends CompletionProvider<Completio
             createBuiltinType("Float64"),
             createBuiltinType("Date"),
             createBuiltinType("DateTime"),
+            createBuiltinType("ObjectId"), // todo: remove for non mongodb
     };
 
     private static LookupElementBuilder createBuiltinType(String name) {

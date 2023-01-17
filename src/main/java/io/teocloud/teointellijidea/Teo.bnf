@@ -88,7 +88,8 @@ argument ::= named_argument | expression
 named_argument ::= IDENTIFIER padded_colon expression
 
 unit ::= (group | NULL_LITERAL | BOOL_LITERAL | NUMERIC_LITERAL | STRING_LITERAL | enum_choice_literal | tuple_literal | IDENTIFIER) (subscript | DOT IDENTIFIER | argument_list)*
-identifier_unit ::= IDENTIFIER (subscript | DOT IDENTIFIER | argument_list)*
+identifier_unit ::= initial_unit_identifier (subscript | DOT IDENTIFIER | argument_list)*
+initial_unit_identifier ::= IDENTIFIER
 tuple_literal ::= padded_paren_open (padded_comma | (expression padded_comma (expression (padded_comma expression)* padded_comma?)*)) padded_paren_close
 array_literal ::= padded_brack_open (expression (padded_comma expression)* padded_comma?)? padded_brack_close
 named_expression ::= expression ws_eol* padded_colon ws_eol* expression

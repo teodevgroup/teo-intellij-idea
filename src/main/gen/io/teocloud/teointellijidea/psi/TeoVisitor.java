@@ -115,6 +115,10 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitInitialUnitIdentifier(@NotNull TeoInitialUnitIdentifier o) {
+    visitPsiElement(o);
+  }
+
   public void visitItemDecorator(@NotNull TeoItemDecorator o) {
     visitPsiElement(o);
   }

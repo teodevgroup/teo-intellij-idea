@@ -11,6 +11,9 @@ public interface TeoIdentifierUnit extends PsiElement {
   List<TeoArgumentList> getArgumentListList();
 
   @NotNull
+  TeoInitialUnitIdentifier getInitialUnitIdentifier();
+
+  @NotNull
   List<TeoSubscript> getSubscriptList();
 
 }

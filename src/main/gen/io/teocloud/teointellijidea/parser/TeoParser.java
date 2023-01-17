@@ -856,13 +856,13 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER (subscript | DOT IDENTIFIER | argument_list)*
+  // initial_unit_identifier (subscript | DOT IDENTIFIER | argument_list)*
   public static boolean identifier_unit(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "identifier_unit")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
+    r = initial_unit_identifier(b, l + 1);
     r = r && identifier_unit_1(b, l + 1);
     exit_section_(b, m, IDENTIFIER_UNIT, r);
     return r;
@@ -1032,6 +1032,18 @@ public class TeoParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "import_statement_1_1", c)) break;
     }
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // IDENTIFIER
+  public static boolean initial_unit_identifier(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "initial_unit_identifier")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, INITIAL_UNIT_IDENTIFIER, r);
     return r;
   }
 

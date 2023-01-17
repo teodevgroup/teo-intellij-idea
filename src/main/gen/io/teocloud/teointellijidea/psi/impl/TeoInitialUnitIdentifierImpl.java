@@ -11,38 +11,20 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoIdentifierUnitImpl extends ASTWrapperPsiElement implements TeoIdentifierUnit {
+public class TeoInitialUnitIdentifierImpl extends ASTWrapperPsiElement implements TeoInitialUnitIdentifier {
 
-  public TeoIdentifierUnitImpl(@NotNull ASTNode node) {
+  public TeoInitialUnitIdentifierImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitIdentifierUnit(this);
+    visitor.visitInitialUnitIdentifier(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TeoVisitor) accept((TeoVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<TeoArgumentList> getArgumentListList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoArgumentList.class);
-  }
-
-  @Override
-  @NotNull
-  public TeoInitialUnitIdentifier getInitialUnitIdentifier() {
-    return findNotNullChildByClass(TeoInitialUnitIdentifier.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TeoSubscript> getSubscriptList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoSubscript.class);
   }
 
 }
