@@ -23,14 +23,14 @@ public class TeoGlobalObjects {
                     new TeoStdArgumentList(List.of(new TeoStdArgument(TeoStdArgumentTypes.ENUM_MODEL_SCALAR_FIELDS, false))),
                     new TeoStdArgumentList(List.of(new TeoStdArgument(new TeoStdArrayArgumentType(new TeoStdArgument[]{new TeoStdArgument(TeoStdArgumentTypes.ENUM_MODEL_SCALAR_FIELDS, false)}), false))),
             }),
-            "unique", new TeoModelDecoratorObject("id", new TeoStdArgumentList[]{
+            "unique", new TeoModelDecoratorObject("unique", new TeoStdArgumentList[]{
                     new TeoStdArgumentList(List.of(new TeoStdArgument(TeoStdArgumentTypes.ENUM_MODEL_SCALAR_FIELDS, false))),
                     new TeoStdArgumentList(List.of(new TeoStdArgument(new TeoStdArrayArgumentType(new TeoStdArgument[]{new TeoStdArgument(TeoStdArgumentTypes.ENUM_MODEL_SCALAR_FIELDS, false)}), false))),
             }),
-            "index", new TeoModelDecoratorObject("id", new TeoStdArgumentList[]{
+            "index", new TeoModelDecoratorObject("index", new TeoStdArgumentList[]{
                     new TeoStdArgumentList(List.of(new TeoStdArgument(TeoStdArgumentTypes.ENUM_MODEL_SCALAR_FIELDS, false))),
                     new TeoStdArgumentList(List.of(new TeoStdArgument(new TeoStdArrayArgumentType(new TeoStdArgument[]{new TeoStdArgument(TeoStdArgumentTypes.ENUM_MODEL_SCALAR_FIELDS, false)}), false))),
             }),
-            "virtual", new TeoModelDecoratorObject("id", new TeoStdArgumentList[]{})
+            "virtual", new TeoModelDecoratorObject("virtual", new TeoStdArgumentList[]{})
     );
 }

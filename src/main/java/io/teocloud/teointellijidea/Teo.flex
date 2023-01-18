@@ -65,10 +65,7 @@ NULL_LITERAL="null"
 
 NUMERIC_LITERAL="-"?{DIGIT}+ ("." {DIGIT}+)?
 
-ESC="\\" ( [^] | "u" {HEX}{HEX}{HEX}{HEX} )
-CHAR=[^\r\n\'\"\\]
-STRING_BAD=\" ({CHAR} | {ESC} | \') *
-STRING_LITERAL={STRING_BAD} \"
+STRING_LITERAL = \"([^\\\"\r\n]|\\[^\r\n])*\"?
 
 %%
 

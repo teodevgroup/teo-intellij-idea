@@ -14,8 +14,8 @@
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+    <p>Teo schema language support.</p>
+    <p>Open any *.teo file with Teo language inside. There are number of features available:</p>
   ]]></description>
 
     <!-- Product and plugin compatibility requirements.
@@ -25,6 +25,7 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
+        <!-- Language -->
         <fileType
                 name="Teo File"
                 implementationClass="io.teocloud.teointellijidea.TeoFileType"
@@ -34,19 +35,32 @@
         <lang.parserDefinition
                 language="Teo"
                 implementationClass="io.teocloud.teointellijidea.TeoParserDefinition"/>
+        <!-- Syntax highlighting -->
         <lang.syntaxHighlighterFactory
                 language="Teo"
                 implementationClass="io.teocloud.teointellijidea.TeoSyntaxHighlighterFactory"/>
         <annotator
                 language="Teo"
                 implementationClass="io.teocloud.teointellijidea.TeoAnnotator"/>
+        <!-- Code completion -->
         <completion.contributor
                 language="Teo"
-                implementationClass="io.teocloud.teointellijidea.completion.TeoTypeCompletionContributor" />
-        <completion.contributor
-                language="Teo"
-                implementationClass="io.teocloud.teointellijidea.completion.TeoFunctionNameCompletionContributor" />
-
+                implementationClass="io.teocloud.teointellijidea.completion.TeoCompletionContributor" />
+        <typedHandler implementation="io.teocloud.teointellijidea.completion.handler.TeoTypedHandler"
+                      order="first, before completionAutoPopup"/>
+        <!-- Editor -->
+        <lang.commenter language="Teo"
+                        implementationClass="io.teocloud.teointellijidea.editor.TeoCommenter"/>
+        <lang.braceMatcher language="Teo"
+                           implementationClass="io.teocloud.teointellijidea.editor.TeoBraceMatcher"/>
+        <lang.quoteHandler language="Teo" implementationClass="io.teocloud.teointellijidea.editor.TeoQuoteHandler" />
+        <enterBetweenBracesDelegate language="Teo"
+                                    implementationClass="com.intellij.codeInsight.editorActions.enter.EnterBetweenBracesAndBracketsDelegate"/>
+        <lineIndentProvider implementation="io.teocloud.teointellijidea.editor.TeoLineIndentProvider"/>
+        <langCodeStyleSettingsProvider
+                implementation="io.teocloud.teointellijidea.formatter.TeoLanguageCodeStyleSettingsProvider"/>
+        <!-- Documentation -->
+        <lang.documentationProvider language="Teo"
+                                    implementationClass="io.teocloud.teointellijidea.documentation.TeoDocumentationProvider"/>
     </extensions>
-
 </idea-plugin>

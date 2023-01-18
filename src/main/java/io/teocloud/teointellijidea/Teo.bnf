@@ -17,7 +17,9 @@
 
 teoFile ::= item_*
 
-private item_ ::= (import_statement|let_declaration|model_definition|enum_definition|config_block|comment|bad_doc_comment|NEWLINE|WHITESPACE)
+private item_ ::= (import_statement|let_declaration|model_definition|enum_definition|config_block|comment|bad_doc_comment|NEWLINE|WHITESPACE|bad_top_identifier)
+
+bad_top_identifier ::= IDENTIFIER
 
 private ws_eol ::= (NEWLINE | WHITESPACE)+
 private new_line_with_leading_ws ::= NEWLINE WHITESPACE*

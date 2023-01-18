@@ -13,6 +13,7 @@ public interface TeoTypes {
   IElementType ARITY = new TeoElementType("ARITY");
   IElementType ARRAY_LITERAL = new TeoElementType("ARRAY_LITERAL");
   IElementType BAD_DOC_COMMENT = new TeoElementType("BAD_DOC_COMMENT");
+  IElementType BAD_TOP_IDENTIFIER = new TeoElementType("BAD_TOP_IDENTIFIER");
   IElementType BLOCK_DECORATOR = new TeoElementType("BLOCK_DECORATOR");
   IElementType COLLECTION_OPTIONAL = new TeoElementType("COLLECTION_OPTIONAL");
   IElementType COMMENT = new TeoElementType("COMMENT");
@@ -103,6 +104,9 @@ public interface TeoTypes {
       }
       else if (type == BAD_DOC_COMMENT) {
         return new TeoBadDocCommentImpl(node);
+      }
+      else if (type == BAD_TOP_IDENTIFIER) {
+        return new TeoBadTopIdentifierImpl(node);
       }
       else if (type == BLOCK_DECORATOR) {
         return new TeoBlockDecoratorImpl(node);

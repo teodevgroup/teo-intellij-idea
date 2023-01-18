@@ -279,6 +279,18 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // IDENTIFIER
+  public static boolean bad_top_identifier(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "bad_top_identifier")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, BAD_TOP_IDENTIFIER, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // DOUBLE_AT identifier_unit
   public static boolean block_decorator(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "block_decorator")) return false;
@@ -1048,7 +1060,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // import_statement|let_declaration|model_definition|enum_definition|config_block|comment|bad_doc_comment|NEWLINE|WHITESPACE
+  // import_statement|let_declaration|model_definition|enum_definition|config_block|comment|bad_doc_comment|NEWLINE|WHITESPACE|bad_top_identifier
   static boolean item_(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_")) return false;
     boolean r;
@@ -1061,6 +1073,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     if (!r) r = bad_doc_comment(b, l + 1);
     if (!r) r = consumeToken(b, NEWLINE);
     if (!r) r = consumeToken(b, WHITESPACE);
+    if (!r) r = bad_top_identifier(b, l + 1);
     return r;
   }
 
