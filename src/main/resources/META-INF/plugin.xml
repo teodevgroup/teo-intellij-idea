@@ -64,6 +64,6 @@
                                     implementationClass="io.teocloud.teointellijidea.documentation.TeoDocumentationProvider"/>
         <!-- Templates -->
         <defaultLiveTemplates file="/liveTemplates/Teo.xml"/>
-        <liveTemplateContext implementation="io.teocloud.teointellijidea.snippets.TeoTemplateProvider"/>
+        <liveTemplateContext implementation="io.teocloud.teointellijidea.snippets.TeoTopLevelTemplateProvider"/>
     </extensions>
 </idea-plugin>
