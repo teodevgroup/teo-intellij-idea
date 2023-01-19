@@ -14,13 +14,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class TeoLineIndentProvider extends JavaLikeLangLineIndentProvider {
 
-    @Override
-    public SemanticEditorPosition getPosition(@NotNull Editor editor, int offset) {
-        SemanticEditorPosition pos = super.getPosition(editor, offset);
-        System.out.println(pos);
-        return pos;
-    }
-
     private static final ImmutableMap<IElementType, SemanticEditorPosition.SyntaxElement> SYNTAX_MAP = ImmutableMap.<IElementType, SemanticEditorPosition.SyntaxElement>builder()
             .put(TokenType.WHITE_SPACE, JavaLikeElement.Whitespace)
             .put(TeoTypes.WHITESPACE, JavaLikeElement.Whitespace)
