@@ -39,6 +39,10 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBadTopDecorator(@NotNull TeoBadTopDecorator o) {
+    visitPsiElement(o);
+  }
+
   public void visitBadTopIdentifier(@NotNull TeoBadTopIdentifier o) {
     visitPsiElement(o);
   }

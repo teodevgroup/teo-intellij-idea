@@ -21,7 +21,9 @@ public class TeoCompletionContributor extends CompletionContributor {
                                 PlatformPatterns.psiElement(TeoTypes.IDENTIFIER)
                                         .withSuperParent(5, TeoModelDefinition.class),
                                 PlatformPatterns.psiElement(TeoTypes.IDENTIFIER)
-                                        .withSuperParent(3, TeoBlockDecorator.class)),
+                                        .withSuperParent(3, TeoBlockDecorator.class),
+                                PlatformPatterns.psiElement(TeoTypes.IDENTIFIER)
+                                        .withSuperParent(3, TeoBadTopDecorator.class)),
                 new TeoModelDecoratorCompletionProvider());
         extend(CompletionType.BASIC,
                 PlatformPatterns.psiElement(TeoTypes.IDENTIFIER)

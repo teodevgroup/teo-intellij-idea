@@ -279,6 +279,19 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // AT identifier_unit
+  public static boolean bad_top_decorator(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "bad_top_decorator")) return false;
+    if (!nextTokenIs(b, AT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, AT);
+    r = r && identifier_unit(b, l + 1);
+    exit_section_(b, m, BAD_TOP_DECORATOR, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // IDENTIFIER
   public static boolean bad_top_identifier(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "bad_top_identifier")) return false;
@@ -1060,7 +1073,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // import_statement|let_declaration|model_definition|enum_definition|config_block|comment|bad_doc_comment|NEWLINE|WHITESPACE|bad_top_identifier
+  // import_statement|let_declaration|model_definition|enum_definition|config_block|comment|bad_doc_comment|NEWLINE|WHITESPACE|bad_top_identifier|bad_top_decorator
   static boolean item_(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_")) return false;
     boolean r;
@@ -1074,6 +1087,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, NEWLINE);
     if (!r) r = consumeToken(b, WHITESPACE);
     if (!r) r = bad_top_identifier(b, l + 1);
+    if (!r) r = bad_top_decorator(b, l + 1);
     return r;
   }
 
@@ -1327,30 +1341,6 @@ public class TeoParser implements PsiParser, LightPsiParser {
       int c = current_position_(b);
       if (!ws_eol(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "named_expression_3", c)) break;
-    }
-    return true;
-  }
-
-  /* ********************************************************** */
-  // NEWLINE WHITESPACE*
-  static boolean new_line_with_leading_ws(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "new_line_with_leading_ws")) return false;
-    if (!nextTokenIs(b, NEWLINE)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, NEWLINE);
-    r = r && new_line_with_leading_ws_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // WHITESPACE*
-  private static boolean new_line_with_leading_ws_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "new_line_with_leading_ws_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!consumeToken(b, WHITESPACE)) break;
-      if (!empty_element_parsed_guard_(b, "new_line_with_leading_ws_1", c)) break;
     }
     return true;
   }
