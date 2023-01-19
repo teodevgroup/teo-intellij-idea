@@ -21,15 +21,17 @@
             <option name="TEO_TOP" value="true"/>
         </context>
     </template>
-    <template name="import" value="import $END$" description="Import a file"
+    <template name="import" value="import &#34;$fileName$&#34;$END$" description="Import a file"
               toReformat="false" toShortenFQNames="true">
+        <variable name="fileName" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true"/>
         <context>
             <option name="TEO_TOP" value="true"/>
         </context>
     </template>
-    <template name="import from" value="import { $identifier$ } from $END$" description="Import from a file"
+    <template name="import from" value="import { $identifier$ } from &#34;$fileName$&#34;$END$" description="Import from a file"
               toReformat="false" toShortenFQNames="true">
-        <variable name="identifier" expression="" defaultValue="&quot;IDENTIFIER&quot;" alwaysStopAt="true"/>
+        <variable name="identifier" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true"/>
+        <variable name="fileName" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true"/>
         <context>
             <option name="TEO_TOP" value="true"/>
         </context>
