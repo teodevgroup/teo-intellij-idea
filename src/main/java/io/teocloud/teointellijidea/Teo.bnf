@@ -47,7 +47,11 @@ import_identifiers_block ::= padded_block_open (IDENTIFIER (COMMA IDENTIFIER)* C
 
 let_declaration ::= doc_comment? LET_KEYWORD WHITESPACE+ IDENTIFIER WHITESPACE* EQUAL_SIGN WHITESPACE* expression
 
-model_definition ::= doc_comment? item_decorator_list? MODEL_KEYWORD ws_eol model_name ws_eol? model_definition_block
+model_definition ::= doc_comment? item_decorator_list? MODEL_KEYWORD ws_eol model_name ws_eol? model_definition_block {
+    mixin="org.intellij.prisma.lang.psi.impl.PrismaModelTypeDeclarationMixin"
+    implements="org.intellij.prisma.lang.psi.PrismaModelTypeDeclaration"
+    pin=1
+}
 model_definition_block ::= padded_block_open (block_decorator | field_definition | comment | ws_eol)* padded_block_close
 item_decorator_list ::= item_decorator (ws_eol item_decorator)* ws_eol
 model_name ::= IDENTIFIER

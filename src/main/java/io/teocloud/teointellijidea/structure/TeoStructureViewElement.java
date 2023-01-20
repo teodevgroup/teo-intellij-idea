@@ -1,11 +1,29 @@
 package io.teocloud.teointellijidea.structure;
 
+import com.intellij.icons.AllIcons;
+import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.util.treeView.smartTree.SortableTreeElement;
 import com.intellij.ide.util.treeView.smartTree.TreeElement;
+import com.intellij.lang.folding.FoldingDescriptor;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.NavigatablePsiElement;
+import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.ui.JBColor;
+import com.intellij.ui.SimpleTextAttributes;
+import io.teocloud.teointellijidea.psi.*;
+import io.teocloud.teointellijidea.psi.impl.TeoConfigBlockImpl;
+import io.teocloud.teointellijidea.psi.impl.TeoEnumDefinitionBlockImpl;
+import io.teocloud.teointellijidea.psi.impl.TeoModelDefinitionBlockImpl;
+import org.apache.groovy.util.Arrays;
 import org.jetbrains.annotations.NotNull;
+
+import java.awt.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import static com.intellij.ui.SimpleTextAttributes.STYLE_BOLD;
 
 public class TeoStructureViewElement implements StructureViewTreeElement, SortableTreeElement {
     private final NavigatablePsiElement element;
@@ -14,42 +32,71 @@ public class TeoStructureViewElement implements StructureViewTreeElement, Sortab
         this.element = element;
     }
 
-    public NavigatablePsiElement getElement() {
+    @Override
+    public Object getValue() {
         return element;
     }
 
     @Override
-    public Object getValue() {
-        return null;
-    }
-
-    @Override
     public @NotNull String getAlphaSortKey() {
-        return null;
+        return element.getName() != null ? element.getName() : "";
     }
 
     @Override
     public @NotNull ItemPresentation getPresentation() {
-        return null;
+        PresentationData data = new PresentationData();
+        if (element instanceof TeoFile) {
+            return Objects.requireNonNull(element.getPresentation());
+        } else if (element instanceof TeoModelDefinition) {
+            data.setBackground(JBColor.RED);
+            data.setForcedTextForeground(JBColor.BLUE);
+            data.setIcon(AllIcons.Nodes.ModelClass);
+            data.setPresentableText(((TeoModelDefinition)element).getModelName().getText());
+            data.setLocationString("A");
+        } else if (element instanceof TeoEnumDefinition) {
+            data.setIcon(AllIcons.Nodes.Enum);
+            data.setPresentableText(((TeoEnumDefinition)element).getEnumName().getText());
+            data.setBackground(JBColor.RED);
+            data.setForcedTextForeground(JBColor.BLUE);
+        } else if (element instanceof TeoConfigDefinition) {
+            data.setIcon(AllIcons.Nodes.Editorconfig);
+            data.setPresentableText(((TeoConfigDefinition)element).getConfigKeywords().getText());
+            data.setBackground(JBColor.RED);
+            data.setForcedTextForeground(JBColor.BLUE);
+        }
+        return data;
     }
 
     @Override
     public TreeElement @NotNull [] getChildren() {
-        return new TreeElement[0];
+        if (element instanceof TeoFile) {
+            List<TeoStructureViewElement> eles = PsiTreeUtil.findChildrenOfAnyType(element,
+                    TeoModelDefinitionBlockImpl.class,
+                    TeoEnumDefinitionBlockImpl.class,
+                    TeoConfigBlockImpl.class).stream().map(TeoStructureViewElement::new).collect(Collectors.toList());
+            TeoStructureViewElement[] array = new TeoStructureViewElement[eles.size()];
+            return eles.toArray(array);
+        } else if (element instanceof TeoModelDefinition) {
+            return new TreeElement[]{};
+        } else if (element instanceof TeoEnumDefinition) {
+            return new TreeElement[]{};
+        } else {
+            return new TreeElement[]{};
+        }
     }
 
     @Override
     public void navigate(boolean requestFocus) {
-
+        element.navigate(requestFocus);
     }
 
     @Override
     public boolean canNavigate() {
-        return false;
+        return element.canNavigate();
     }
 
     @Override
     public boolean canNavigateToSource() {
-        return false;
+        return element.canNavigateToSource();
     }
 }
