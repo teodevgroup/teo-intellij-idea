@@ -5,12 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TeoConfigBlock extends PsiElement {
+public interface TeoEnumDefinitionBlock extends PsiElement {
+
+  @NotNull
+  List<TeoBlockDecorator> getBlockDecoratorList();
 
   @NotNull
   List<TeoComment> getCommentList();
 
   @NotNull
-  List<TeoConfigItem> getConfigItemList();
+  List<TeoEnumValueDeclaration> getEnumValueDeclarationList();
 
 }

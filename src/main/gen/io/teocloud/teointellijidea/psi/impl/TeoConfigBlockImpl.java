@@ -29,12 +29,6 @@ public class TeoConfigBlockImpl extends ASTWrapperPsiElement implements TeoConfi
 
   @Override
   @NotNull
-  public TeoConfigKeywords getConfigKeywords() {
-    return findNotNullChildByClass(TeoConfigKeywords.class);
-  }
-
-  @Override
-  @NotNull
   public List<TeoComment> getCommentList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoComment.class);
   }

@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TeoConfigBlock extends PsiElement {
-
-  @NotNull
-  List<TeoComment> getCommentList();
-
-  @NotNull
-  List<TeoConfigItem> getConfigItemList();
+public interface TeoImportIdentifiersBlock extends PsiElement {
 
 }

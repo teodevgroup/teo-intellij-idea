@@ -27,4 +27,10 @@ public class TeoImportIdentifierListImpl extends ASTWrapperPsiElement implements
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public TeoImportIdentifiersBlock getImportIdentifiersBlock() {
+    return findNotNullChildByClass(TeoImportIdentifiersBlock.class);
+  }
+
 }

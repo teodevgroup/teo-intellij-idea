@@ -329,105 +329,117 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONFIG_KEYWORDS (WHITESPACE+ IDENTIFIER)? ws_eol+ padded_block_open (ws_eol? (config_item|comment) NEWLINE)* padded_block_close
+  // padded_block_open (ws_eol? (config_item|comment) NEWLINE)* padded_block_close
   public static boolean config_block(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "config_block")) return false;
+    if (!nextTokenIs(b, BLOCK_OPEN)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, CONFIG_BLOCK, "<config block>");
-    r = CONFIG_KEYWORDS(b, l + 1);
+    Marker m = enter_section_(b);
+    r = padded_block_open(b, l + 1);
     r = r && config_block_1(b, l + 1);
-    r = r && config_block_2(b, l + 1);
-    r = r && padded_block_open(b, l + 1);
-    r = r && config_block_4(b, l + 1);
     r = r && padded_block_close(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // (WHITESPACE+ IDENTIFIER)?
-  private static boolean config_block_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "config_block_1")) return false;
-    config_block_1_0(b, l + 1);
-    return true;
-  }
-
-  // WHITESPACE+ IDENTIFIER
-  private static boolean config_block_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "config_block_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = config_block_1_0_0(b, l + 1);
-    r = r && consumeToken(b, IDENTIFIER);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // WHITESPACE+
-  private static boolean config_block_1_0_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "config_block_1_0_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, WHITESPACE);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, WHITESPACE)) break;
-      if (!empty_element_parsed_guard_(b, "config_block_1_0_0", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // ws_eol+
-  private static boolean config_block_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "config_block_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = ws_eol(b, l + 1);
-    while (r) {
-      int c = current_position_(b);
-      if (!ws_eol(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "config_block_2", c)) break;
-    }
-    exit_section_(b, m, null, r);
+    exit_section_(b, m, CONFIG_BLOCK, r);
     return r;
   }
 
   // (ws_eol? (config_item|comment) NEWLINE)*
-  private static boolean config_block_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "config_block_4")) return false;
+  private static boolean config_block_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_block_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!config_block_4_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "config_block_4", c)) break;
+      if (!config_block_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "config_block_1", c)) break;
     }
     return true;
   }
 
   // ws_eol? (config_item|comment) NEWLINE
-  private static boolean config_block_4_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "config_block_4_0")) return false;
+  private static boolean config_block_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_block_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = config_block_4_0_0(b, l + 1);
-    r = r && config_block_4_0_1(b, l + 1);
+    r = config_block_1_0_0(b, l + 1);
+    r = r && config_block_1_0_1(b, l + 1);
     r = r && consumeToken(b, NEWLINE);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // ws_eol?
-  private static boolean config_block_4_0_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "config_block_4_0_0")) return false;
+  private static boolean config_block_1_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_block_1_0_0")) return false;
     ws_eol(b, l + 1);
     return true;
   }
 
   // config_item|comment
-  private static boolean config_block_4_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "config_block_4_0_1")) return false;
+  private static boolean config_block_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_block_1_0_1")) return false;
     boolean r;
     r = config_item(b, l + 1);
     if (!r) r = comment(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // CONFIG_KEYWORDS (WHITESPACE+ IDENTIFIER)? ws_eol+ config_block
+  public static boolean config_definition(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_definition")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, CONFIG_DEFINITION, "<config definition>");
+    r = CONFIG_KEYWORDS(b, l + 1);
+    r = r && config_definition_1(b, l + 1);
+    r = r && config_definition_2(b, l + 1);
+    r = r && config_block(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (WHITESPACE+ IDENTIFIER)?
+  private static boolean config_definition_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_definition_1")) return false;
+    config_definition_1_0(b, l + 1);
+    return true;
+  }
+
+  // WHITESPACE+ IDENTIFIER
+  private static boolean config_definition_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_definition_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = config_definition_1_0_0(b, l + 1);
+    r = r && consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // WHITESPACE+
+  private static boolean config_definition_1_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_definition_1_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, WHITESPACE);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, WHITESPACE)) break;
+      if (!empty_element_parsed_guard_(b, "config_definition_1_0_0", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ws_eol+
+  private static boolean config_definition_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_definition_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = ws_eol(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!ws_eol(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "config_definition_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -590,7 +602,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // doc_comment? item_decorator_list? ENUM_KEYWORD ws_eol enum_name ws_eol? padded_block_open (block_decorator | enum_value_declaration | comment | ws_eol)* padded_block_close
+  // doc_comment? item_decorator_list? ENUM_KEYWORD ws_eol enum_name ws_eol? enum_definition_block
   public static boolean enum_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "enum_definition")) return false;
     boolean r;
@@ -601,9 +613,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     r = r && ws_eol(b, l + 1);
     r = r && enum_name(b, l + 1);
     r = r && enum_definition_5(b, l + 1);
-    r = r && padded_block_open(b, l + 1);
-    r = r && enum_definition_7(b, l + 1);
-    r = r && padded_block_close(b, l + 1);
+    r = r && enum_definition_block(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -629,20 +639,34 @@ public class TeoParser implements PsiParser, LightPsiParser {
     return true;
   }
 
+  /* ********************************************************** */
+  // padded_block_open (block_decorator | enum_value_declaration | comment | ws_eol)* padded_block_close
+  public static boolean enum_definition_block(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enum_definition_block")) return false;
+    if (!nextTokenIs(b, BLOCK_OPEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = padded_block_open(b, l + 1);
+    r = r && enum_definition_block_1(b, l + 1);
+    r = r && padded_block_close(b, l + 1);
+    exit_section_(b, m, ENUM_DEFINITION_BLOCK, r);
+    return r;
+  }
+
   // (block_decorator | enum_value_declaration | comment | ws_eol)*
-  private static boolean enum_definition_7(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "enum_definition_7")) return false;
+  private static boolean enum_definition_block_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enum_definition_block_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!enum_definition_7_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "enum_definition_7", c)) break;
+      if (!enum_definition_block_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "enum_definition_block_1", c)) break;
     }
     return true;
   }
 
   // block_decorator | enum_value_declaration | comment | ws_eol
-  private static boolean enum_definition_7_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "enum_definition_7_0")) return false;
+  private static boolean enum_definition_block_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enum_definition_block_1_0")) return false;
     boolean r;
     r = block_decorator(b, l + 1);
     if (!r) r = enum_value_declaration(b, l + 1);
@@ -917,66 +941,24 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // padded_block_open (IDENTIFIER (COMMA IDENTIFIER)* COMMA?)? padded_block_close ws_eol? FROM_KEYWORD ws_eol?
+  // import_identifiers_block ws_eol? FROM_KEYWORD ws_eol?
   public static boolean import_identifier_list(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "import_identifier_list")) return false;
     if (!nextTokenIs(b, BLOCK_OPEN)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = padded_block_open(b, l + 1);
+    r = import_identifiers_block(b, l + 1);
     r = r && import_identifier_list_1(b, l + 1);
-    r = r && padded_block_close(b, l + 1);
-    r = r && import_identifier_list_3(b, l + 1);
     r = r && consumeToken(b, FROM_KEYWORD);
-    r = r && import_identifier_list_5(b, l + 1);
+    r = r && import_identifier_list_3(b, l + 1);
     exit_section_(b, m, IMPORT_IDENTIFIER_LIST, r);
     return r;
   }
 
-  // (IDENTIFIER (COMMA IDENTIFIER)* COMMA?)?
+  // ws_eol?
   private static boolean import_identifier_list_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "import_identifier_list_1")) return false;
-    import_identifier_list_1_0(b, l + 1);
-    return true;
-  }
-
-  // IDENTIFIER (COMMA IDENTIFIER)* COMMA?
-  private static boolean import_identifier_list_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "import_identifier_list_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    r = r && import_identifier_list_1_0_1(b, l + 1);
-    r = r && import_identifier_list_1_0_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // (COMMA IDENTIFIER)*
-  private static boolean import_identifier_list_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "import_identifier_list_1_0_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!import_identifier_list_1_0_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "import_identifier_list_1_0_1", c)) break;
-    }
-    return true;
-  }
-
-  // COMMA IDENTIFIER
-  private static boolean import_identifier_list_1_0_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "import_identifier_list_1_0_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, COMMA, IDENTIFIER);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // COMMA?
-  private static boolean import_identifier_list_1_0_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "import_identifier_list_1_0_2")) return false;
-    consumeToken(b, COMMA);
+    ws_eol(b, l + 1);
     return true;
   }
 
@@ -987,10 +969,64 @@ public class TeoParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // ws_eol?
-  private static boolean import_identifier_list_5(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "import_identifier_list_5")) return false;
-    ws_eol(b, l + 1);
+  /* ********************************************************** */
+  // padded_block_open (IDENTIFIER (COMMA IDENTIFIER)* COMMA?)? padded_block_close
+  public static boolean import_identifiers_block(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_identifiers_block")) return false;
+    if (!nextTokenIs(b, BLOCK_OPEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = padded_block_open(b, l + 1);
+    r = r && import_identifiers_block_1(b, l + 1);
+    r = r && padded_block_close(b, l + 1);
+    exit_section_(b, m, IMPORT_IDENTIFIERS_BLOCK, r);
+    return r;
+  }
+
+  // (IDENTIFIER (COMMA IDENTIFIER)* COMMA?)?
+  private static boolean import_identifiers_block_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_identifiers_block_1")) return false;
+    import_identifiers_block_1_0(b, l + 1);
+    return true;
+  }
+
+  // IDENTIFIER (COMMA IDENTIFIER)* COMMA?
+  private static boolean import_identifiers_block_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_identifiers_block_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    r = r && import_identifiers_block_1_0_1(b, l + 1);
+    r = r && import_identifiers_block_1_0_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (COMMA IDENTIFIER)*
+  private static boolean import_identifiers_block_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_identifiers_block_1_0_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!import_identifiers_block_1_0_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "import_identifiers_block_1_0_1", c)) break;
+    }
+    return true;
+  }
+
+  // COMMA IDENTIFIER
+  private static boolean import_identifiers_block_1_0_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_identifiers_block_1_0_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, COMMA, IDENTIFIER);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // COMMA?
+  private static boolean import_identifiers_block_1_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_identifiers_block_1_0_2")) return false;
+    consumeToken(b, COMMA);
     return true;
   }
 
@@ -1073,7 +1109,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // import_statement|let_declaration|model_definition|enum_definition|config_block|comment|bad_doc_comment|NEWLINE|WHITESPACE|bad_top_identifier|bad_top_decorator
+  // import_statement|let_declaration|model_definition|enum_definition|config_definition|comment|bad_doc_comment|NEWLINE|WHITESPACE|bad_top_identifier|bad_top_decorator
   static boolean item_(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_")) return false;
     boolean r;
@@ -1081,7 +1117,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     if (!r) r = let_declaration(b, l + 1);
     if (!r) r = model_definition(b, l + 1);
     if (!r) r = enum_definition(b, l + 1);
-    if (!r) r = config_block(b, l + 1);
+    if (!r) r = config_definition(b, l + 1);
     if (!r) r = comment(b, l + 1);
     if (!r) r = bad_doc_comment(b, l + 1);
     if (!r) r = consumeToken(b, NEWLINE);
@@ -1221,7 +1257,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // doc_comment? item_decorator_list? MODEL_KEYWORD ws_eol model_name ws_eol? padded_block_open (block_decorator | field_definition | comment | ws_eol)* padded_block_close
+  // doc_comment? item_decorator_list? MODEL_KEYWORD ws_eol model_name ws_eol? model_definition_block
   public static boolean model_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "model_definition")) return false;
     boolean r;
@@ -1232,9 +1268,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     r = r && ws_eol(b, l + 1);
     r = r && model_name(b, l + 1);
     r = r && model_definition_5(b, l + 1);
-    r = r && padded_block_open(b, l + 1);
-    r = r && model_definition_7(b, l + 1);
-    r = r && padded_block_close(b, l + 1);
+    r = r && model_definition_block(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1260,20 +1294,34 @@ public class TeoParser implements PsiParser, LightPsiParser {
     return true;
   }
 
+  /* ********************************************************** */
+  // padded_block_open (block_decorator | field_definition | comment | ws_eol)* padded_block_close
+  public static boolean model_definition_block(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "model_definition_block")) return false;
+    if (!nextTokenIs(b, BLOCK_OPEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = padded_block_open(b, l + 1);
+    r = r && model_definition_block_1(b, l + 1);
+    r = r && padded_block_close(b, l + 1);
+    exit_section_(b, m, MODEL_DEFINITION_BLOCK, r);
+    return r;
+  }
+
   // (block_decorator | field_definition | comment | ws_eol)*
-  private static boolean model_definition_7(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "model_definition_7")) return false;
+  private static boolean model_definition_block_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "model_definition_block_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!model_definition_7_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "model_definition_7", c)) break;
+      if (!model_definition_block_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "model_definition_block_1", c)) break;
     }
     return true;
   }
 
   // block_decorator | field_definition | comment | ws_eol
-  private static boolean model_definition_7_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "model_definition_7_0")) return false;
+  private static boolean model_definition_block_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "model_definition_block_1_0")) return false;
     boolean r;
     r = block_decorator(b, l + 1);
     if (!r) r = field_definition(b, l + 1);

@@ -17,7 +17,7 @@
 
 teoFile ::= item_*
 
-private item_ ::= (import_statement|let_declaration|model_definition|enum_definition|config_block|comment|bad_doc_comment|NEWLINE|WHITESPACE|bad_top_identifier|bad_top_decorator)
+private item_ ::= (import_statement|let_declaration|model_definition|enum_definition|config_definition|comment|bad_doc_comment|NEWLINE|WHITESPACE|bad_top_identifier|bad_top_decorator)
 
 bad_top_identifier ::= IDENTIFIER
 
@@ -42,16 +42,19 @@ comment ::= DOUBLE_LINE_COMMENT
 
 import_statement ::= IMPORT_KEYWORD ((ws_eol? import_identifier_list ws_eol?)|WHITESPACE+) STRING_LITERAL
 
-import_identifier_list ::= padded_block_open (IDENTIFIER (COMMA IDENTIFIER)* COMMA?)? padded_block_close ws_eol? FROM_KEYWORD ws_eol?
+import_identifier_list ::= import_identifiers_block ws_eol? FROM_KEYWORD ws_eol?
+import_identifiers_block ::= padded_block_open (IDENTIFIER (COMMA IDENTIFIER)* COMMA?)? padded_block_close
 
 let_declaration ::= doc_comment? LET_KEYWORD WHITESPACE+ IDENTIFIER WHITESPACE* EQUAL_SIGN WHITESPACE* expression
 
-model_definition ::= doc_comment? item_decorator_list? MODEL_KEYWORD ws_eol model_name ws_eol? padded_block_open (block_decorator | field_definition | comment | ws_eol)* padded_block_close
+model_definition ::= doc_comment? item_decorator_list? MODEL_KEYWORD ws_eol model_name ws_eol? model_definition_block
+model_definition_block ::= padded_block_open (block_decorator | field_definition | comment | ws_eol)* padded_block_close
 item_decorator_list ::= item_decorator (ws_eol item_decorator)* ws_eol
 model_name ::= IDENTIFIER
 
 enum_name ::= IDENTIFIER
-enum_definition ::= doc_comment? item_decorator_list? ENUM_KEYWORD ws_eol enum_name ws_eol? padded_block_open (block_decorator | enum_value_declaration | comment | ws_eol)* padded_block_close
+enum_definition ::= doc_comment? item_decorator_list? ENUM_KEYWORD ws_eol enum_name ws_eol? enum_definition_block
+enum_definition_block ::= padded_block_open (block_decorator | enum_value_declaration | comment | ws_eol)* padded_block_close
 enum_value_declaration ::= doc_comment? item_decorator_list? ws_eol? IDENTIFIER NEWLINE
 
 item_decorator ::= AT identifier_unit
@@ -62,8 +65,8 @@ pipeline ::= DOLLAR_SIGN identifier_unit
 
 CONFIG_KEYWORDS ::= CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD
 
-config_block ::= CONFIG_KEYWORDS (WHITESPACE+ IDENTIFIER)? ws_eol+ padded_block_open (ws_eol? (config_item|comment) NEWLINE)* padded_block_close
-
+config_definition ::= CONFIG_KEYWORDS (WHITESPACE+ IDENTIFIER)? ws_eol+ config_block
+config_block ::= padded_block_open (ws_eol? (config_item|comment) NEWLINE)* padded_block_close
 config_item::= doc_comment? config_item_name WHITESPACE+ expression
 
 config_item_name ::= IDENTIFIER

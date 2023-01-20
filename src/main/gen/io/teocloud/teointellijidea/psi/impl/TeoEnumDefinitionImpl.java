@@ -28,18 +28,6 @@ public class TeoEnumDefinitionImpl extends ASTWrapperPsiElement implements TeoEn
   }
 
   @Override
-  @NotNull
-  public List<TeoBlockDecorator> getBlockDecoratorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoBlockDecorator.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TeoComment> getCommentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoComment.class);
-  }
-
-  @Override
   @Nullable
   public TeoDocComment getDocComment() {
     return findChildByClass(TeoDocComment.class);
@@ -47,14 +35,14 @@ public class TeoEnumDefinitionImpl extends ASTWrapperPsiElement implements TeoEn
 
   @Override
   @NotNull
-  public TeoEnumName getEnumName() {
-    return findNotNullChildByClass(TeoEnumName.class);
+  public TeoEnumDefinitionBlock getEnumDefinitionBlock() {
+    return findNotNullChildByClass(TeoEnumDefinitionBlock.class);
   }
 
   @Override
   @NotNull
-  public List<TeoEnumValueDeclaration> getEnumValueDeclarationList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoEnumValueDeclaration.class);
+  public TeoEnumName getEnumName() {
+    return findNotNullChildByClass(TeoEnumName.class);
   }
 
   @Override

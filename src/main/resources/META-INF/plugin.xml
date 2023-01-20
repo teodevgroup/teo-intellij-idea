@@ -59,6 +59,8 @@
         <lineIndentProvider implementation="io.teocloud.teointellijidea.editor.TeoLineIndentProvider"/>
         <langCodeStyleSettingsProvider
                 implementation="io.teocloud.teointellijidea.formatter.TeoLanguageCodeStyleSettingsProvider"/>
+        <lang.foldingBuilder language="Teo"
+                             implementationClass="io.teocloud.teointellijidea.folding.TeoFoldingBuilder"/>
         <!-- Documentation -->
         <lang.documentationProvider language="Teo"
                                     implementationClass="io.teocloud.teointellijidea.documentation.TeoDocumentationProvider"/>

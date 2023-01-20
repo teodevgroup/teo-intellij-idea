@@ -7,20 +7,14 @@ import com.intellij.psi.PsiElement;
 
 public interface TeoModelDefinition extends PsiElement {
 
-  @NotNull
-  List<TeoBlockDecorator> getBlockDecoratorList();
-
-  @NotNull
-  List<TeoComment> getCommentList();
-
   @Nullable
   TeoDocComment getDocComment();
 
-  @NotNull
-  List<TeoFieldDefinition> getFieldDefinitionList();
-
   @Nullable
   TeoItemDecoratorList getItemDecoratorList();
+
+  @NotNull
+  TeoModelDefinitionBlock getModelDefinitionBlock();
 
   @NotNull
   TeoModelName getModelName();

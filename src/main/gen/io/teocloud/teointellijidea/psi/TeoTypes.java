@@ -19,6 +19,7 @@ public interface TeoTypes {
   IElementType COLLECTION_OPTIONAL = new TeoElementType("COLLECTION_OPTIONAL");
   IElementType COMMENT = new TeoElementType("COMMENT");
   IElementType CONFIG_BLOCK = new TeoElementType("CONFIG_BLOCK");
+  IElementType CONFIG_DEFINITION = new TeoElementType("CONFIG_DEFINITION");
   IElementType CONFIG_ITEM = new TeoElementType("CONFIG_ITEM");
   IElementType CONFIG_ITEM_NAME = new TeoElementType("CONFIG_ITEM_NAME");
   IElementType CONFIG_KEYWORDS = new TeoElementType("CONFIG_KEYWORDS");
@@ -26,6 +27,7 @@ public interface TeoTypes {
   IElementType DOC_COMMENT = new TeoElementType("DOC_COMMENT");
   IElementType ENUM_CHOICE_LITERAL = new TeoElementType("ENUM_CHOICE_LITERAL");
   IElementType ENUM_DEFINITION = new TeoElementType("ENUM_DEFINITION");
+  IElementType ENUM_DEFINITION_BLOCK = new TeoElementType("ENUM_DEFINITION_BLOCK");
   IElementType ENUM_NAME = new TeoElementType("ENUM_NAME");
   IElementType ENUM_VALUE_DECLARATION = new TeoElementType("ENUM_VALUE_DECLARATION");
   IElementType EXPRESSION = new TeoElementType("EXPRESSION");
@@ -34,6 +36,7 @@ public interface TeoTypes {
   IElementType FIELD_TYPE = new TeoElementType("FIELD_TYPE");
   IElementType GROUP = new TeoElementType("GROUP");
   IElementType IDENTIFIER_UNIT = new TeoElementType("IDENTIFIER_UNIT");
+  IElementType IMPORT_IDENTIFIERS_BLOCK = new TeoElementType("IMPORT_IDENTIFIERS_BLOCK");
   IElementType IMPORT_IDENTIFIER_LIST = new TeoElementType("IMPORT_IDENTIFIER_LIST");
   IElementType IMPORT_STATEMENT = new TeoElementType("IMPORT_STATEMENT");
   IElementType INITIAL_UNIT_IDENTIFIER = new TeoElementType("INITIAL_UNIT_IDENTIFIER");
@@ -43,6 +46,7 @@ public interface TeoTypes {
   IElementType LET_DECLARATION = new TeoElementType("LET_DECLARATION");
   IElementType LITERAL = new TeoElementType("LITERAL");
   IElementType MODEL_DEFINITION = new TeoElementType("MODEL_DEFINITION");
+  IElementType MODEL_DEFINITION_BLOCK = new TeoElementType("MODEL_DEFINITION_BLOCK");
   IElementType MODEL_NAME = new TeoElementType("MODEL_NAME");
   IElementType NAMED_ARGUMENT = new TeoElementType("NAMED_ARGUMENT");
   IElementType NAMED_EXPRESSION = new TeoElementType("NAMED_EXPRESSION");
@@ -124,6 +128,9 @@ public interface TeoTypes {
       else if (type == CONFIG_BLOCK) {
         return new TeoConfigBlockImpl(node);
       }
+      else if (type == CONFIG_DEFINITION) {
+        return new TeoConfigDefinitionImpl(node);
+      }
       else if (type == CONFIG_ITEM) {
         return new TeoConfigItemImpl(node);
       }
@@ -144,6 +151,9 @@ public interface TeoTypes {
       }
       else if (type == ENUM_DEFINITION) {
         return new TeoEnumDefinitionImpl(node);
+      }
+      else if (type == ENUM_DEFINITION_BLOCK) {
+        return new TeoEnumDefinitionBlockImpl(node);
       }
       else if (type == ENUM_NAME) {
         return new TeoEnumNameImpl(node);
@@ -168,6 +178,9 @@ public interface TeoTypes {
       }
       else if (type == IDENTIFIER_UNIT) {
         return new TeoIdentifierUnitImpl(node);
+      }
+      else if (type == IMPORT_IDENTIFIERS_BLOCK) {
+        return new TeoImportIdentifiersBlockImpl(node);
       }
       else if (type == IMPORT_IDENTIFIER_LIST) {
         return new TeoImportIdentifierListImpl(node);
@@ -195,6 +208,9 @@ public interface TeoTypes {
       }
       else if (type == MODEL_DEFINITION) {
         return new TeoModelDefinitionImpl(node);
+      }
+      else if (type == MODEL_DEFINITION_BLOCK) {
+        return new TeoModelDefinitionBlockImpl(node);
       }
       else if (type == MODEL_NAME) {
         return new TeoModelNameImpl(node);

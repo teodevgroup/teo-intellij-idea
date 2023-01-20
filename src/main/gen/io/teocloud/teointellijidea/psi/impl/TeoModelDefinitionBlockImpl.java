@@ -11,14 +11,14 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoModelDefinitionImpl extends ASTWrapperPsiElement implements TeoModelDefinition {
+public class TeoModelDefinitionBlockImpl extends ASTWrapperPsiElement implements TeoModelDefinitionBlock {
 
-  public TeoModelDefinitionImpl(@NotNull ASTNode node) {
+  public TeoModelDefinitionBlockImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitModelDefinition(this);
+    visitor.visitModelDefinitionBlock(this);
   }
 
   @Override
@@ -28,27 +28,21 @@ public class TeoModelDefinitionImpl extends ASTWrapperPsiElement implements TeoM
   }
 
   @Override
-  @Nullable
-  public TeoDocComment getDocComment() {
-    return findChildByClass(TeoDocComment.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoItemDecoratorList getItemDecoratorList() {
-    return findChildByClass(TeoItemDecoratorList.class);
+  @NotNull
+  public List<TeoBlockDecorator> getBlockDecoratorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoBlockDecorator.class);
   }
 
   @Override
   @NotNull
-  public TeoModelDefinitionBlock getModelDefinitionBlock() {
-    return findNotNullChildByClass(TeoModelDefinitionBlock.class);
+  public List<TeoComment> getCommentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoComment.class);
   }
 
   @Override
   @NotNull
-  public TeoModelName getModelName() {
-    return findNotNullChildByClass(TeoModelName.class);
+  public List<TeoFieldDefinition> getFieldDefinitionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoFieldDefinition.class);
   }
 
 }

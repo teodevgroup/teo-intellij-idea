@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface TeoImportIdentifierList extends PsiElement {
 
+  @NotNull
+  TeoImportIdentifiersBlock getImportIdentifiersBlock();
+
 }
