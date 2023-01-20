@@ -61,6 +61,7 @@
                 implementation="io.teocloud.teointellijidea.formatter.TeoLanguageCodeStyleSettingsProvider"/>
         <lang.foldingBuilder language="Teo"
                              implementationClass="io.teocloud.teointellijidea.folding.TeoFoldingBuilder"/>
+        <lang.psiStructureViewFactory language="Teo" implementationClass="io.teocloud.teointellijidea.structure.TeoStructureViewFactory"/>
         <!-- Documentation -->
         <lang.documentationProvider language="Teo"
                                     implementationClass="io.teocloud.teointellijidea.documentation.TeoDocumentationProvider"/>
