@@ -17,14 +17,14 @@
 
 teoFile ::= item_*
 
-private item_ ::= (import_statement|let_declaration|model_definition|enum_definition|config_definition|comment|bad_doc_comment|NEWLINE|WHITESPACE|bad_top_identifier|bad_top_decorator)
+private item_ ::= (import_statement|let_declaration|model_definition|enum_definition|config_definition|comment|bad_doc_comment|EOL|WS|bad_top_identifier|bad_top_decorator)
 
 bad_top_identifier ::= IDENTIFIER
 
 bad_top_decorator ::= AT identifier_unit
 
-private ws_eol ::= (NEWLINE | WHITESPACE)+
-// private new_line_with_leading_ws ::= NEWLINE WHITESPACE*
+private ws_eol ::= (EOL | WS)+
+// private new_line_with_leading_ws ::= EOL WS*
 
 private padded_comma ::= ws_eol? COMMA ws_eol?
 private padded_colon ::= ws_eol? COLON ws_eol?
@@ -35,17 +35,17 @@ private padded_brack_close ::= ws_eol? BRACK_CLOSE
 private padded_paren_open ::= PAREN_OPEN ws_eol?
 private padded_paren_close ::= ws_eol? PAREN_CLOSE
 
-triple_line_comment_full_line ::= WHITESPACE* TRIPLE_LINE_COMMENT NEWLINE
-doc_comment ::= triple_line_comment_full_line triple_line_comment_full_line* WHITESPACE*
-bad_doc_comment ::= triple_line_comment_full_line triple_line_comment_full_line* WHITESPACE*
-comment ::= DOUBLE_LINE_COMMENT
+triple_line_comment_full_line ::= WS* DOC_COMMENT EOL
+doc_comment ::= triple_line_comment_full_line triple_line_comment_full_line* WS*
+bad_doc_comment ::= triple_line_comment_full_line triple_line_comment_full_line* WS*
+comment ::= LINE_COMMENT
 
-import_statement ::= IMPORT_KEYWORD ((ws_eol? import_identifier_list ws_eol?)|WHITESPACE+) STRING_LITERAL
+import_statement ::= IMPORT_KEYWORD ((ws_eol? import_identifier_list ws_eol?)|WS+) STRING_LITERAL
 
 import_identifier_list ::= import_identifiers_block ws_eol? FROM_KEYWORD ws_eol?
 import_identifiers_block ::= padded_block_open (IDENTIFIER (COMMA IDENTIFIER)* COMMA?)? padded_block_close
 
-let_declaration ::= doc_comment? LET_KEYWORD WHITESPACE+ IDENTIFIER WHITESPACE* EQUAL_SIGN WHITESPACE* expression
+let_declaration ::= doc_comment? LET_KEYWORD WS+ IDENTIFIER WS* EQUAL_SIGN WS* expression
 
 model_definition ::= doc_comment? item_decorator_list? MODEL_KEYWORD ws_eol model_name ws_eol? model_definition_block {
     mixin="org.intellij.prisma.lang.psi.impl.PrismaModelTypeDeclarationMixin"
@@ -59,7 +59,7 @@ model_name ::= IDENTIFIER
 enum_name ::= IDENTIFIER
 enum_definition ::= doc_comment? item_decorator_list? ENUM_KEYWORD ws_eol enum_name ws_eol? enum_definition_block
 enum_definition_block ::= padded_block_open (block_decorator | enum_value_declaration | comment | ws_eol)* padded_block_close
-enum_value_declaration ::= doc_comment? item_decorator_list? ws_eol? IDENTIFIER NEWLINE
+enum_value_declaration ::= doc_comment? item_decorator_list? ws_eol? IDENTIFIER EOL
 
 item_decorator ::= AT identifier_unit
 
@@ -69,13 +69,13 @@ pipeline ::= DOLLAR_SIGN identifier_unit
 
 CONFIG_KEYWORDS ::= CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD
 
-config_definition ::= CONFIG_KEYWORDS (WHITESPACE+ IDENTIFIER)? ws_eol+ config_block
-config_block ::= padded_block_open (ws_eol? (config_item|comment) NEWLINE)* padded_block_close
-config_item::= doc_comment? config_item_name WHITESPACE+ expression
+config_definition ::= CONFIG_KEYWORDS (WS+ IDENTIFIER)? ws_eol+ config_block
+config_block ::= padded_block_open (ws_eol? (config_item|comment) EOL)* padded_block_close
+config_item::= doc_comment? config_item_name WS+ expression
 
 config_item_name ::= IDENTIFIER
 
-field_definition ::= doc_comment? item_decorator_list? field_name WHITESPACE* COLON WHITESPACE* field_type
+field_definition ::= doc_comment? item_decorator_list? field_name WS* COLON WS* field_type
 field_name ::= IDENTIFIER
 field_type ::= IDENTIFIER ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
 
