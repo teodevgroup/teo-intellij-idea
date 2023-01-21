@@ -63,11 +63,9 @@ pipeline ::= DOLLAR identifier_unit
 
 CONFIG_KEYWORDS ::= CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD
 
-config_definition ::= CONFIG_KEYWORDS (WS+ IDENTIFIER)? WS+ config_block
+config_definition ::= CONFIG_KEYWORDS (WS+ CONFIG_NAME)? WS+ config_block
 config_block ::= padded_lbrace (WS? (config_item|comment) EOL)* padded_rbrace
-config_item::= doc_comment_block? config_item_name WS+ expression
-
-config_item_name ::= IDENTIFIER
+config_item ::= doc_comment_block? CONFIG_ITEM_NAME WS+ expression
 
 field_definition ::= doc_comment_block? item_decorator_list? field_name WS* COLON WS* field_type
 field_name ::= IDENTIFIER

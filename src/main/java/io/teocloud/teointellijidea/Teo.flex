@@ -57,11 +57,21 @@ import java.util.ArrayList;import java.util.Stack;
         if ((yystate() == DECORATOR) || (yystate() == PPL)) {
             yypopState();
         }
+        if (currentBlock == CONFIG) {
+            if (yystate() == YYINITIAL) {
+                yypopState();
+            }
+        }
     }
 
     private void handleWhiteSpace() {
         if (yystate() == DECORATOR) {
             yypopState();
+        }
+        if (currentBlock == CONFIG) {
+            if (yystate() == CONFIG) {
+                yypushState(YYINITIAL);
+            }
         }
     }
 
@@ -78,6 +88,9 @@ import java.util.ArrayList;import java.util.Stack;
         if (yystate() == LET_DECL) {
             yypopState();
         }
+        if (yystate() == CONFIG_DECL) {
+            yypopState();
+        }
     }
 
     private void pushBlock() {
@@ -89,6 +102,10 @@ import java.util.ArrayList;import java.util.Stack;
             currentBlock = MODEL;
             cancelDeclState();
             yypushState(MODEL);
+        } else if (yystate() == CONFIG_DECL) {
+            currentBlock = CONFIG;
+            cancelDeclState();
+            yypushState(CONFIG);
         } else {
             currentBlock = BLOCK;
             cancelDeclState();
@@ -134,17 +151,17 @@ IDENTIFIER       = {NAME_START} ({NAME_BODY})*
 DOC_COMMENT="///" .*
 LINE_COMMENT="//" .*
 
-%state DECORATOR, PPL, BLOCK, DECL, ENUM, ENUM_DECL, MODEL, MODEL_DECL, LET_DECL
+%state DECORATOR, PPL, BLOCK, DECL, ENUM, ENUM_DECL, MODEL, MODEL_DECL, LET_DECL, CONFIG, CONFIG_DECL
 
 %%
 
 <YYINITIAL> {
     "model"            { yybegin(MODEL_DECL); return MODEL_KEYWORD; }
     "enum"             { yybegin(ENUM_DECL); return ENUM_KEYWORD; }
-    "config"           { yybegin(DECL); return CONFIG_KEYWORD; }
-    "connector"        { yybegin(DECL); return CONNECTOR_KEYWORD; }
-    "client"           { yybegin(DECL); return CLIENT_KEYWORD; }
-    "entity"           { yybegin(DECL); return ENTITY_KEYWORD; }
+    "config"           { yybegin(CONFIG_DECL); return CONFIG_KEYWORD; }
+    "connector"        { yybegin(CONFIG_DECL); return CONNECTOR_KEYWORD; }
+    "client"           { yybegin(CONFIG_DECL); return CLIENT_KEYWORD; }
+    "entity"           { yybegin(CONFIG_DECL); return ENTITY_KEYWORD; }
     "import"           { return IMPORT_KEYWORD; }
     "from"             { return FROM_KEYWORD; }
     "let"              { yybegin(LET_DECL); return LET_KEYWORD; }
@@ -179,10 +196,6 @@ LINE_COMMENT="//" .*
 {DOC_COMMENT}      { return DOC_COMMENT; }
 {LINE_COMMENT}     { return LINE_COMMENT; }
 
-<ENUM> {
-    {IDENTIFIER}  { return ENUM_IDENTIFIER; }
-}
-
 <DECORATOR> {
     {IDENTIFIER}  { return DECO_IDENTIFIER; }
 }
@@ -199,6 +212,18 @@ LINE_COMMENT="//" .*
     {IDENTIFIER}  { return ENUM_NAME; }
 }
 
-{IDENTIFIER}       { return IDENTIFIER; }
+<CONFIG_DECL> {
+    {IDENTIFIER}  { return CONFIG_NAME; }
+}
 
-[^]                { return BAD_CHARACTER; }
+<ENUM> {
+    {IDENTIFIER}  { return ENUM_IDENTIFIER; }
+}
+
+<CONFIG> {
+    {IDENTIFIER}  { return CONFIG_ITEM_NAME; }
+}
+
+{IDENTIFIER}      { return IDENTIFIER; }
+
+[^]               { return BAD_CHARACTER; }

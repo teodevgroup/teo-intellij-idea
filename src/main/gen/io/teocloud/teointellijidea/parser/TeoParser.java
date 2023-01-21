@@ -412,7 +412,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONFIG_KEYWORDS (WS+ IDENTIFIER)? WS+ config_block
+  // CONFIG_KEYWORDS (WS+ CONFIG_NAME)? WS+ config_block
   public static boolean config_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "config_definition")) return false;
     boolean r;
@@ -425,20 +425,20 @@ public class TeoParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (WS+ IDENTIFIER)?
+  // (WS+ CONFIG_NAME)?
   private static boolean config_definition_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "config_definition_1")) return false;
     config_definition_1_0(b, l + 1);
     return true;
   }
 
-  // WS+ IDENTIFIER
+  // WS+ CONFIG_NAME
   private static boolean config_definition_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "config_definition_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = config_definition_1_0_0(b, l + 1);
-    r = r && consumeToken(b, IDENTIFIER);
+    r = r && consumeToken(b, CONFIG_NAME);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -474,13 +474,13 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // doc_comment_block? config_item_name WS+ expression
+  // doc_comment_block? CONFIG_ITEM_NAME WS+ expression
   public static boolean config_item(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "config_item")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, CONFIG_ITEM, "<config item>");
     r = config_item_0(b, l + 1);
-    r = r && config_item_name(b, l + 1);
+    r = r && consumeToken(b, CONFIG_ITEM_NAME);
     r = r && config_item_2(b, l + 1);
     r = r && expression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
@@ -506,18 +506,6 @@ public class TeoParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "config_item_2", c)) break;
     }
     exit_section_(b, m, null, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // IDENTIFIER
-  public static boolean config_item_name(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "config_item_name")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    exit_section_(b, m, CONFIG_ITEM_NAME, r);
     return r;
   }
 

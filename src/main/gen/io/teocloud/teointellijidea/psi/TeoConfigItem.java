@@ -10,9 +10,6 @@ public interface TeoConfigItem extends PsiElement {
   @NotNull
   List<TeoWs> getWsList();
 
-  @NotNull
-  TeoConfigItemName getConfigItemName();
-
   @Nullable
   TeoDocCommentBlock getDocCommentBlock();
 

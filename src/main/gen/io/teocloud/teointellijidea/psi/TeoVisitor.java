@@ -75,10 +75,6 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitConfigItemName(@NotNull TeoConfigItemName o) {
-    visitPsiElement(o);
-  }
-
   public void visitDictionaryLiteral(@NotNull TeoDictionaryLiteral o) {
     visitPsiElement(o);
   }

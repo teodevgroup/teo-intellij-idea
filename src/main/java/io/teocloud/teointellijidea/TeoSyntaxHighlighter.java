@@ -47,6 +47,7 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] NUMERIC_KEYS = new TextAttributesKey[]{NUMERIC_LITERAL};
     private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING_LITERAL};
     private static final TextAttributesKey[] NULL_KEYS = new TextAttributesKey[]{NULL_LITERAL};
+    private static final TextAttributesKey[] CONFIG_ITEM_KEYS = new TextAttributesKey[]{CONFIG_ITEM_NAME};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
     private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
     private static final TextAttributesKey[] MODEL_NAME_KEYS = new TextAttributesKey[]{MODEL_NAME};
@@ -93,6 +94,9 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         }
         if (tokenType.equals(TeoTypes.NULL_LITERAL)) {
             return NULL_KEYS;
+        }
+        if (tokenType.equals(TeoTypes.CONFIG_ITEM_NAME)) {
+            return CONFIG_ITEM_KEYS;
         }
         if (tokenType.equals(TeoTypes.LINE_COMMENT) || tokenType.equals(TeoTypes.DOC_COMMENT)) {
             return COMMENT_KEYS;

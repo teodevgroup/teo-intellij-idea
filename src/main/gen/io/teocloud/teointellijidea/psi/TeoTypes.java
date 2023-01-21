@@ -21,7 +21,6 @@ public interface TeoTypes {
   IElementType CONFIG_BLOCK = new TeoElementType("CONFIG_BLOCK");
   IElementType CONFIG_DEFINITION = new TeoElementType("CONFIG_DEFINITION");
   IElementType CONFIG_ITEM = new TeoElementType("CONFIG_ITEM");
-  IElementType CONFIG_ITEM_NAME = new TeoElementType("CONFIG_ITEM_NAME");
   IElementType CONFIG_KEYWORDS = new TeoElementType("CONFIG_KEYWORDS");
   IElementType DICTIONARY_LITERAL = new TeoElementType("DICTIONARY_LITERAL");
   IElementType DOC_COMMENT_BLOCK = new TeoElementType("DOC_COMMENT_BLOCK");
@@ -63,7 +62,9 @@ public interface TeoTypes {
   IElementType CLIENT_KEYWORD = new TeoTokenType("CLIENT_KEYWORD");
   IElementType COLON = new TeoTokenType("COLON");
   IElementType COMMA = new TeoTokenType("COMMA");
+  IElementType CONFIG_ITEM_NAME = new TeoTokenType("CONFIG_ITEM_NAME");
   IElementType CONFIG_KEYWORD = new TeoTokenType("CONFIG_KEYWORD");
+  IElementType CONFIG_NAME = new TeoTokenType("CONFIG_NAME");
   IElementType CONNECTOR_KEYWORD = new TeoTokenType("CONNECTOR_KEYWORD");
   IElementType CRANGE = new TeoTokenType("CRANGE");
   IElementType DECO_IDENTIFIER = new TeoTokenType("DECO_IDENTIFIER");
@@ -141,9 +142,6 @@ public interface TeoTypes {
       }
       else if (type == CONFIG_ITEM) {
         return new TeoConfigItemImpl(node);
-      }
-      else if (type == CONFIG_ITEM_NAME) {
-        return new TeoConfigItemNameImpl(node);
       }
       else if (type == CONFIG_KEYWORDS) {
         return new TeoConfigKeywordsImpl(node);
