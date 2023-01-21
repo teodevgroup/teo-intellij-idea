@@ -29,6 +29,12 @@ public class TeoModelDefinitionBlockImpl extends ASTWrapperPsiElement implements
 
   @Override
   @NotNull
+  public List<TeoWs> getWsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWs.class);
+  }
+
+  @Override
+  @NotNull
   public List<TeoBlockDecorator> getBlockDecoratorList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoBlockDecorator.class);
   }

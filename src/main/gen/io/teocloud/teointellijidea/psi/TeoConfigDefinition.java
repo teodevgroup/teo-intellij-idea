@@ -11,6 +11,9 @@ public interface TeoConfigDefinition extends PsiElement {
   TeoConfigKeywords getConfigKeywords();
 
   @NotNull
+  List<TeoWs> getWsList();
+
+  @NotNull
   TeoConfigBlock getConfigBlock();
 
 }

@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TeoEnumDefinitionBlock extends PsiElement {
 
   @NotNull
+  List<TeoWs> getWsList();
+
+  @NotNull
   List<TeoBlockDecorator> getBlockDecoratorList();
 
   @NotNull

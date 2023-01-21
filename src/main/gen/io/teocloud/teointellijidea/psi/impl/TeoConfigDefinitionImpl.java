@@ -35,6 +35,12 @@ public class TeoConfigDefinitionImpl extends ASTWrapperPsiElement implements Teo
 
   @Override
   @NotNull
+  public List<TeoWs> getWsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWs.class);
+  }
+
+  @Override
+  @NotNull
   public TeoConfigBlock getConfigBlock() {
     return findNotNullChildByClass(TeoConfigBlock.class);
   }

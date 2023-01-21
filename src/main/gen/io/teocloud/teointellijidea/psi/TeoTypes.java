@@ -24,12 +24,13 @@ public interface TeoTypes {
   IElementType CONFIG_ITEM_NAME = new TeoElementType("CONFIG_ITEM_NAME");
   IElementType CONFIG_KEYWORDS = new TeoElementType("CONFIG_KEYWORDS");
   IElementType DICTIONARY_LITERAL = new TeoElementType("DICTIONARY_LITERAL");
-  IElementType DOC_COMMENT = new TeoElementType("DOC_COMMENT");
+  IElementType DOC_COMMENT_BLOCK = new TeoElementType("DOC_COMMENT_BLOCK");
   IElementType ENUM_CHOICE_LITERAL = new TeoElementType("ENUM_CHOICE_LITERAL");
   IElementType ENUM_DEFINITION = new TeoElementType("ENUM_DEFINITION");
   IElementType ENUM_DEFINITION_BLOCK = new TeoElementType("ENUM_DEFINITION_BLOCK");
   IElementType ENUM_NAME = new TeoElementType("ENUM_NAME");
   IElementType ENUM_VALUE_DECLARATION = new TeoElementType("ENUM_VALUE_DECLARATION");
+  IElementType EOL_WSC = new TeoElementType("EOL_WSC");
   IElementType EXPRESSION = new TeoElementType("EXPRESSION");
   IElementType FIELD_DEFINITION = new TeoElementType("FIELD_DEFINITION");
   IElementType FIELD_NAME = new TeoElementType("FIELD_NAME");
@@ -51,46 +52,51 @@ public interface TeoTypes {
   IElementType NAMED_ARGUMENT = new TeoElementType("NAMED_ARGUMENT");
   IElementType NAMED_EXPRESSION = new TeoElementType("NAMED_EXPRESSION");
   IElementType NULLISH_COALESCING = new TeoElementType("NULLISH_COALESCING");
+  IElementType PADDED_DOC_COMMENT = new TeoElementType("PADDED_DOC_COMMENT");
   IElementType PIPELINE = new TeoElementType("PIPELINE");
   IElementType SUBSCRIPT = new TeoElementType("SUBSCRIPT");
-  IElementType TRIPLE_LINE_COMMENT_FULL_LINE = new TeoElementType("TRIPLE_LINE_COMMENT_FULL_LINE");
   IElementType TUPLE_LITERAL = new TeoElementType("TUPLE_LITERAL");
   IElementType UNIT = new TeoElementType("UNIT");
+  IElementType WS = new TeoElementType("WS");
 
   IElementType AT = new TeoTokenType("AT");
-  IElementType BLOCK_CLOSE = new TeoTokenType("BLOCK_CLOSE");
-  IElementType BLOCK_OPEN = new TeoTokenType("BLOCK_OPEN");
+  IElementType ATAT = new TeoTokenType("ATAT");
   IElementType BOOL_LITERAL = new TeoTokenType("BOOL_LITERAL");
-  IElementType BRACK_CLOSE = new TeoTokenType("BRACK_CLOSE");
-  IElementType BRACK_OPEN = new TeoTokenType("BRACK_OPEN");
   IElementType CLIENT_KEYWORD = new TeoTokenType("CLIENT_KEYWORD");
   IElementType COLON = new TeoTokenType("COLON");
   IElementType COMMA = new TeoTokenType("COMMA");
   IElementType CONFIG_KEYWORD = new TeoTokenType("CONFIG_KEYWORD");
   IElementType CONNECTOR_KEYWORD = new TeoTokenType("CONNECTOR_KEYWORD");
-  IElementType DOLLAR_SIGN = new TeoTokenType("DOLLAR_SIGN");
+  IElementType CRANGE = new TeoTokenType("CRANGE");
+  IElementType DECO_IDENTIFIER = new TeoTokenType("DECO_IDENTIFIER");
+  IElementType DOC_COMMENT = new TeoTokenType("DOC_COMMENT");
+  IElementType DOLLAR = new TeoTokenType("DOLLAR");
   IElementType DOT = new TeoTokenType("DOT");
-  IElementType DOUBLE_AT = new TeoTokenType("DOUBLE_AT");
-  IElementType DOUBLE_LINE_COMMENT = new TeoTokenType("DOUBLE_LINE_COMMENT");
-  IElementType DOUBLE_QUESTION = new TeoTokenType("DOUBLE_QUESTION");
   IElementType ENTITY_KEYWORD = new TeoTokenType("ENTITY_KEYWORD");
   IElementType ENUM_KEYWORD = new TeoTokenType("ENUM_KEYWORD");
-  IElementType EQUAL_SIGN = new TeoTokenType("EQUAL_SIGN");
+  IElementType EOL = new TeoTokenType("EOL");
+  IElementType EQ = new TeoTokenType("EQ");
+  IElementType EXCL = new TeoTokenType("EXCL");
   IElementType FROM_KEYWORD = new TeoTokenType("FROM_KEYWORD");
   IElementType IDENTIFIER = new TeoTokenType("IDENTIFIER");
   IElementType IMPORT_KEYWORD = new TeoTokenType("IMPORT_KEYWORD");
+  IElementType LBRACE = new TeoTokenType("LBRACE");
+  IElementType LBRACKET = new TeoTokenType("LBRACKET");
   IElementType LET_KEYWORD = new TeoTokenType("LET_KEYWORD");
+  IElementType LINE_COMMENT = new TeoTokenType("LINE_COMMENT");
+  IElementType LPAREN = new TeoTokenType("LPAREN");
   IElementType MODEL_KEYWORD = new TeoTokenType("MODEL_KEYWORD");
-  IElementType NEWLINE = new TeoTokenType("NEWLINE");
   IElementType NULL_LITERAL = new TeoTokenType("NULL_LITERAL");
   IElementType NUMERIC_LITERAL = new TeoTokenType("NUMERIC_LITERAL");
-  IElementType PAREN_CLOSE = new TeoTokenType("PAREN_CLOSE");
-  IElementType PAREN_OPEN = new TeoTokenType("PAREN_OPEN");
-  IElementType QUESTION = new TeoTokenType("QUESTION");
+  IElementType ORANGE = new TeoTokenType("ORANGE");
+  IElementType QM = new TeoTokenType("QM");
+  IElementType QMQM = new TeoTokenType("QMQM");
   IElementType RANGE_LITERAL = new TeoTokenType("RANGE_LITERAL");
+  IElementType RBRACE = new TeoTokenType("RBRACE");
+  IElementType RBRACKET = new TeoTokenType("RBRACKET");
+  IElementType RPAREN = new TeoTokenType("RPAREN");
   IElementType STRING_LITERAL = new TeoTokenType("STRING_LITERAL");
-  IElementType TRIPLE_LINE_COMMENT = new TeoTokenType("TRIPLE_LINE_COMMENT");
-  IElementType WHITESPACE = new TeoTokenType("WHITESPACE");
+  IElementType WSC = new TeoTokenType("WSC");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -143,8 +149,8 @@ public interface TeoTypes {
       else if (type == DICTIONARY_LITERAL) {
         return new TeoDictionaryLiteralImpl(node);
       }
-      else if (type == DOC_COMMENT) {
-        return new TeoDocCommentImpl(node);
+      else if (type == DOC_COMMENT_BLOCK) {
+        return new TeoDocCommentBlockImpl(node);
       }
       else if (type == ENUM_CHOICE_LITERAL) {
         return new TeoEnumChoiceLiteralImpl(node);
@@ -160,6 +166,9 @@ public interface TeoTypes {
       }
       else if (type == ENUM_VALUE_DECLARATION) {
         return new TeoEnumValueDeclarationImpl(node);
+      }
+      else if (type == EOL_WSC) {
+        return new TeoEolWscImpl(node);
       }
       else if (type == EXPRESSION) {
         return new TeoExpressionImpl(node);
@@ -224,20 +233,23 @@ public interface TeoTypes {
       else if (type == NULLISH_COALESCING) {
         return new TeoNullishCoalescingImpl(node);
       }
+      else if (type == PADDED_DOC_COMMENT) {
+        return new TeoPaddedDocCommentImpl(node);
+      }
       else if (type == PIPELINE) {
         return new TeoPipelineImpl(node);
       }
       else if (type == SUBSCRIPT) {
         return new TeoSubscriptImpl(node);
       }
-      else if (type == TRIPLE_LINE_COMMENT_FULL_LINE) {
-        return new TeoTripleLineCommentFullLineImpl(node);
-      }
       else if (type == TUPLE_LITERAL) {
         return new TeoTupleLiteralImpl(node);
       }
       else if (type == UNIT) {
         return new TeoUnitImpl(node);
+      }
+      else if (type == WS) {
+        return new TeoWsImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

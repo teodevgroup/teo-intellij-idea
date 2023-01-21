@@ -14,8 +14,6 @@ import com.intellij.psi.util.PsiTreeUtil;
 import io.teocloud.teointellijidea.psi.TeoEnumDefinition;
 import io.teocloud.teointellijidea.psi.TeoFile;
 import io.teocloud.teointellijidea.psi.TeoModelDefinition;
-import io.teocloud.teointellijidea.psi.TeoProperty;
-import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 public class TeoUtil {

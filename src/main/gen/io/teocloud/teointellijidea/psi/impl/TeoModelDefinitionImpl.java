@@ -28,9 +28,15 @@ public class TeoModelDefinitionImpl extends ASTWrapperPsiElement implements TeoM
   }
 
   @Override
+  @NotNull
+  public List<TeoWs> getWsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWs.class);
+  }
+
+  @Override
   @Nullable
-  public TeoDocComment getDocComment() {
-    return findChildByClass(TeoDocComment.class);
+  public TeoDocCommentBlock getDocCommentBlock() {
+    return findChildByClass(TeoDocCommentBlock.class);
   }
 
   @Override

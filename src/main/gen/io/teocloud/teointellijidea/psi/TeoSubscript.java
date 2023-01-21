@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TeoSubscript extends PsiElement {
 
   @NotNull
+  List<TeoWs> getWsList();
+
+  @NotNull
   TeoExpression getExpression();
 
 }

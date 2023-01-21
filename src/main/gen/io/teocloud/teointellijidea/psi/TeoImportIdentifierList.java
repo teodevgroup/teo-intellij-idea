@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TeoImportIdentifierList extends PsiElement {
 
   @NotNull
+  List<TeoWs> getWsList();
+
+  @NotNull
   TeoImportIdentifiersBlock getImportIdentifiersBlock();
 
 }

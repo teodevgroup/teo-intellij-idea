@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TeoNullishCoalescing extends PsiElement {
 
   @NotNull
+  List<TeoWs> getWsList();
+
+  @NotNull
   List<TeoUnit> getUnitList();
 
 }

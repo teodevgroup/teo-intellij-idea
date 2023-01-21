@@ -16,15 +16,17 @@ public class TeoLineIndentProvider extends JavaLikeLangLineIndentProvider {
 
     private static final ImmutableMap<IElementType, SemanticEditorPosition.SyntaxElement> SYNTAX_MAP = ImmutableMap.<IElementType, SemanticEditorPosition.SyntaxElement>builder()
             .put(TokenType.WHITE_SPACE, JavaLikeElement.Whitespace)
-            .put(TeoTypes.WHITESPACE, JavaLikeElement.Whitespace)
-            .put(TeoTypes.NEWLINE, JavaLikeElement.Whitespace)
-            .put(TeoTypes.BLOCK_OPEN, JavaLikeElement.BlockOpeningBrace)
-            .put(TeoTypes.BLOCK_CLOSE, JavaLikeElement.BlockClosingBrace)
-            .put(TeoTypes.BRACK_OPEN, JavaLikeElement.BlockOpeningBrace)
-            .put(TeoTypes.BRACK_CLOSE, JavaLikeElement.BlockClosingBrace)
+            .put(TeoTypes.WS, JavaLikeElement.Whitespace)
+            .put(TeoTypes.WSC, JavaLikeElement.Whitespace)
+            .put(TeoTypes.EOL, JavaLikeElement.Whitespace)
+            .put(TeoTypes.EOL_WSC, JavaLikeElement.Whitespace)
+            .put(TeoTypes.LBRACE, JavaLikeElement.BlockOpeningBrace)
+            .put(TeoTypes.RBRACE, JavaLikeElement.BlockClosingBrace)
+            .put(TeoTypes.LBRACKET, JavaLikeElement.BlockOpeningBrace)
+            .put(TeoTypes.RBRACKET, JavaLikeElement.BlockClosingBrace)
             .put(TeoTypes.COMMA, JavaLikeElement.Comma)
             .put(TeoTypes.DOC_COMMENT, JavaLikeElement.BlockComment)
-            .put(TeoTypes.DOUBLE_LINE_COMMENT, JavaLikeElement.LineComment)
+            .put(TeoTypes.LINE_COMMENT, JavaLikeElement.LineComment)
             .build();
 
     @Nullable @Override

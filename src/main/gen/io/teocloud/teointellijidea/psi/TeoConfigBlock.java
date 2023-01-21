@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TeoConfigBlock extends PsiElement {
 
   @NotNull
+  List<TeoWs> getWsList();
+
+  @NotNull
   List<TeoComment> getCommentList();
 
   @NotNull

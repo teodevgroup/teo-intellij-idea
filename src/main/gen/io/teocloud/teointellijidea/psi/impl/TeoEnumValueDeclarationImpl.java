@@ -29,8 +29,14 @@ public class TeoEnumValueDeclarationImpl extends ASTWrapperPsiElement implements
 
   @Override
   @Nullable
-  public TeoDocComment getDocComment() {
-    return findChildByClass(TeoDocComment.class);
+  public TeoWs getWs() {
+    return findChildByClass(TeoWs.class);
+  }
+
+  @Override
+  @Nullable
+  public TeoDocCommentBlock getDocCommentBlock() {
+    return findChildByClass(TeoDocCommentBlock.class);
   }
 
   @Override

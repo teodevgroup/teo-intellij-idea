@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TeoTupleLiteral extends PsiElement {
 
   @NotNull
+  List<TeoWs> getWsList();
+
+  @NotNull
   List<TeoExpression> getExpressionList();
 
 }

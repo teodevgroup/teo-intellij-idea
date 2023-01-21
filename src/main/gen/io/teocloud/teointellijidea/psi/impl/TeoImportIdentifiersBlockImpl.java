@@ -27,4 +27,10 @@ public class TeoImportIdentifiersBlockImpl extends ASTWrapperPsiElement implemen
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public List<TeoWs> getWsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWs.class);
+  }
+
 }

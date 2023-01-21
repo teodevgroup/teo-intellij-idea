@@ -38,11 +38,6 @@ public class TeoAnnotator implements Annotator {
                 .newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .range(element.getTextRange())
                 .textAttributes(TeoSyntaxHighlighter.FIELD_TYPE).create();
-        } else if (element instanceof TeoBlockDecoratorImpl || element instanceof TeoItemDecoratorImpl || element instanceof TeoBadTopDecoratorImpl) {
-            ASTNode node = element.getNode();
-            @NotNull ASTNode identifierUnit = Objects.requireNonNull(element.getNode().findChildByType(TeoTypes.IDENTIFIER_UNIT));
-            decoratorHighlight(node, holder);
-            decoratorHighlight(identifierUnit, holder);
         } else if (element instanceof TeoPipelineImpl) {
             ASTNode node = element.getNode();
             @NotNull ASTNode identifierUnit = Objects.requireNonNull(element.getNode().findChildByType(TeoTypes.IDENTIFIER_UNIT));

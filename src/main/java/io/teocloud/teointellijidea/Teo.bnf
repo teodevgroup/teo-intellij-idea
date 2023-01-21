@@ -17,94 +17,90 @@
 
 teoFile ::= item_*
 
-private item_ ::= (import_statement|let_declaration|model_definition|enum_definition|config_definition|comment|bad_doc_comment|EOL|WS|bad_top_identifier|bad_top_decorator)
+private item_ ::= (import_statement|let_declaration|model_definition|enum_definition|config_definition|comment|bad_doc_comment|EOL|WSC|EXCL|CRANGE|ORANGE|bad_top_identifier|bad_top_decorator)
+
+EOL_WSC ::= EOL | WSC
+WS ::= EOL_WSC+
 
 bad_top_identifier ::= IDENTIFIER
 
 bad_top_decorator ::= AT identifier_unit
 
-private ws_eol ::= (EOL | WS)+
-// private new_line_with_leading_ws ::= EOL WS*
+private padded_comma ::= WS? COMMA WS?
+private padded_colon ::= WS? COLON WS?
+private padded_lbrace ::= LBRACE WS?
+private padded_rbrace ::= WS? RBRACE
+private padded_lbracket ::= LBRACKET WS?
+private padded_rbracket ::= WS? RBRACKET
+private padded_lparen ::= LPAREN WS?
+private padded_rparen ::= WS? RPAREN
 
-private padded_comma ::= ws_eol? COMMA ws_eol?
-private padded_colon ::= ws_eol? COLON ws_eol?
-private padded_block_open ::= BLOCK_OPEN ws_eol?
-private padded_block_close ::= ws_eol? BLOCK_CLOSE
-private padded_brack_open ::= BRACK_OPEN ws_eol?
-private padded_brack_close ::= ws_eol? BRACK_CLOSE
-private padded_paren_open ::= PAREN_OPEN ws_eol?
-private padded_paren_close ::= ws_eol? PAREN_CLOSE
-
-triple_line_comment_full_line ::= WS* DOC_COMMENT EOL
-doc_comment ::= triple_line_comment_full_line triple_line_comment_full_line* WS*
-bad_doc_comment ::= triple_line_comment_full_line triple_line_comment_full_line* WS*
+padded_doc_comment ::= WSC* DOC_COMMENT EOL?
+doc_comment_block ::= padded_doc_comment padded_doc_comment* WS*
+bad_doc_comment ::= padded_doc_comment padded_doc_comment* WS*
 comment ::= LINE_COMMENT
 
-import_statement ::= IMPORT_KEYWORD ((ws_eol? import_identifier_list ws_eol?)|WS+) STRING_LITERAL
+import_statement ::= IMPORT_KEYWORD ((WS? import_identifier_list WS?)|WS+) STRING_LITERAL
 
-import_identifier_list ::= import_identifiers_block ws_eol? FROM_KEYWORD ws_eol?
-import_identifiers_block ::= padded_block_open (IDENTIFIER (COMMA IDENTIFIER)* COMMA?)? padded_block_close
+import_identifier_list ::= import_identifiers_block WS? FROM_KEYWORD WS?
+import_identifiers_block ::= padded_lbrace (IDENTIFIER (COMMA IDENTIFIER)* COMMA?)? padded_rbrace
 
-let_declaration ::= doc_comment? LET_KEYWORD WS+ IDENTIFIER WS* EQUAL_SIGN WS* expression
+let_declaration ::= doc_comment_block? LET_KEYWORD WS+ IDENTIFIER WS* EQ WS* expression
 
-model_definition ::= doc_comment? item_decorator_list? MODEL_KEYWORD ws_eol model_name ws_eol? model_definition_block {
-    mixin="org.intellij.prisma.lang.psi.impl.PrismaModelTypeDeclarationMixin"
-    implements="org.intellij.prisma.lang.psi.PrismaModelTypeDeclaration"
-    pin=1
-}
-model_definition_block ::= padded_block_open (block_decorator | field_definition | comment | ws_eol)* padded_block_close
-item_decorator_list ::= item_decorator (ws_eol item_decorator)* ws_eol
+model_definition ::= doc_comment_block? item_decorator_list? MODEL_KEYWORD WS model_name WS? model_definition_block
+model_definition_block ::= padded_lbrace (block_decorator | field_definition | comment | WS)* padded_rbrace
+item_decorator_list ::= item_decorator (WS item_decorator)* WS
 model_name ::= IDENTIFIER
 
 enum_name ::= IDENTIFIER
-enum_definition ::= doc_comment? item_decorator_list? ENUM_KEYWORD ws_eol enum_name ws_eol? enum_definition_block
-enum_definition_block ::= padded_block_open (block_decorator | enum_value_declaration | comment | ws_eol)* padded_block_close
-enum_value_declaration ::= doc_comment? item_decorator_list? ws_eol? IDENTIFIER EOL
+enum_definition ::= doc_comment_block? item_decorator_list? ENUM_KEYWORD WS enum_name WS? enum_definition_block
+enum_definition_block ::= padded_lbrace (block_decorator | enum_value_declaration | comment | WS)* padded_rbrace
+enum_value_declaration ::= doc_comment_block? item_decorator_list? WS? IDENTIFIER EOL
 
 item_decorator ::= AT identifier_unit
 
-block_decorator ::= DOUBLE_AT identifier_unit
+block_decorator ::= ATAT identifier_unit
 
-pipeline ::= DOLLAR_SIGN identifier_unit
+pipeline ::= DOLLAR identifier_unit
 
 CONFIG_KEYWORDS ::= CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD
 
-config_definition ::= CONFIG_KEYWORDS (WS+ IDENTIFIER)? ws_eol+ config_block
-config_block ::= padded_block_open (ws_eol? (config_item|comment) EOL)* padded_block_close
-config_item::= doc_comment? config_item_name WS+ expression
+config_definition ::= CONFIG_KEYWORDS (WS+ IDENTIFIER)? WS+ config_block
+config_block ::= padded_lbrace (WS? (config_item|comment) EOL)* padded_rbrace
+config_item::= doc_comment_block? config_item_name WS+ expression
 
 config_item_name ::= IDENTIFIER
 
-field_definition ::= doc_comment? item_decorator_list? field_name WS* COLON WS* field_type
+field_definition ::= doc_comment_block? item_decorator_list? field_name WS* COLON WS* field_type
 field_name ::= IDENTIFIER
 field_type ::= IDENTIFIER ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
 
-ARITY ::= (BLOCK_OPEN BLOCK_CLOSE)|(BRACK_OPEN BRACK_CLOSE)
+ARITY ::= (LBRACE RBRACE)|(LBRACKET RBRACKET)
 
-ITEM_OPTIONAL ::= QUESTION
-COLLECTION_OPTIONAL ::= QUESTION
+ITEM_OPTIONAL ::= QM
+COLLECTION_OPTIONAL ::= QM
 
-nullish_coalescing ::= unit (ws_eol* DOUBLE_QUESTION ws_eol* unit)+
+nullish_coalescing ::= unit (WS* QMQM WS* unit)+
 
 group ::= "(" expression ")"
 
 expression ::= (nullish_coalescing | literal | IDENTIFIER | group | pipeline) (subscript | "." IDENTIFIER | argument_list)*
 
-subscript ::= BRACK_OPEN ws_eol* expression ws_eol* BRACK_CLOSE
+subscript ::= LBRACKET WS* expression WS* RBRACKET
 
-argument_list ::= PAREN_OPEN (argument (padded_comma argument)* padded_comma?)? PAREN_CLOSE
+argument_list ::= LPAREN (argument (padded_comma argument)* padded_comma?)? RPAREN
 
 argument ::= named_argument | expression
 
 named_argument ::= IDENTIFIER padded_colon expression
 
 unit ::= (group | NULL_LITERAL | BOOL_LITERAL | NUMERIC_LITERAL | STRING_LITERAL | enum_choice_literal | tuple_literal | IDENTIFIER) (subscript | DOT IDENTIFIER | argument_list)*
-identifier_unit ::= initial_unit_identifier (subscript | DOT IDENTIFIER | argument_list)*
-initial_unit_identifier ::= IDENTIFIER
-tuple_literal ::= padded_paren_open (padded_comma | (expression padded_comma (expression (padded_comma expression)* padded_comma?)*)) padded_paren_close
-array_literal ::= padded_brack_open (expression (padded_comma expression)* padded_comma?)? padded_brack_close
-named_expression ::= expression ws_eol* padded_colon ws_eol* expression
-dictionary_literal ::= padded_block_open (named_expression (padded_comma named_expression)* padded_comma?)? padded_block_close
+identifier_unit ::= initial_unit_identifier (subscript | DOT (IDENTIFIER | DECO_IDENTIFIER) | argument_list)*
+initial_unit_identifier ::= IDENTIFIER | DECO_IDENTIFIER
+tuple_literal ::= padded_lparen (padded_comma | (expression padded_comma (expression (padded_comma expression)* padded_comma?)*)) padded_rparen
+array_literal ::= padded_lbracket (expression (padded_comma expression)* padded_comma?)? padded_rbracket
+named_expression ::= expression WS* padded_colon WS* expression
+dictionary_literal ::= padded_lbrace (named_expression (padded_comma named_expression)* padded_comma?)? padded_rbrace
 
 literal ::= STRING_LITERAL | NUMERIC_LITERAL | BOOL_LITERAL | array_literal | dictionary_literal | tuple_literal | RANGE_LITERAL | enum_choice_literal
 

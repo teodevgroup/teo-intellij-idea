@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TeoPaddedComma extends PsiElement {
+public interface TeoWs extends PsiElement {
 
   @NotNull
-  List<TeoWsEol> getWsEolList();
+  List<TeoEolWsc> getEolWscList();
 
 }

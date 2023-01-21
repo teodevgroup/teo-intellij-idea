@@ -11,20 +11,26 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoTripleLineCommentFullLineImpl extends ASTWrapperPsiElement implements TeoTripleLineCommentFullLine {
+public class TeoWsImpl extends ASTWrapperPsiElement implements TeoWs {
 
-  public TeoTripleLineCommentFullLineImpl(@NotNull ASTNode node) {
+  public TeoWsImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitTripleLineCommentFullLine(this);
+    visitor.visitWs(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TeoVisitor) accept((TeoVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public List<TeoEolWsc> getEolWscList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoEolWsc.class);
   }
 
 }

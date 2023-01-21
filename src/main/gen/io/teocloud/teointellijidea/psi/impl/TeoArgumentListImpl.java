@@ -29,6 +29,12 @@ public class TeoArgumentListImpl extends ASTWrapperPsiElement implements TeoArgu
 
   @Override
   @NotNull
+  public List<TeoWs> getWsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWs.class);
+  }
+
+  @Override
+  @NotNull
   public List<TeoArgument> getArgumentList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoArgument.class);
   }

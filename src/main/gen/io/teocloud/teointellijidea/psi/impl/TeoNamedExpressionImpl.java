@@ -29,6 +29,12 @@ public class TeoNamedExpressionImpl extends ASTWrapperPsiElement implements TeoN
 
   @Override
   @NotNull
+  public List<TeoWs> getWsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWs.class);
+  }
+
+  @Override
+  @NotNull
   public List<TeoExpression> getExpressionList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoExpression.class);
   }

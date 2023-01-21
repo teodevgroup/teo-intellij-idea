@@ -92,10 +92,10 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(TeoTypes.NULL_LITERAL)) {
             return NULL_KEYS;
         }
-        if (tokenType.equals(TeoTypes.DOUBLE_LINE_COMMENT) || tokenType.equals(TeoTypes.TRIPLE_LINE_COMMENT)) {
+        if (tokenType.equals(TeoTypes.LINE_COMMENT) || tokenType.equals(TeoTypes.DOC_COMMENT)) {
             return COMMENT_KEYS;
         }
-        if (tokenType.equals(TeoTypes.AT) || tokenType.equals(TeoTypes.DOUBLE_AT)) {
+        if (tokenType.equals(TeoTypes.AT) || tokenType.equals(TeoTypes.ATAT) || tokenType.equals(TeoTypes.DECO_IDENTIFIER)) {
             return DECORATOR_KEYS;
         }
         if (tokenType.equals(TeoTypes.DOT)) {
@@ -104,10 +104,10 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(TeoTypes.COMMA)) {
             return COMMA_KEYS;
         }
-        if (tokenType.equals(TeoTypes.BRACK_CLOSE) || tokenType.equals(TeoTypes.BRACK_OPEN)) {
+        if (tokenType.equals(TeoTypes.LBRACKET) || tokenType.equals(TeoTypes.RBRACKET)) {
             return BRACKET_KEYS;
         }
-        if (tokenType.equals(TeoTypes.BLOCK_OPEN) || tokenType.equals(TeoTypes.BLOCK_CLOSE)) {
+        if (tokenType.equals(TeoTypes.LBRACE) || tokenType.equals(TeoTypes.RBRACE)) {
             return BRACE_KEYS;
         }
         if (tokenType.equals(TokenType.BAD_CHARACTER)) {

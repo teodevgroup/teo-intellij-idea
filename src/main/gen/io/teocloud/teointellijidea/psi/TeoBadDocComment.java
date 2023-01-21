@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TeoBadDocComment extends PsiElement {
 
   @NotNull
-  List<TeoTripleLineCommentFullLine> getTripleLineCommentFullLineList();
+  List<TeoWs> getWsList();
+
+  @NotNull
+  List<TeoPaddedDocComment> getPaddedDocCommentList();
 
 }

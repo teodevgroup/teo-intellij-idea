@@ -8,7 +8,10 @@ import com.intellij.psi.PsiElement;
 public interface TeoEnumValueDeclaration extends PsiElement {
 
   @Nullable
-  TeoDocComment getDocComment();
+  TeoWs getWs();
+
+  @Nullable
+  TeoDocCommentBlock getDocCommentBlock();
 
   @Nullable
   TeoItemDecoratorList getItemDecoratorList();

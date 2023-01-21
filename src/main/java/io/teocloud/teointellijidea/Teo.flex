@@ -4,22 +4,23 @@ import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import static com.intellij.psi.TokenType.*;
+import com.intellij.openapi.util.text.StringUtil;
 
 %%
 
 %{
-  public _TeoLexer() {
+  public TeoLexer() {
     this((java.io.Reader)null);
   }
 
   private void handleNewLine() {
-      if (yystate() == DECL && StringUtil.containsLineBreak(yytext())) {
+      if ((yystate() == DECL || yystate() == DECORATOR) && StringUtil.containsLineBreak(yytext())) {
           yybegin(YYINITIAL);
       }
   }
 %}
 
-%class _TeoLexer
+%class TeoLexer
 %implements FlexLexer
 %unicode
 %function advance
@@ -27,15 +28,14 @@ import static com.intellij.psi.TokenType.*;
 
 // whitespaces
 EOL="\r"|"\n"|"\r\n"
-WS=[\ \t\f]
-WHITE_SPACE_CHAR = {EOL} | {WS}
-WHITE_SPACE      = {WHITE_SPACE_CHAR}+
+WSC=[\ \t\f]
 DIGIT            = [:digit:]
 
 // names and literals
 NAME_START       = [a-zA-Z]
 NAME_BODY        = [a-zA-Z0-9_]
 IDENTIFIER       = {NAME_START} ({NAME_BODY})*
+DECO_IDENTIFIER  = {NAME_START} ({NAME_BODY})*
 STRING_LITERAL   = \"([^\\\"\r\n]|\\[^\r\n])*\"?
 NUMERIC_LITERAL  = "-"? {DIGIT}+ ("." {DIGIT}+)?
 BOOL_LITERAL="true" | "false"
@@ -45,7 +45,7 @@ NULL_LITERAL="null"
 DOC_COMMENT="///" .*
 LINE_COMMENT="//" .*
 
-%state DECL, BLOCK
+%state DECL, BLOCK, DECORATOR
 
 %%
 
@@ -61,20 +61,24 @@ LINE_COMMENT="//" .*
     "let"              { yybegin(DECL); return LET_KEYWORD; }
 }
 
+<DECORATOR> {
+    {DECO_IDENTIFIER}  { return DECO_IDENTIFIER; }
+}
+
 "{"                { yybegin(BLOCK); return LBRACE; }
 "}"                { yybegin(YYINITIAL); return RBRACE; }
-"("                { return LPAREN; }
-")"                { return RPAREN; }
-"["                { return LBRACKET; }
-"]"                { return RBRACKET; }
+"("                { yybegin(YYINITIAL); return LPAREN; }
+")"                { yybegin(YYINITIAL); return RPAREN; }
+"["                { yybegin(YYINITIAL); return LBRACKET; }
+"]"                { yybegin(YYINITIAL); return RBRACKET; }
 "="                { return EQ; }
 "."                { return DOT; }
 ":"                { return COLON; }
 "??"               { return QMQM; }
 "?"                { return QM; }
 "!"                { return EXCL; }
-"@@"               { return ATAT; }
-"@"                { return AT; }
+"@@"               { yybegin(DECORATOR); return ATAT; }
+"@"                { yybegin(DECORATOR); return AT; }
 ","                { return COMMA; }
 "..."              { return CRANGE; }
 ".."               { return ORANGE; }
@@ -85,7 +89,8 @@ LINE_COMMENT="//" .*
 {BOOL_LITERAL}     { return TeoTypes.BOOL_LITERAL; }
 {NUMERIC_LITERAL}  { return NUMERIC_LITERAL; }
 {STRING_LITERAL}   { return STRING_LITERAL; }
-{WHITE_SPACE}      { handleNewLine(); return WHITE_SPACE; }
+{EOL}              { handleNewLine(); return EOL; }
+{WSC}              { return WSC; }
 
 {DOC_COMMENT}      { return DOC_COMMENT; }
 {LINE_COMMENT}     { return LINE_COMMENT; }

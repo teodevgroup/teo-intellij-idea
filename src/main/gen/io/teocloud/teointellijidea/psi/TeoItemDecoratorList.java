@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TeoItemDecoratorList extends PsiElement {
 
   @NotNull
+  List<TeoWs> getWsList();
+
+  @NotNull
   List<TeoItemDecorator> getItemDecoratorList();
 
 }

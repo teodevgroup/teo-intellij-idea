@@ -28,6 +28,12 @@ public class TeoImportStatementImpl extends ASTWrapperPsiElement implements TeoI
   }
 
   @Override
+  @NotNull
+  public List<TeoWs> getWsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWs.class);
+  }
+
+  @Override
   @Nullable
   public TeoImportIdentifierList getImportIdentifierList() {
     return findChildByClass(TeoImportIdentifierList.class);

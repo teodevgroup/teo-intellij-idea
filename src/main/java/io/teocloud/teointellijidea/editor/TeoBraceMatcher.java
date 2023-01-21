@@ -13,9 +13,9 @@ public class TeoBraceMatcher implements PairedBraceMatcher {
     @Override
     public BracePair @NotNull [] getPairs() {
         return new BracePair[]{
-                new BracePair(TeoTypes.BLOCK_OPEN, TeoTypes.BLOCK_CLOSE, true),
-                new BracePair(TeoTypes.BRACK_OPEN, TeoTypes.BRACK_CLOSE, true),
-                new BracePair(TeoTypes.PAREN_OPEN, TeoTypes.PAREN_CLOSE, false),
+                new BracePair(TeoTypes.LBRACE, TeoTypes.RBRACE, true),
+                new BracePair(TeoTypes.LBRACKET, TeoTypes.RBRACKET, true),
+                new BracePair(TeoTypes.LPAREN, TeoTypes.RPAREN, false),
         };
     }
 

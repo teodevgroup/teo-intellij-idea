@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface TeoImportStatement extends PsiElement {
 
+  @NotNull
+  List<TeoWs> getWsList();
+
   @Nullable
   TeoImportIdentifierList getImportIdentifierList();
 

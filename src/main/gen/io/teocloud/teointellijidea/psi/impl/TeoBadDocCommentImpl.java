@@ -29,8 +29,14 @@ public class TeoBadDocCommentImpl extends ASTWrapperPsiElement implements TeoBad
 
   @Override
   @NotNull
-  public List<TeoTripleLineCommentFullLine> getTripleLineCommentFullLineList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoTripleLineCommentFullLine.class);
+  public List<TeoWs> getWsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWs.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TeoPaddedDocComment> getPaddedDocCommentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoPaddedDocComment.class);
   }
 
 }

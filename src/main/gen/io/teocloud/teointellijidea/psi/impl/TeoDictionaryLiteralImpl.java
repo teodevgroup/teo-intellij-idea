@@ -29,6 +29,12 @@ public class TeoDictionaryLiteralImpl extends ASTWrapperPsiElement implements Te
 
   @Override
   @NotNull
+  public List<TeoWs> getWsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWs.class);
+  }
+
+  @Override
+  @NotNull
   public List<TeoNamedExpression> getNamedExpressionList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoNamedExpression.class);
   }

@@ -29,6 +29,12 @@ public class TeoConfigBlockImpl extends ASTWrapperPsiElement implements TeoConfi
 
   @Override
   @NotNull
+  public List<TeoWs> getWsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWs.class);
+  }
+
+  @Override
+  @NotNull
   public List<TeoComment> getCommentList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoComment.class);
   }

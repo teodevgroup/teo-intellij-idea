@@ -8,10 +8,13 @@ import com.intellij.psi.PsiElement;
 public interface TeoConfigItem extends PsiElement {
 
   @NotNull
+  List<TeoWs> getWsList();
+
+  @NotNull
   TeoConfigItemName getConfigItemName();
 
   @Nullable
-  TeoDocComment getDocComment();
+  TeoDocCommentBlock getDocCommentBlock();
 
   @NotNull
   TeoExpression getExpression();

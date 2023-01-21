@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TeoPaddedBrackOpen extends PsiElement {
+public interface TeoDocCommentBlock extends PsiElement {
 
-  @Nullable
-  TeoWsEol getWsEol();
+  @NotNull
+  List<TeoWs> getWsList();
+
+  @NotNull
+  List<TeoPaddedDocComment> getPaddedDocCommentList();
 
 }

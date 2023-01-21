@@ -11,14 +11,14 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoDocCommentImpl extends ASTWrapperPsiElement implements TeoDocComment {
+public class TeoDocCommentBlockImpl extends ASTWrapperPsiElement implements TeoDocCommentBlock {
 
-  public TeoDocCommentImpl(@NotNull ASTNode node) {
+  public TeoDocCommentBlockImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitDocComment(this);
+    visitor.visitDocCommentBlock(this);
   }
 
   @Override
@@ -29,8 +29,14 @@ public class TeoDocCommentImpl extends ASTWrapperPsiElement implements TeoDocCom
 
   @Override
   @NotNull
-  public List<TeoTripleLineCommentFullLine> getTripleLineCommentFullLineList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoTripleLineCommentFullLine.class);
+  public List<TeoWs> getWsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWs.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TeoPaddedDocComment> getPaddedDocCommentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoPaddedDocComment.class);
   }
 
 }

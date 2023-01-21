@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TeoDictionaryLiteral extends PsiElement {
 
   @NotNull
+  List<TeoWs> getWsList();
+
+  @NotNull
   List<TeoNamedExpression> getNamedExpressionList();
 
 }

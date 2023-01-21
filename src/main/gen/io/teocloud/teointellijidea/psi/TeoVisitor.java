@@ -19,7 +19,15 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitEolWsc(@NotNull TeoEolWsc o) {
+    visitPsiElement(o);
+  }
+
   public void visitItemOptional(@NotNull TeoItemOptional o) {
+    visitPsiElement(o);
+  }
+
+  public void visitWs(@NotNull TeoWs o) {
     visitPsiElement(o);
   }
 
@@ -75,7 +83,7 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitDocComment(@NotNull TeoDocComment o) {
+  public void visitDocCommentBlock(@NotNull TeoDocCommentBlock o) {
     visitPsiElement(o);
   }
 
@@ -179,15 +187,15 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitPaddedDocComment(@NotNull TeoPaddedDocComment o) {
+    visitPsiElement(o);
+  }
+
   public void visitPipeline(@NotNull TeoPipeline o) {
     visitPsiElement(o);
   }
 
   public void visitSubscript(@NotNull TeoSubscript o) {
-    visitPsiElement(o);
-  }
-
-  public void visitTripleLineCommentFullLine(@NotNull TeoTripleLineCommentFullLine o) {
     visitPsiElement(o);
   }
 

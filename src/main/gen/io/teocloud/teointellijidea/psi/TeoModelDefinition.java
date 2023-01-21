@@ -7,8 +7,11 @@ import com.intellij.psi.PsiElement;
 
 public interface TeoModelDefinition extends PsiElement {
 
+  @NotNull
+  List<TeoWs> getWsList();
+
   @Nullable
-  TeoDocComment getDocComment();
+  TeoDocCommentBlock getDocCommentBlock();
 
   @Nullable
   TeoItemDecoratorList getItemDecoratorList();
