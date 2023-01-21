@@ -13,12 +13,7 @@ import java.util.Objects;
 public class TeoAnnotator implements Annotator {
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (element instanceof TeoModelNameImpl) {
-            holder
-                .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                .range(element.getTextRange())
-                .textAttributes(TeoSyntaxHighlighter.MODEL_NAME).create();
-        } else if (element instanceof TeoConfigItemName) {
+        if (element instanceof TeoConfigItemName) {
             holder
                 .newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .range(element.getTextRange())

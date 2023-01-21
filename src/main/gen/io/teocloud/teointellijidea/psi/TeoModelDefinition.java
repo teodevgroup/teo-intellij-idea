@@ -19,7 +19,4 @@ public interface TeoModelDefinition extends PsiElement {
   @NotNull
   TeoModelDefinitionBlock getModelDefinitionBlock();
 
-  @NotNull
-  TeoModelName getModelName();
-
 }

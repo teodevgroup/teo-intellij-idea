@@ -99,10 +99,6 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitEnumName(@NotNull TeoEnumName o) {
-    visitPsiElement(o);
-  }
-
   public void visitEnumValueDeclaration(@NotNull TeoEnumValueDeclaration o) {
     visitPsiElement(o);
   }
@@ -168,10 +164,6 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitModelDefinitionBlock(@NotNull TeoModelDefinitionBlock o) {
-    visitPsiElement(o);
-  }
-
-  public void visitModelName(@NotNull TeoModelName o) {
     visitPsiElement(o);
   }
 

@@ -47,22 +47,6 @@ public class TeoStructureViewElement implements StructureViewTreeElement, Sortab
         PresentationData data = new PresentationData();
         if (element instanceof TeoFile) {
             return Objects.requireNonNull(element.getPresentation());
-        } else if (element instanceof TeoModelDefinition) {
-            data.setBackground(JBColor.RED);
-            data.setForcedTextForeground(JBColor.BLUE);
-            data.setIcon(AllIcons.Nodes.ModelClass);
-            data.setPresentableText(((TeoModelDefinition)element).getModelName().getText());
-            data.setLocationString("A");
-        } else if (element instanceof TeoEnumDefinition) {
-            data.setIcon(AllIcons.Nodes.Enum);
-            data.setPresentableText(((TeoEnumDefinition)element).getEnumName().getText());
-            data.setBackground(JBColor.RED);
-            data.setForcedTextForeground(JBColor.BLUE);
-        } else if (element instanceof TeoConfigDefinition) {
-            data.setIcon(AllIcons.Nodes.Editorconfig);
-            data.setPresentableText(((TeoConfigDefinition)element).getConfigKeywords().getText());
-            data.setBackground(JBColor.RED);
-            data.setForcedTextForeground(JBColor.BLUE);
         }
         return data;
     }

@@ -28,7 +28,6 @@ public interface TeoTypes {
   IElementType ENUM_CHOICE_LITERAL = new TeoElementType("ENUM_CHOICE_LITERAL");
   IElementType ENUM_DEFINITION = new TeoElementType("ENUM_DEFINITION");
   IElementType ENUM_DEFINITION_BLOCK = new TeoElementType("ENUM_DEFINITION_BLOCK");
-  IElementType ENUM_NAME = new TeoElementType("ENUM_NAME");
   IElementType ENUM_VALUE_DECLARATION = new TeoElementType("ENUM_VALUE_DECLARATION");
   IElementType EOL_WSC = new TeoElementType("EOL_WSC");
   IElementType EXPRESSION = new TeoElementType("EXPRESSION");
@@ -48,7 +47,6 @@ public interface TeoTypes {
   IElementType LITERAL = new TeoElementType("LITERAL");
   IElementType MODEL_DEFINITION = new TeoElementType("MODEL_DEFINITION");
   IElementType MODEL_DEFINITION_BLOCK = new TeoElementType("MODEL_DEFINITION_BLOCK");
-  IElementType MODEL_NAME = new TeoElementType("MODEL_NAME");
   IElementType NAMED_ARGUMENT = new TeoElementType("NAMED_ARGUMENT");
   IElementType NAMED_EXPRESSION = new TeoElementType("NAMED_EXPRESSION");
   IElementType NULLISH_COALESCING = new TeoElementType("NULLISH_COALESCING");
@@ -73,7 +71,9 @@ public interface TeoTypes {
   IElementType DOLLAR = new TeoTokenType("DOLLAR");
   IElementType DOT = new TeoTokenType("DOT");
   IElementType ENTITY_KEYWORD = new TeoTokenType("ENTITY_KEYWORD");
+  IElementType ENUM_IDENTIFIER = new TeoTokenType("ENUM_IDENTIFIER");
   IElementType ENUM_KEYWORD = new TeoTokenType("ENUM_KEYWORD");
+  IElementType ENUM_NAME = new TeoTokenType("ENUM_NAME");
   IElementType EOL = new TeoTokenType("EOL");
   IElementType EQ = new TeoTokenType("EQ");
   IElementType EXCL = new TeoTokenType("EXCL");
@@ -86,6 +86,7 @@ public interface TeoTypes {
   IElementType LINE_COMMENT = new TeoTokenType("LINE_COMMENT");
   IElementType LPAREN = new TeoTokenType("LPAREN");
   IElementType MODEL_KEYWORD = new TeoTokenType("MODEL_KEYWORD");
+  IElementType MODEL_NAME = new TeoTokenType("MODEL_NAME");
   IElementType NULL_LITERAL = new TeoTokenType("NULL_LITERAL");
   IElementType NUMERIC_LITERAL = new TeoTokenType("NUMERIC_LITERAL");
   IElementType ORANGE = new TeoTokenType("ORANGE");
@@ -162,9 +163,6 @@ public interface TeoTypes {
       else if (type == ENUM_DEFINITION_BLOCK) {
         return new TeoEnumDefinitionBlockImpl(node);
       }
-      else if (type == ENUM_NAME) {
-        return new TeoEnumNameImpl(node);
-      }
       else if (type == ENUM_VALUE_DECLARATION) {
         return new TeoEnumValueDeclarationImpl(node);
       }
@@ -221,9 +219,6 @@ public interface TeoTypes {
       }
       else if (type == MODEL_DEFINITION_BLOCK) {
         return new TeoModelDefinitionBlockImpl(node);
-      }
-      else if (type == MODEL_NAME) {
-        return new TeoModelNameImpl(node);
       }
       else if (type == NAMED_ARGUMENT) {
         return new TeoNamedArgumentImpl(node);

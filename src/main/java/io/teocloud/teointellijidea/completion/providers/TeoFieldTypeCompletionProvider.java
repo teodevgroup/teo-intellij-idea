@@ -9,6 +9,7 @@ import com.intellij.util.ProcessingContext;
 import io.teocloud.teointellijidea.TeoUtil;
 import io.teocloud.teointellijidea.psi.TeoEnumDefinition;
 import io.teocloud.teointellijidea.psi.TeoModelDefinition;
+import io.teocloud.teointellijidea.psi.TeoTypes;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.icons.AllIcons;
 
@@ -53,7 +54,7 @@ public class TeoFieldTypeCompletionProvider extends CompletionProvider<Completio
         ArrayList<LookupElementBuilder> elements = new ArrayList<>();
         for (TeoModelDefinition modelDefinition : modelDefinitions) {
             elements.add(LookupElementBuilder
-                    .create(modelDefinition.getModelName().getText())
+                    .create(modelDefinition.getNode().findChildByType(TeoTypes.MODEL_NAME).getText())
                     .withTypeText(modelDefinition.getContainingFile().getName())
                     .withIcon(AllIcons.Nodes.ModelClass)
                     .bold());
@@ -66,7 +67,7 @@ public class TeoFieldTypeCompletionProvider extends CompletionProvider<Completio
         ArrayList<LookupElementBuilder> elements = new ArrayList<>();
         for (TeoEnumDefinition enumDefinition : enumDefinitions) {
             elements.add(LookupElementBuilder
-                    .create(enumDefinition.getEnumName().getText())
+                    .create(enumDefinition.getNode().findChildByType(TeoTypes.ENUM_NAME).getText())
                     .withTypeText(enumDefinition.getContainingFile().getName())
                     .withIcon(AllIcons.Nodes.Enum)
                     .bold());

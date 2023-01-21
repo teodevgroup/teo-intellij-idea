@@ -47,15 +47,13 @@ import_identifiers_block ::= padded_lbrace (IDENTIFIER (COMMA IDENTIFIER)* COMMA
 
 let_declaration ::= doc_comment_block? LET_KEYWORD WS+ IDENTIFIER WS* EQ WS* expression
 
-model_definition ::= doc_comment_block? item_decorator_list? MODEL_KEYWORD WS model_name WS? model_definition_block
+model_definition ::= doc_comment_block? item_decorator_list? MODEL_KEYWORD WS MODEL_NAME WS? model_definition_block
 model_definition_block ::= padded_lbrace (block_decorator | field_definition | comment | WS)* padded_rbrace
 item_decorator_list ::= item_decorator (WS item_decorator)* WS
-model_name ::= IDENTIFIER
 
-enum_name ::= IDENTIFIER
-enum_definition ::= doc_comment_block? item_decorator_list? ENUM_KEYWORD WS enum_name WS? enum_definition_block
+enum_definition ::= doc_comment_block? item_decorator_list? ENUM_KEYWORD WS ENUM_NAME WS? enum_definition_block
 enum_definition_block ::= padded_lbrace (block_decorator | enum_value_declaration | comment | WS)* padded_rbrace
-enum_value_declaration ::= doc_comment_block? item_decorator_list? WS? IDENTIFIER EOL
+enum_value_declaration ::= doc_comment_block? item_decorator_list? WS? ENUM_IDENTIFIER EOL
 
 item_decorator ::= AT identifier_unit
 

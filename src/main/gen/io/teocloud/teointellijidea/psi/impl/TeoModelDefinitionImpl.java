@@ -51,10 +51,4 @@ public class TeoModelDefinitionImpl extends ASTWrapperPsiElement implements TeoM
     return findNotNullChildByClass(TeoModelDefinitionBlock.class);
   }
 
-  @Override
-  @NotNull
-  public TeoModelName getModelName() {
-    return findNotNullChildByClass(TeoModelName.class);
-  }
-
 }

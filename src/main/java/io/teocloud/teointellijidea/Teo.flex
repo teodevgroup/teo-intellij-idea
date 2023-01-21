@@ -13,6 +13,8 @@ import java.util.ArrayList;import java.util.Stack;
 
     private Stack<Integer> stack = new Stack<Integer>(){};
 
+    private int currentBlock = 0;
+
     public void yypushState(int newState) {
         stack.push(yystate());
         yybegin(newState);
@@ -67,6 +69,41 @@ import java.util.ArrayList;import java.util.Stack;
         if (yystate() == DECL) {
             yypopState();
         }
+        if (yystate() == MODEL_DECL) {
+            yypopState();
+        }
+        if (yystate() == ENUM_DECL) {
+            yypopState();
+        }
+        if (yystate() == LET_DECL) {
+            yypopState();
+        }
+    }
+
+    private void pushBlock() {
+        if (yystate() == ENUM_DECL) {
+            currentBlock = ENUM;
+            yypushState(ENUM);
+        } else if (yystate() == MODEL_DECL) {
+            currentBlock = MODEL;
+            yypushState(MODEL);
+        } else {
+            currentBlock = BLOCK;
+            yypushState(BLOCK);
+        }
+    }
+
+    private void yypopToCurrentBlock() {
+        if (currentBlock == ENUM) {
+            yypopToState(ENUM);
+            currentBlock = 0;
+        } else if (currentBlock == MODEL) {
+            yypopToState(MODEL);
+            currentBlock = 0;
+        } else if (currentBlock == BLOCK) {
+            yypopToState(BLOCK);
+            currentBlock = 0;
+        }
     }
 %}
 
@@ -79,47 +116,39 @@ import java.util.ArrayList;import java.util.Stack;
 // whitespaces
 EOL="\r"|"\n"|"\r\n"
 WSC=[\ \t\f]
-DIGIT            = [:digit:]
 
 // names and literals
-NAME_START       = [a-zA-Z]
-NAME_BODY        = [a-zA-Z0-9_]
-IDENTIFIER       = {NAME_START} ({NAME_BODY})*
 STRING_LITERAL   = \"([^\\\"\r\n]|\\[^\r\n])*\"?
+DIGIT            = [:digit:]
 NUMERIC_LITERAL  = "-"? {DIGIT}+ ("." {DIGIT}+)?
 BOOL_LITERAL="true" | "false"
 NULL_LITERAL="null"
+NAME_START       = [a-zA-Z]
+NAME_BODY        = [a-zA-Z0-9_]
+IDENTIFIER       = {NAME_START} ({NAME_BODY})*
 
 // comments
 DOC_COMMENT="///" .*
 LINE_COMMENT="//" .*
 
-%state DECL, BLOCK, DECORATOR, PPL
+%state DECORATOR, PPL, BLOCK, DECL, ENUM, ENUM_DECL, MODEL, MODEL_DECL, LET_DECL
 
 %%
 
 <YYINITIAL> {
-    "model"            { yybegin(DECL); return MODEL_KEYWORD; }
-    "enum"             { yybegin(DECL); return ENUM_KEYWORD; }
+    "model"            { yybegin(MODEL_DECL); return MODEL_KEYWORD; }
+    "enum"             { yybegin(ENUM_DECL); return ENUM_KEYWORD; }
     "config"           { yybegin(DECL); return CONFIG_KEYWORD; }
     "connector"        { yybegin(DECL); return CONNECTOR_KEYWORD; }
     "client"           { yybegin(DECL); return CLIENT_KEYWORD; }
     "entity"           { yybegin(DECL); return ENTITY_KEYWORD; }
     "import"           { return IMPORT_KEYWORD; }
     "from"             { return FROM_KEYWORD; }
-    "let"              { yybegin(DECL); return LET_KEYWORD; }
+    "let"              { yybegin(LET_DECL); return LET_KEYWORD; }
 }
 
-<DECORATOR> {
-    {IDENTIFIER}  { return DECO_IDENTIFIER; }
-}
-
-<PPL> {
-    {IDENTIFIER}  { return PPL_IDENTIFIER; }
-}
-
-"{"                { cancelDeclState(); yypushState(BLOCK); return LBRACE; }
-"}"                { yypopToState(BLOCK); return RBRACE; }
+"{"                { cancelDeclState(); pushBlock(); return LBRACE; }
+"}"                { yypopToCurrentBlock(); return RBRACE; }
 "("                { yypushState(YYINITIAL); return LPAREN; }
 ")"                { yypopToState(YYINITIAL); return RPAREN; }
 "["                { yypushState(YYINITIAL); return LBRACKET; }
@@ -137,7 +166,6 @@ LINE_COMMENT="//" .*
 ".."               { return ORANGE; }
 "$"                { yypushState(PPL); return DOLLAR; }
 
-{IDENTIFIER}       { return IDENTIFIER; }
 {NULL_LITERAL}     { return NULL_LITERAL; }
 {BOOL_LITERAL}     { return BOOL_LITERAL; }
 {NUMERIC_LITERAL}  { return NUMERIC_LITERAL; }
@@ -147,5 +175,27 @@ LINE_COMMENT="//" .*
 
 {DOC_COMMENT}      { return DOC_COMMENT; }
 {LINE_COMMENT}     { return LINE_COMMENT; }
+
+<ENUM> {
+    {IDENTIFIER}  { return ENUM_IDENTIFIER; }
+}
+
+<DECORATOR> {
+    {IDENTIFIER}  { return DECO_IDENTIFIER; }
+}
+
+<PPL> {
+    {IDENTIFIER}  { return PPL_IDENTIFIER; }
+}
+
+<MODEL_DECL> {
+    {IDENTIFIER}  { return MODEL_NAME; }
+}
+
+<ENUM_DECL> {
+    {IDENTIFIER}  { return ENUM_NAME; }
+}
+
+{IDENTIFIER}       { return IDENTIFIER; }
 
 [^]                { return BAD_CHARACTER; }

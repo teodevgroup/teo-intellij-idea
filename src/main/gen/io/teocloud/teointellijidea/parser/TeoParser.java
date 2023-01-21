@@ -632,7 +632,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // doc_comment_block? item_decorator_list? ENUM_KEYWORD WS enum_name WS? enum_definition_block
+  // doc_comment_block? item_decorator_list? ENUM_KEYWORD WS ENUM_NAME WS? enum_definition_block
   public static boolean enum_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "enum_definition")) return false;
     boolean r;
@@ -641,7 +641,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     r = r && enum_definition_1(b, l + 1);
     r = r && consumeToken(b, ENUM_KEYWORD);
     r = r && WS(b, l + 1);
-    r = r && enum_name(b, l + 1);
+    r = r && consumeToken(b, ENUM_NAME);
     r = r && enum_definition_5(b, l + 1);
     r = r && enum_definition_block(b, l + 1);
     exit_section_(b, l, m, r, false, null);
@@ -706,19 +706,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER
-  public static boolean enum_name(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "enum_name")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    exit_section_(b, m, ENUM_NAME, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // doc_comment_block? item_decorator_list? WS? IDENTIFIER EOL
+  // doc_comment_block? item_decorator_list? WS? ENUM_IDENTIFIER EOL
   public static boolean enum_value_declaration(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "enum_value_declaration")) return false;
     boolean r;
@@ -726,7 +714,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     r = enum_value_declaration_0(b, l + 1);
     r = r && enum_value_declaration_1(b, l + 1);
     r = r && enum_value_declaration_2(b, l + 1);
-    r = r && consumeTokens(b, 0, IDENTIFIER, EOL);
+    r = r && consumeTokens(b, 0, ENUM_IDENTIFIER, EOL);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1311,7 +1299,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // doc_comment_block? item_decorator_list? MODEL_KEYWORD WS model_name WS? model_definition_block
+  // doc_comment_block? item_decorator_list? MODEL_KEYWORD WS MODEL_NAME WS? model_definition_block
   public static boolean model_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "model_definition")) return false;
     boolean r;
@@ -1320,7 +1308,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     r = r && model_definition_1(b, l + 1);
     r = r && consumeToken(b, MODEL_KEYWORD);
     r = r && WS(b, l + 1);
-    r = r && model_name(b, l + 1);
+    r = r && consumeToken(b, MODEL_NAME);
     r = r && model_definition_5(b, l + 1);
     r = r && model_definition_block(b, l + 1);
     exit_section_(b, l, m, r, false, null);
@@ -1381,18 +1369,6 @@ public class TeoParser implements PsiParser, LightPsiParser {
     if (!r) r = field_definition(b, l + 1);
     if (!r) r = comment(b, l + 1);
     if (!r) r = WS(b, l + 1);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // IDENTIFIER
-  public static boolean model_name(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "model_name")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    exit_section_(b, m, MODEL_NAME, r);
     return r;
   }
 
