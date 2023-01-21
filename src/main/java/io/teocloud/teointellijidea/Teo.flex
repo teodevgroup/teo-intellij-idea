@@ -11,14 +11,16 @@ import java.util.Stack;
 
 %{
 
-    private Stack<Integer> stack = new Stack<Integer>(){};
+    private Stack<Integer> stack = new Stack<Integer>();
 
     private Stack<Integer> blockStack = new Stack<Integer>();
 
     private boolean previousTokenIsIdentifier = false;
 
     public void yypushState(int newState) {
-        stack.push(yystate());
+        System.out.format("CURRENT %s <<< ", stack.toString());
+        System.out.format("will push %d\n", yystate());
+        stack.push(newState);
         yybegin(newState);
     }
 
@@ -30,13 +32,18 @@ import java.util.Stack;
 
     public void yypopState() {
         if (stack.empty()) {
-            System.out.format("will just be initial\n");
+            System.out.format("OVERPOP 1\n");
             yybegin(YYINITIAL);
         } else {
-            System.out.format("SEE CURRENT STATE %s  -- ", stack.toString());
+            System.out.format("CURRENT %s >>> ", stack.toString());
             int a = stack.pop();
             System.out.format("will pop %d\n", a);
-            yybegin(a);
+            if (stack.empty()) {
+                System.out.format("OVERPOP 2\n");
+                yybegin(YYINITIAL);
+            } else {
+                yybegin(stack.peek());
+            }
         }
     }
 
@@ -60,6 +67,7 @@ import java.util.Stack;
 
     public _TeoLexer() {
         this((java.io.Reader)null);
+        stack.push(YYINITIAL);
     }
 
     private void handleNewLine() {
