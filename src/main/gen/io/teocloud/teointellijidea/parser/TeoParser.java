@@ -787,14 +787,14 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // doc_comment_block? item_decorator_list? field_name WS* COLON WS* field_type
+  // doc_comment_block? item_decorator_list? FIELD_NAME WS* COLON WS* field_type
   public static boolean field_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "field_definition")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, FIELD_DEFINITION, "<field definition>");
     r = field_definition_0(b, l + 1);
     r = r && field_definition_1(b, l + 1);
-    r = r && field_name(b, l + 1);
+    r = r && consumeToken(b, FIELD_NAME);
     r = r && field_definition_3(b, l + 1);
     r = r && consumeToken(b, COLON);
     r = r && field_definition_5(b, l + 1);
@@ -840,25 +840,13 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER
-  public static boolean field_name(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "field_name")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    exit_section_(b, m, FIELD_NAME, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // IDENTIFIER ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
+  // FIELD_TYPE_BASE ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
   public static boolean field_type(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "field_type")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    if (!nextTokenIs(b, FIELD_TYPE_BASE)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
+    r = consumeToken(b, FIELD_TYPE_BASE);
     r = r && field_type_1(b, l + 1);
     r = r && field_type_2(b, l + 1);
     exit_section_(b, m, FIELD_TYPE, r);

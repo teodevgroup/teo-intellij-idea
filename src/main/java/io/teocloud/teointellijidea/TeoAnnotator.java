@@ -15,16 +15,6 @@ public class TeoAnnotator implements Annotator {
                 .newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .range(element.getTextRange())
                 .textAttributes(TeoSyntaxHighlighter.ENUM_MEMBER).create();
-        } else if (element instanceof TeoFieldName) {
-            holder
-                .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                .range(element.getTextRange())
-                .textAttributes(TeoSyntaxHighlighter.FIELD_NAME).create();
-        } else if (element instanceof TeoFieldTypeImpl) {
-            holder
-                .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                .range(element.getTextRange())
-                .textAttributes(TeoSyntaxHighlighter.FIELD_TYPE).create();
         }
     }
 }

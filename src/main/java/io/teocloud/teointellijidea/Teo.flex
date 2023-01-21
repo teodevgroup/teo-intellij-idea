@@ -57,9 +57,15 @@ import java.util.Stack;
         if ((yystate() == DECORATOR) || (yystate() == PPL)) {
             yypopState();
         }
-        if (!blockStack.empty() && blockStack.peek() == CONFIG) {
-            if (yystate() == YYINITIAL) {
-                yybegin(CONFIG);
+        if (!blockStack.empty()) {
+            if (blockStack.peek() == CONFIG) {
+                if (yystate() == YYINITIAL) {
+                    yybegin(CONFIG);
+                }
+            } else if (blockStack.peek() == MODEL) {
+                if (yystate() == TYPE) {
+                    yybegin(MODEL);
+                }
             }
         }
     }
@@ -127,6 +133,14 @@ import java.util.Stack;
     private void handleConfigItemDetected() {
         yybegin(YYINITIAL);
     }
+
+    private void intoTypeMode() {
+        if (yystate() == MODEL) {
+            if (!blockStack.empty() && blockStack.peek() == MODEL) {
+                yybegin(TYPE);
+            }
+        }
+    }
 %}
 
 %class TeoLexer
@@ -153,7 +167,7 @@ IDENTIFIER       = {NAME_START} ({NAME_BODY})*
 DOC_COMMENT="///" .*
 LINE_COMMENT="//" .*
 
-%state DECORATOR, PPL, BLOCK, DECL, ENUM, ENUM_DECL, MODEL, MODEL_DECL, LET_DECL, CONFIG, CONFIG_DECL
+%state DECORATOR, PPL, BLOCK, DECL, ENUM, ENUM_DECL, MODEL, MODEL_DECL, LET_DECL, CONFIG, CONFIG_DECL, TYPE
 
 %%
 
@@ -177,7 +191,7 @@ LINE_COMMENT="//" .*
 "]"                { yypopToState(YYINITIAL); return RBRACKET; }
 "="                { cancelDeclState(); return EQ; }
 "."                { return DOT; }
-":"                { return COLON; }
+":"                { intoTypeMode(); return COLON; }
 "??"               { return QMQM; }
 "?"                { return QM; }
 "!"                { return EXCL; }
@@ -224,6 +238,14 @@ LINE_COMMENT="//" .*
 
 <CONFIG> {
     {IDENTIFIER}  { handleConfigItemDetected(); return CONFIG_ITEM_NAME; }
+}
+
+<MODEL> {
+    {IDENTIFIER}  { return FIELD_NAME; }
+}
+
+<TYPE> {
+    {IDENTIFIER}  { return FIELD_TYPE_BASE; }
 }
 
 {IDENTIFIER}      { return IDENTIFIER; }

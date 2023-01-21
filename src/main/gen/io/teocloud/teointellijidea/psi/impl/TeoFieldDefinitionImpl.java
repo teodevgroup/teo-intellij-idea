@@ -41,12 +41,6 @@ public class TeoFieldDefinitionImpl extends ASTWrapperPsiElement implements TeoF
 
   @Override
   @NotNull
-  public TeoFieldName getFieldName() {
-    return findNotNullChildByClass(TeoFieldName.class);
-  }
-
-  @Override
-  @NotNull
   public TeoFieldType getFieldType() {
     return findNotNullChildByClass(TeoFieldType.class);
   }

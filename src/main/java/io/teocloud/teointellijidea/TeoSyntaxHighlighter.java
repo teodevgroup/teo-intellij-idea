@@ -59,6 +59,9 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] BRACKET_KEYS = new TextAttributesKey[]{BRACKETS};
     private static final TextAttributesKey[] BRACE_KEYS = new TextAttributesKey[]{BRACES};
     private static final TextAttributesKey[] ENUM_MEMBER_KEYS = new TextAttributesKey[]{ENUM_MEMBER};
+    private static final TextAttributesKey[] FIELD_NAME_KEYS = new TextAttributesKey[]{FIELD_NAME};
+    private static final TextAttributesKey[] FIELD_TYPE_KEYS = new TextAttributesKey[]{FIELD_TYPE};
+
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
     @NotNull
@@ -118,6 +121,12 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         }
         if (tokenType.equals(TeoTypes.LBRACE) || tokenType.equals(TeoTypes.RBRACE)) {
             return BRACE_KEYS;
+        }
+        if (tokenType.equals(TeoTypes.FIELD_NAME)) {
+            return FIELD_NAME_KEYS;
+        }
+        if (tokenType.equals(TeoTypes.FIELD_TYPE_BASE)) {
+            return FIELD_TYPE_KEYS;
         }
         if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;

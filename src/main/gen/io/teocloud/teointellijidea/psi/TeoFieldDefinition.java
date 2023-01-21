@@ -14,9 +14,6 @@ public interface TeoFieldDefinition extends PsiElement {
   TeoDocCommentBlock getDocCommentBlock();
 
   @NotNull
-  TeoFieldName getFieldName();
-
-  @NotNull
   TeoFieldType getFieldType();
 
   @Nullable
