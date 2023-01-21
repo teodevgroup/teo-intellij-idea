@@ -447,12 +447,15 @@ class TeoLexer implements FlexLexer {
     private void pushBlock() {
         if (yystate() == ENUM_DECL) {
             currentBlock = ENUM;
+            cancelDeclState();
             yypushState(ENUM);
         } else if (yystate() == MODEL_DECL) {
             currentBlock = MODEL;
+            cancelDeclState();
             yypushState(MODEL);
         } else {
             currentBlock = BLOCK;
+            cancelDeclState();
             yypushState(BLOCK);
         }
     }
@@ -751,7 +754,7 @@ class TeoLexer implements FlexLexer {
             // fall through
           case 49: break;
           case 8: 
-            { cancelDeclState(); pushBlock(); return LBRACE;
+            { pushBlock(); return LBRACE;
             } 
             // fall through
           case 50: break;

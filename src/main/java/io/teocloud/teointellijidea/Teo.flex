@@ -83,12 +83,15 @@ import java.util.ArrayList;import java.util.Stack;
     private void pushBlock() {
         if (yystate() == ENUM_DECL) {
             currentBlock = ENUM;
+            cancelDeclState();
             yypushState(ENUM);
         } else if (yystate() == MODEL_DECL) {
             currentBlock = MODEL;
+            cancelDeclState();
             yypushState(MODEL);
         } else {
             currentBlock = BLOCK;
+            cancelDeclState();
             yypushState(BLOCK);
         }
     }
@@ -147,7 +150,7 @@ LINE_COMMENT="//" .*
     "let"              { yybegin(LET_DECL); return LET_KEYWORD; }
 }
 
-"{"                { cancelDeclState(); pushBlock(); return LBRACE; }
+"{"                { pushBlock(); return LBRACE; }
 "}"                { yypopToCurrentBlock(); return RBRACE; }
 "("                { yypushState(YYINITIAL); return LPAREN; }
 ")"                { yypopToState(YYINITIAL); return RPAREN; }
