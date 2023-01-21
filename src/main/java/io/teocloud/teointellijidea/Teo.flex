@@ -5,7 +5,7 @@ import com.intellij.psi.tree.IElementType;
 import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import static com.intellij.psi.TokenType.*;
 import com.intellij.openapi.util.text.StringUtil;
-import java.util.ArrayList;import java.util.Stack;
+import java.util.Stack;
 
 %%
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;import java.util.Stack;
 
     private Stack<Integer> stack = new Stack<Integer>(){};
 
-    private int currentBlock = 0;
+    private Stack<Integer> blockStack = new Stack<Integer>();
 
     public void yypushState(int newState) {
         stack.push(yystate());
@@ -57,9 +57,9 @@ import java.util.ArrayList;import java.util.Stack;
         if ((yystate() == DECORATOR) || (yystate() == PPL)) {
             yypopState();
         }
-        if (currentBlock == CONFIG) {
+        if (!blockStack.empty() && blockStack.peek() == CONFIG) {
             if (yystate() == YYINITIAL) {
-                yypopState();
+                yybegin(CONFIG);
             }
         }
     }
@@ -67,11 +67,6 @@ import java.util.ArrayList;import java.util.Stack;
     private void handleWhiteSpace() {
         if (yystate() == DECORATOR) {
             yypopState();
-        }
-        if (currentBlock == CONFIG) {
-            if (yystate() == CONFIG) {
-                yypushState(YYINITIAL);
-            }
         }
     }
 
@@ -95,35 +90,42 @@ import java.util.ArrayList;import java.util.Stack;
 
     private void pushBlock() {
         if (yystate() == ENUM_DECL) {
-            currentBlock = ENUM;
+            blockStack.push(ENUM);
             cancelDeclState();
             yypushState(ENUM);
         } else if (yystate() == MODEL_DECL) {
-            currentBlock = MODEL;
+            blockStack.push(MODEL);
             cancelDeclState();
             yypushState(MODEL);
         } else if (yystate() == CONFIG_DECL) {
-            currentBlock = CONFIG;
+            blockStack.push(CONFIG);
             cancelDeclState();
             yypushState(CONFIG);
         } else {
-            currentBlock = BLOCK;
+            blockStack.push(BLOCK);
             cancelDeclState();
             yypushState(BLOCK);
         }
     }
 
     private void yypopToCurrentBlock() {
-        if (currentBlock == ENUM) {
+        if (blockStack.peek() == ENUM) {
             yypopToState(ENUM);
-            currentBlock = 0;
-        } else if (currentBlock == MODEL) {
+            blockStack.pop();
+        } else if (blockStack.peek() == MODEL) {
             yypopToState(MODEL);
-            currentBlock = 0;
-        } else if (currentBlock == BLOCK) {
+            blockStack.pop();
+        } else if (blockStack.peek() == CONFIG) {
+            yypopToState(CONFIG);
+            blockStack.pop();
+        } else if (blockStack.peek() == BLOCK) {
             yypopToState(BLOCK);
-            currentBlock = 0;
+            blockStack.pop();
         }
+    }
+
+    private void handleConfigItemDetected() {
+        yybegin(YYINITIAL);
     }
 %}
 
@@ -221,7 +223,7 @@ LINE_COMMENT="//" .*
 }
 
 <CONFIG> {
-    {IDENTIFIER}  { return CONFIG_ITEM_NAME; }
+    {IDENTIFIER}  { handleConfigItemDetected(); return CONFIG_ITEM_NAME; }
 }
 
 {IDENTIFIER}      { return IDENTIFIER; }

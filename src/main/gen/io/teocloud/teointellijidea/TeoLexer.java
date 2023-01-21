@@ -7,7 +7,7 @@ import com.intellij.psi.tree.IElementType;
 import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import static com.intellij.psi.TokenType.*;
 import com.intellij.openapi.util.text.StringUtil;
-import java.util.ArrayList;import java.util.Stack;
+import java.util.Stack;
 
 
 /**
@@ -406,7 +406,7 @@ class TeoLexer implements FlexLexer {
 
     private Stack<Integer> stack = new Stack<Integer>(){};
 
-    private int currentBlock = 0;
+    private Stack<Integer> blockStack = new Stack<Integer>();
 
     public void yypushState(int newState) {
         stack.push(yystate());
@@ -450,9 +450,9 @@ class TeoLexer implements FlexLexer {
         if ((yystate() == DECORATOR) || (yystate() == PPL)) {
             yypopState();
         }
-        if (currentBlock == CONFIG) {
+        if (!blockStack.empty() && blockStack.peek() == CONFIG) {
             if (yystate() == YYINITIAL) {
-                yypopState();
+                yybegin(CONFIG);
             }
         }
     }
@@ -460,11 +460,6 @@ class TeoLexer implements FlexLexer {
     private void handleWhiteSpace() {
         if (yystate() == DECORATOR) {
             yypopState();
-        }
-        if (currentBlock == CONFIG) {
-            if (yystate() == CONFIG) {
-                yypushState(YYINITIAL);
-            }
         }
     }
 
@@ -488,35 +483,42 @@ class TeoLexer implements FlexLexer {
 
     private void pushBlock() {
         if (yystate() == ENUM_DECL) {
-            currentBlock = ENUM;
+            blockStack.push(ENUM);
             cancelDeclState();
             yypushState(ENUM);
         } else if (yystate() == MODEL_DECL) {
-            currentBlock = MODEL;
+            blockStack.push(MODEL);
             cancelDeclState();
             yypushState(MODEL);
         } else if (yystate() == CONFIG_DECL) {
-            currentBlock = CONFIG;
+            blockStack.push(CONFIG);
             cancelDeclState();
             yypushState(CONFIG);
         } else {
-            currentBlock = BLOCK;
+            blockStack.push(BLOCK);
             cancelDeclState();
             yypushState(BLOCK);
         }
     }
 
     private void yypopToCurrentBlock() {
-        if (currentBlock == ENUM) {
+        if (blockStack.peek() == ENUM) {
             yypopToState(ENUM);
-            currentBlock = 0;
-        } else if (currentBlock == MODEL) {
+            blockStack.pop();
+        } else if (blockStack.peek() == MODEL) {
             yypopToState(MODEL);
-            currentBlock = 0;
-        } else if (currentBlock == BLOCK) {
+            blockStack.pop();
+        } else if (blockStack.peek() == CONFIG) {
+            yypopToState(CONFIG);
+            blockStack.pop();
+        } else if (blockStack.peek() == BLOCK) {
             yypopToState(BLOCK);
-            currentBlock = 0;
+            blockStack.pop();
         }
+    }
+
+    private void handleConfigItemDetected() {
+        yybegin(YYINITIAL);
     }
 
 
@@ -890,7 +892,7 @@ class TeoLexer implements FlexLexer {
             // fall through
           case 69: break;
           case 26: 
-            { return CONFIG_ITEM_NAME;
+            { handleConfigItemDetected(); return CONFIG_ITEM_NAME;
             } 
             // fall through
           case 70: break;
