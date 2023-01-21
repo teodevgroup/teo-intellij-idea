@@ -840,16 +840,25 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // FIELD_TYPE_BASE ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
+  // (BUILTIN_TYPE | USER_TYPE) ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
   public static boolean field_type(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "field_type")) return false;
-    if (!nextTokenIs(b, FIELD_TYPE_BASE)) return false;
+    if (!nextTokenIs(b, "<field type>", BUILTIN_TYPE, USER_TYPE)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, FIELD_TYPE_BASE);
+    Marker m = enter_section_(b, l, _NONE_, FIELD_TYPE, "<field type>");
+    r = field_type_0(b, l + 1);
     r = r && field_type_1(b, l + 1);
     r = r && field_type_2(b, l + 1);
-    exit_section_(b, m, FIELD_TYPE, r);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // BUILTIN_TYPE | USER_TYPE
+  private static boolean field_type_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "field_type_0")) return false;
+    boolean r;
+    r = consumeToken(b, BUILTIN_TYPE);
+    if (!r) r = consumeToken(b, USER_TYPE);
     return r;
   }
 

@@ -58,6 +58,7 @@ public interface TeoTypes {
   IElementType AT = new TeoTokenType("AT");
   IElementType ATAT = new TeoTokenType("ATAT");
   IElementType BOOL_LITERAL = new TeoTokenType("BOOL_LITERAL");
+  IElementType BUILTIN_TYPE = new TeoTokenType("BUILTIN_TYPE");
   IElementType CLIENT_KEYWORD = new TeoTokenType("CLIENT_KEYWORD");
   IElementType COLON = new TeoTokenType("COLON");
   IElementType COMMA = new TeoTokenType("COMMA");
@@ -78,7 +79,6 @@ public interface TeoTypes {
   IElementType EQ = new TeoTokenType("EQ");
   IElementType EXCL = new TeoTokenType("EXCL");
   IElementType FIELD_NAME = new TeoTokenType("FIELD_NAME");
-  IElementType FIELD_TYPE_BASE = new TeoTokenType("FIELD_TYPE_BASE");
   IElementType FROM_KEYWORD = new TeoTokenType("FROM_KEYWORD");
   IElementType IDENTIFIER = new TeoTokenType("IDENTIFIER");
   IElementType IMPORT_KEYWORD = new TeoTokenType("IMPORT_KEYWORD");
@@ -100,6 +100,7 @@ public interface TeoTypes {
   IElementType RBRACKET = new TeoTokenType("RBRACKET");
   IElementType RPAREN = new TeoTokenType("RPAREN");
   IElementType STRING_LITERAL = new TeoTokenType("STRING_LITERAL");
+  IElementType USER_TYPE = new TeoTokenType("USER_TYPE");
   IElementType WSC = new TeoTokenType("WSC");
 
   class Factory {

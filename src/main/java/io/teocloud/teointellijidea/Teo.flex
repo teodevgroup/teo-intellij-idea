@@ -245,7 +245,18 @@ LINE_COMMENT="//" .*
 }
 
 <TYPE> {
-    {IDENTIFIER}  { return FIELD_TYPE_BASE; }
+    "String"      { return BUILTIN_TYPE; }
+    "Bool"        { return BUILTIN_TYPE; }
+    "Int"         { return BUILTIN_TYPE; }
+    "Int32"       { return BUILTIN_TYPE; }
+    "Int64"       { return BUILTIN_TYPE; }
+    "Float"       { return BUILTIN_TYPE; }
+    "Float32"     { return BUILTIN_TYPE; }
+    "Float64"     { return BUILTIN_TYPE; }
+    "Date"        { return BUILTIN_TYPE; }
+    "DateTime"    { return BUILTIN_TYPE; }
+    "ObjectId"    { return BUILTIN_TYPE; }
+    {IDENTIFIER}  { return USER_TYPE; }
 }
 
 {IDENTIFIER}      { return IDENTIFIER; }

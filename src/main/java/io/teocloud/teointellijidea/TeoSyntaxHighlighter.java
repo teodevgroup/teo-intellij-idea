@@ -20,7 +20,8 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
 
     public static final TextAttributesKey MODEL_NAME = createTextAttributesKey("TEO_MODEL_NAME", DefaultLanguageHighlighterColors.CLASS_NAME);
     public static final TextAttributesKey FIELD_NAME = createTextAttributesKey("TEO_FIELD_NAME", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
-    public static final TextAttributesKey FIELD_TYPE = createTextAttributesKey("TEO_FIELD_TYPE", DefaultLanguageHighlighterColors.CLASS_REFERENCE);
+    public static final TextAttributesKey BUILTIN_TYPE = createTextAttributesKey("TEO_BUILTIN_TYPE", DefaultLanguageHighlighterColors.NUMBER);
+    public static final TextAttributesKey USER_TYPE = createTextAttributesKey("TEO_USER_TYPE", DefaultLanguageHighlighterColors.CLASS_REFERENCE);
     public static final TextAttributesKey ENUM_MEMBER = createTextAttributesKey("TEO_ENUM_MEMBER", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
 
     public static final TextAttributesKey BOOL_LITERAL =
@@ -60,7 +61,8 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] BRACE_KEYS = new TextAttributesKey[]{BRACES};
     private static final TextAttributesKey[] ENUM_MEMBER_KEYS = new TextAttributesKey[]{ENUM_MEMBER};
     private static final TextAttributesKey[] FIELD_NAME_KEYS = new TextAttributesKey[]{FIELD_NAME};
-    private static final TextAttributesKey[] FIELD_TYPE_KEYS = new TextAttributesKey[]{FIELD_TYPE};
+    private static final TextAttributesKey[] USER_TYPE_KEYS = new TextAttributesKey[]{USER_TYPE};
+    private static final TextAttributesKey[] BUILTIN_TYPE_KEYS = new TextAttributesKey[]{BUILTIN_TYPE};
 
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
@@ -125,8 +127,11 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(TeoTypes.FIELD_NAME)) {
             return FIELD_NAME_KEYS;
         }
-        if (tokenType.equals(TeoTypes.FIELD_TYPE_BASE)) {
-            return FIELD_TYPE_KEYS;
+        if (tokenType.equals(TeoTypes.USER_TYPE)) {
+            return USER_TYPE_KEYS;
+        }
+        if (tokenType.equals(TeoTypes.BUILTIN_TYPE)) {
+            return BUILTIN_TYPE_KEYS;
         }
         if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;

@@ -10,11 +10,11 @@ import org.jetbrains.annotations.NotNull;
 public class TeoAnnotator implements Annotator {
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (element instanceof TeoEnumChoiceLiteral) {
-            holder
-                .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                .range(element.getTextRange())
-                .textAttributes(TeoSyntaxHighlighter.ENUM_MEMBER).create();
-        }
+//        if (element instanceof TeoEnumChoiceLiteral) {
+//            holder
+//                .newSilentAnnotation(HighlightSeverity.INFORMATION)
+//                .range(element.getTextRange())
+//                .textAttributes(TeoSyntaxHighlighter.ENUM_MEMBER).create();
+//        }
     }
 }
