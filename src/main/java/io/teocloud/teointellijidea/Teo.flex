@@ -49,7 +49,7 @@ import java.util.Stack;
         }
     }
 
-    public TeoLexer() {
+    public _TeoLexer() {
         this((java.io.Reader)null);
     }
 
@@ -143,11 +143,19 @@ import java.util.Stack;
     }
 %}
 
-%class TeoLexer
+//%{
+//  private static String zzToPrintable(CharSequence cs) {
+//    return zzToPrintable(cs.toString());
+//  }
+//%}
+
+%class _TeoLexer
+%public
 %implements FlexLexer
 %unicode
 %function advance
 %type IElementType
+%debug
 
 // whitespaces
 EOL="\r"|"\n"|"\r\n"

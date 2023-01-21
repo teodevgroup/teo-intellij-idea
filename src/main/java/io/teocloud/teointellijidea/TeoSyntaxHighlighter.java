@@ -69,7 +69,7 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
     @Override
     public Lexer getHighlightingLexer() {
-        return new TeoLexerAdapter();
+        return new TeoLexer();
     }
 
     @Override
