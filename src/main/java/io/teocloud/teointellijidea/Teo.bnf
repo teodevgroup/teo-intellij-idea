@@ -95,8 +95,8 @@ argument ::= named_argument | expression
 named_argument ::= IDENTIFIER padded_colon expression
 
 unit ::= (group | NULL_LITERAL | BOOL_LITERAL | NUMERIC_LITERAL | STRING_LITERAL | enum_choice_literal | tuple_literal | IDENTIFIER) (subscript | DOT IDENTIFIER | argument_list)*
-identifier_unit ::= initial_unit_identifier (subscript | DOT (IDENTIFIER | DECO_IDENTIFIER) | argument_list)*
-initial_unit_identifier ::= IDENTIFIER | DECO_IDENTIFIER
+identifier_unit ::= initial_unit_identifier (subscript | DOT (IDENTIFIER | DECO_IDENTIFIER | PPL_IDENTIFIER) | argument_list)*
+initial_unit_identifier ::= IDENTIFIER | DECO_IDENTIFIER | PPL_IDENTIFIER
 tuple_literal ::= padded_lparen (padded_comma | (expression padded_comma (expression (padded_comma expression)* padded_comma?)*)) padded_rparen
 array_literal ::= padded_lbracket (expression (padded_comma expression)* padded_comma?)? padded_rbracket
 named_expression ::= expression WS* padded_colon WS* expression

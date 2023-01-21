@@ -89,6 +89,7 @@ public interface TeoTypes {
   IElementType NULL_LITERAL = new TeoTokenType("NULL_LITERAL");
   IElementType NUMERIC_LITERAL = new TeoTokenType("NUMERIC_LITERAL");
   IElementType ORANGE = new TeoTokenType("ORANGE");
+  IElementType PPL_IDENTIFIER = new TeoTokenType("PPL_IDENTIFIER");
   IElementType QM = new TeoTokenType("QM");
   IElementType QMQM = new TeoTokenType("QMQM");
   IElementType RANGE_LITERAL = new TeoTokenType("RANGE_LITERAL");

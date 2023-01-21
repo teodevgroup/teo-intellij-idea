@@ -38,29 +38,30 @@ public class TeoAnnotator implements Annotator {
                 .newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .range(element.getTextRange())
                 .textAttributes(TeoSyntaxHighlighter.FIELD_TYPE).create();
-        } else if (element instanceof TeoPipelineImpl) {
-            ASTNode node = element.getNode();
-            @NotNull ASTNode identifierUnit = Objects.requireNonNull(element.getNode().findChildByType(TeoTypes.IDENTIFIER_UNIT));
-            pipelineHighlight(node, holder);
-            pipelineHighlight(identifierUnit, holder);
         }
+//        else if (element instanceof TeoPipelineImpl) {
+//            ASTNode node = element.getNode();
+//            @NotNull ASTNode identifierUnit = Objects.requireNonNull(element.getNode().findChildByType(TeoTypes.IDENTIFIER_UNIT));
+//            pipelineHighlight(node, holder);
+//            pipelineHighlight(identifierUnit, holder);
+//        }
     }
 
-    private void decoratorHighlight(@NotNull ASTNode node, @NotNull AnnotationHolder holder) {
-        @NotNull ASTNode[] children = node.getChildren(TeoTokenSets.DECORATOR_SET);
-        for (ASTNode child : children) {
-            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-                .range(child.getTextRange())
-                .textAttributes(TeoSyntaxHighlighter.DECORATOR).create();
-        }
-    }
-
-    private void pipelineHighlight(@NotNull ASTNode node, @NotNull AnnotationHolder holder) {
-        @NotNull ASTNode[] children = node.getChildren(TeoTokenSets.PIPELINE_SET);
-        for (ASTNode child : children) {
-            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-                    .range(child.getTextRange())
-                    .textAttributes(TeoSyntaxHighlighter.PIPELINE).create();
-        }
-    }
+//    private void decoratorHighlight(@NotNull ASTNode node, @NotNull AnnotationHolder holder) {
+//        @NotNull ASTNode[] children = node.getChildren(TeoTokenSets.DECORATOR_SET);
+//        for (ASTNode child : children) {
+//            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+//                .range(child.getTextRange())
+//                .textAttributes(TeoSyntaxHighlighter.DECORATOR).create();
+//        }
+//    }
+//
+//    private void pipelineHighlight(@NotNull ASTNode node, @NotNull AnnotationHolder holder) {
+//        @NotNull ASTNode[] children = node.getChildren(TeoTokenSets.PIPELINE_SET);
+//        for (ASTNode child : children) {
+//            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+//                    .range(child.getTextRange())
+//                    .textAttributes(TeoSyntaxHighlighter.PIPELINE).create();
+//        }
+//    }
 }

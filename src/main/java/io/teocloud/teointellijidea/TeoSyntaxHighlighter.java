@@ -51,6 +51,8 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
     private static final TextAttributesKey[] MODEL_NAME_KEYS = new TextAttributesKey[]{MODEL_NAME};
     private static final TextAttributesKey[] DECORATOR_KEYS = new TextAttributesKey[]{DECORATOR};
+
+    private static final TextAttributesKey[] PIPELINE_KEYS = new TextAttributesKey[]{PIPELINE};
     private static final TextAttributesKey[] DOT_KEYS = new TextAttributesKey[]{DOT};
     private static final TextAttributesKey[] COMMA_KEYS = new TextAttributesKey[]{COMMA};
     private static final TextAttributesKey[] BRACKET_KEYS = new TextAttributesKey[]{BRACKETS};
@@ -97,6 +99,9 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         }
         if (tokenType.equals(TeoTypes.AT) || tokenType.equals(TeoTypes.ATAT) || tokenType.equals(TeoTypes.DECO_IDENTIFIER)) {
             return DECORATOR_KEYS;
+        }
+        if (tokenType.equals(TeoTypes.DOLLAR) || tokenType.equals(TeoTypes.PPL_IDENTIFIER)) {
+            return PIPELINE_KEYS;
         }
         if (tokenType.equals(TeoTypes.DOT)) {
             return DOT_KEYS;

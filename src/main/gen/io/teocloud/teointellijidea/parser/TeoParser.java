@@ -935,10 +935,9 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // initial_unit_identifier (subscript | DOT (IDENTIFIER | DECO_IDENTIFIER) | argument_list)*
+  // initial_unit_identifier (subscript | DOT (IDENTIFIER | DECO_IDENTIFIER | PPL_IDENTIFIER) | argument_list)*
   public static boolean identifier_unit(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "identifier_unit")) return false;
-    if (!nextTokenIs(b, "<identifier unit>", DECO_IDENTIFIER, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, IDENTIFIER_UNIT, "<identifier unit>");
     r = initial_unit_identifier(b, l + 1);
@@ -947,7 +946,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (subscript | DOT (IDENTIFIER | DECO_IDENTIFIER) | argument_list)*
+  // (subscript | DOT (IDENTIFIER | DECO_IDENTIFIER | PPL_IDENTIFIER) | argument_list)*
   private static boolean identifier_unit_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "identifier_unit_1")) return false;
     while (true) {
@@ -958,7 +957,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // subscript | DOT (IDENTIFIER | DECO_IDENTIFIER) | argument_list
+  // subscript | DOT (IDENTIFIER | DECO_IDENTIFIER | PPL_IDENTIFIER) | argument_list
   private static boolean identifier_unit_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "identifier_unit_1_0")) return false;
     boolean r;
@@ -970,7 +969,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // DOT (IDENTIFIER | DECO_IDENTIFIER)
+  // DOT (IDENTIFIER | DECO_IDENTIFIER | PPL_IDENTIFIER)
   private static boolean identifier_unit_1_0_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "identifier_unit_1_0_1")) return false;
     boolean r;
@@ -981,12 +980,13 @@ public class TeoParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // IDENTIFIER | DECO_IDENTIFIER
+  // IDENTIFIER | DECO_IDENTIFIER | PPL_IDENTIFIER
   private static boolean identifier_unit_1_0_1_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "identifier_unit_1_0_1_1")) return false;
     boolean r;
     r = consumeToken(b, IDENTIFIER);
     if (!r) r = consumeToken(b, DECO_IDENTIFIER);
+    if (!r) r = consumeToken(b, PPL_IDENTIFIER);
     return r;
   }
 
@@ -1147,14 +1147,14 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER | DECO_IDENTIFIER
+  // IDENTIFIER | DECO_IDENTIFIER | PPL_IDENTIFIER
   public static boolean initial_unit_identifier(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "initial_unit_identifier")) return false;
-    if (!nextTokenIs(b, "<initial unit identifier>", DECO_IDENTIFIER, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, INITIAL_UNIT_IDENTIFIER, "<initial unit identifier>");
     r = consumeToken(b, IDENTIFIER);
     if (!r) r = consumeToken(b, DECO_IDENTIFIER);
+    if (!r) r = consumeToken(b, PPL_IDENTIFIER);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
