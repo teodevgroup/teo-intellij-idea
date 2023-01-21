@@ -31,19 +31,17 @@ import java.util.Stack;
     }
 
     public void yypopState() {
-        if (stack.empty()) {
-            System.out.format("OVERPOP 1\n");
+        if (stack.size() == 1) {
+            System.out.format("OVERPOP WHEN 1\n");
+            yybegin(stack.peek());
+        } else if (stack.size() == 0) {
+            System.out.format("OVERPOP WHEN 0\n");
             yybegin(YYINITIAL);
         } else {
             System.out.format("CURRENT %s >>> ", stack.toString());
             int a = stack.pop();
             System.out.format("will pop %d\n", a);
-            if (stack.empty()) {
-                System.out.format("OVERPOP 2\n");
-                yybegin(YYINITIAL);
-            } else {
-                yybegin(stack.peek());
-            }
+            yybegin(stack.peek());
         }
     }
 
@@ -95,19 +93,19 @@ import java.util.Stack;
 
     private void cancelDeclState() {
         if (yystate() == DECL) {
-            yypopState();
+            yybegin(stack.peek());
         }
         if (yystate() == MODEL_DECL) {
-            yypopState();
+            yybegin(stack.peek());
         }
         if (yystate() == ENUM_DECL) {
-            yypopState();
+            yybegin(stack.peek());
         }
         if (yystate() == LET_DECL) {
-            yypopState();
+            yybegin(stack.peek());
         }
         if (yystate() == CONFIG_DECL) {
-            yypopState();
+            yybegin(stack.peek());
         }
     }
 
