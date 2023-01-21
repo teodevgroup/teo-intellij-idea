@@ -133,6 +133,9 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(TeoTypes.BUILTIN_TYPE)) {
             return BUILTIN_TYPE_KEYS;
         }
+        if (tokenType.equals(TeoTypes.ENUM_MEMBER_NAME)) {
+            return ENUM_MEMBER_KEYS;
+        }
         if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;
         }

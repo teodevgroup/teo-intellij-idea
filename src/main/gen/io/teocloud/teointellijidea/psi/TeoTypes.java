@@ -74,6 +74,7 @@ public interface TeoTypes {
   IElementType ENTITY_KEYWORD = new TeoTokenType("ENTITY_KEYWORD");
   IElementType ENUM_IDENTIFIER = new TeoTokenType("ENUM_IDENTIFIER");
   IElementType ENUM_KEYWORD = new TeoTokenType("ENUM_KEYWORD");
+  IElementType ENUM_MEMBER_NAME = new TeoTokenType("ENUM_MEMBER_NAME");
   IElementType ENUM_NAME = new TeoTokenType("ENUM_NAME");
   IElementType EOL = new TeoTokenType("EOL");
   IElementType EQ = new TeoTokenType("EQ");

@@ -99,4 +99,4 @@ dictionary_literal ::= padded_lbrace (named_expression (padded_comma named_expre
 
 literal ::= STRING_LITERAL | NUMERIC_LITERAL | BOOL_LITERAL | array_literal | dictionary_literal | tuple_literal | RANGE_LITERAL | enum_choice_literal
 
-enum_choice_literal ::= DOT IDENTIFIER
+enum_choice_literal ::= DOT ENUM_MEMBER_NAME

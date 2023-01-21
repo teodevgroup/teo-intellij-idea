@@ -15,6 +15,8 @@ import java.util.Stack;
 
     private Stack<Integer> blockStack = new Stack<Integer>();
 
+    private boolean previousTokenIsIdentifier = false;
+
     public void yypushState(int newState) {
         stack.push(yystate());
         yybegin(newState);
@@ -39,6 +41,13 @@ import java.util.Stack;
     }
 
     public void yypopToState(int state) {
+        if (yystate() == ENUM_MEMBER) {
+            if (stack.empty()) {
+                yybegin(YYINITIAL);
+            } else {
+                yybegin(stack.peek());
+            }
+        }
         if (yystate() == state) {
             yypopState();
         } else if (stack.empty()) {
@@ -141,6 +150,28 @@ import java.util.Stack;
             }
         }
     }
+
+    private void recordIdentifier() {
+        previousTokenIsIdentifier = true;
+    }
+
+    private void recordNotIdentifier() {
+        previousTokenIsIdentifier = false;
+    }
+
+    private void intoEnumMemberModeIfNeeded() {
+        if (!previousTokenIsIdentifier) {
+            yybegin(ENUM_MEMBER);
+        }
+    }
+
+    private void cancelEnumMemberMode() {
+        if (stack.empty()) {
+            yybegin(YYINITIAL);
+        } else {
+            yybegin(stack.peek());
+        }
+    }
 %}
 
 //%{
@@ -175,81 +206,85 @@ IDENTIFIER       = {NAME_START} ({NAME_BODY})*
 DOC_COMMENT="///" .*
 LINE_COMMENT="//" .*
 
-%state DECORATOR, PPL, BLOCK, DECL, ENUM, ENUM_DECL, MODEL, MODEL_DECL, LET_DECL, CONFIG, CONFIG_DECL, TYPE
+%state DECORATOR, PPL, BLOCK, DECL, ENUM, ENUM_DECL, MODEL, MODEL_DECL, LET_DECL, CONFIG, CONFIG_DECL, TYPE, ENUM_MEMBER
 
 %%
 
 <YYINITIAL> {
-    "model"            { yybegin(MODEL_DECL); return MODEL_KEYWORD; }
-    "enum"             { yybegin(ENUM_DECL); return ENUM_KEYWORD; }
-    "config"           { yybegin(CONFIG_DECL); return CONFIG_KEYWORD; }
-    "connector"        { yybegin(CONFIG_DECL); return CONNECTOR_KEYWORD; }
-    "client"           { yybegin(CONFIG_DECL); return CLIENT_KEYWORD; }
-    "entity"           { yybegin(CONFIG_DECL); return ENTITY_KEYWORD; }
-    "import"           { return IMPORT_KEYWORD; }
-    "from"             { return FROM_KEYWORD; }
-    "let"              { yybegin(LET_DECL); return LET_KEYWORD; }
+    "model"            { yybegin(MODEL_DECL); recordNotIdentifier(); return MODEL_KEYWORD; }
+    "enum"             { yybegin(ENUM_DECL); recordNotIdentifier(); return ENUM_KEYWORD; }
+    "config"           { yybegin(CONFIG_DECL); recordNotIdentifier(); return CONFIG_KEYWORD; }
+    "connector"        { yybegin(CONFIG_DECL); recordNotIdentifier(); return CONNECTOR_KEYWORD; }
+    "client"           { yybegin(CONFIG_DECL); recordNotIdentifier(); return CLIENT_KEYWORD; }
+    "entity"           { yybegin(CONFIG_DECL); recordNotIdentifier(); return ENTITY_KEYWORD; }
+    "import"           { recordNotIdentifier(); return IMPORT_KEYWORD; }
+    "from"             { recordNotIdentifier(); return FROM_KEYWORD; }
+    "let"              { yybegin(LET_DECL); recordNotIdentifier(); return LET_KEYWORD; }
 }
 
-"{"                { pushBlock(); return LBRACE; }
-"}"                { yypopToCurrentBlock(); return RBRACE; }
-"("                { yypushState(YYINITIAL); return LPAREN; }
-")"                { yypopToState(YYINITIAL); return RPAREN; }
-"["                { yypushState(YYINITIAL); return LBRACKET; }
-"]"                { yypopToState(YYINITIAL); return RBRACKET; }
-"="                { cancelDeclState(); return EQ; }
-"."                { return DOT; }
-":"                { intoTypeMode(); return COLON; }
-"??"               { return QMQM; }
-"?"                { return QM; }
-"!"                { return EXCL; }
-"@@"               { yypushStateWhenDifferent(DECORATOR); return ATAT; }
-"@"                { yypushStateWhenDifferent(DECORATOR); return AT; }
-","                { return COMMA; }
-"..."              { return CRANGE; }
-".."               { return ORANGE; }
-"$"                { yypushState(PPL); return DOLLAR; }
+"{"                { pushBlock(); recordNotIdentifier(); return LBRACE; }
+"}"                { recordIdentifier(); yypopToCurrentBlock(); return RBRACE; }
+"("                { yypushState(YYINITIAL); recordNotIdentifier(); return LPAREN; }
+")"                { recordIdentifier(); yypopToState(YYINITIAL); return RPAREN; }
+"["                { yypushState(YYINITIAL); recordNotIdentifier(); return LBRACKET; }
+"]"                { yypopToState(YYINITIAL); recordIdentifier(); return RBRACKET; }
+"="                { cancelDeclState(); recordNotIdentifier(); return EQ; }
+"."                { intoEnumMemberModeIfNeeded(); return DOT; }
+":"                { intoTypeMode(); recordNotIdentifier(); return COLON; }
+"??"               { recordNotIdentifier(); return QMQM; }
+"?"                { recordNotIdentifier(); return QM; }
+"!"                { recordNotIdentifier(); return EXCL; }
+"@@"               { yypushStateWhenDifferent(DECORATOR); recordNotIdentifier(); return ATAT; }
+"@"                { yypushStateWhenDifferent(DECORATOR); recordNotIdentifier(); return AT; }
+","                { recordNotIdentifier(); return COMMA; }
+"..."              { recordNotIdentifier(); return CRANGE; }
+".."               { recordNotIdentifier(); return ORANGE; }
+"$"                { yypushState(PPL); recordNotIdentifier(); return DOLLAR; }
 
-{NULL_LITERAL}     { return NULL_LITERAL; }
-{BOOL_LITERAL}     { return BOOL_LITERAL; }
-{NUMERIC_LITERAL}  { return NUMERIC_LITERAL; }
-{STRING_LITERAL}   { return STRING_LITERAL; }
+{NULL_LITERAL}     { recordIdentifier(); return NULL_LITERAL; }
+{BOOL_LITERAL}     { recordIdentifier(); return BOOL_LITERAL; }
+{NUMERIC_LITERAL}  { recordIdentifier(); return NUMERIC_LITERAL; }
+{STRING_LITERAL}   { recordIdentifier(); return STRING_LITERAL; }
 {EOL}              { cancelDeclState(); handleNewLine(); return EOL; }
 {WSC}              { handleWhiteSpace(); return WSC; }
 
-{DOC_COMMENT}      { return DOC_COMMENT; }
-{LINE_COMMENT}     { return LINE_COMMENT; }
+{DOC_COMMENT}      { recordNotIdentifier(); return DOC_COMMENT; }
+{LINE_COMMENT}     { recordNotIdentifier(); return LINE_COMMENT; }
 
 <DECORATOR> {
-    {IDENTIFIER}  { return DECO_IDENTIFIER; }
+    {IDENTIFIER}  { recordIdentifier(); return DECO_IDENTIFIER; }
 }
 
 <PPL> {
-    {IDENTIFIER}  { return PPL_IDENTIFIER; }
+    {IDENTIFIER}  { recordIdentifier(); return PPL_IDENTIFIER; }
 }
 
 <MODEL_DECL> {
-    {IDENTIFIER}  { return MODEL_NAME; }
+    {IDENTIFIER}  { recordIdentifier(); return MODEL_NAME; }
 }
 
 <ENUM_DECL> {
-    {IDENTIFIER}  { return ENUM_NAME; }
+    {IDENTIFIER}  { recordIdentifier(); return ENUM_NAME; }
 }
 
 <CONFIG_DECL> {
-    {IDENTIFIER}  { return CONFIG_NAME; }
+    {IDENTIFIER}  { recordIdentifier(); return CONFIG_NAME; }
 }
 
 <ENUM> {
-    {IDENTIFIER}  { return ENUM_IDENTIFIER; }
+    {IDENTIFIER}  { recordIdentifier(); return ENUM_IDENTIFIER; }
 }
 
 <CONFIG> {
-    {IDENTIFIER}  { handleConfigItemDetected(); return CONFIG_ITEM_NAME; }
+    {IDENTIFIER}  { recordNotIdentifier(); handleConfigItemDetected(); return CONFIG_ITEM_NAME; }
 }
 
 <MODEL> {
-    {IDENTIFIER}  { return FIELD_NAME; }
+    {IDENTIFIER}  { recordIdentifier(); return FIELD_NAME; }
+}
+
+<ENUM_MEMBER> {
+    {IDENTIFIER}  { recordIdentifier(); cancelEnumMemberMode(); return ENUM_MEMBER_NAME; }
 }
 
 <TYPE> {
@@ -267,6 +302,6 @@ LINE_COMMENT="//" .*
     {IDENTIFIER}  { return USER_TYPE; }
 }
 
-{IDENTIFIER}      { return IDENTIFIER; }
+{IDENTIFIER}      { recordIdentifier(); return IDENTIFIER; }
 
 [^]               { return BAD_CHARACTER; }

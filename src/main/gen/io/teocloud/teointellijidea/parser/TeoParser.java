@@ -608,13 +608,13 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOT IDENTIFIER
+  // DOT ENUM_MEMBER_NAME
   public static boolean enum_choice_literal(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "enum_choice_literal")) return false;
     if (!nextTokenIs(b, DOT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, DOT, IDENTIFIER);
+    r = consumeTokens(b, 0, DOT, ENUM_MEMBER_NAME);
     exit_section_(b, m, ENUM_CHOICE_LITERAL, r);
     return r;
   }
