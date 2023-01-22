@@ -28,45 +28,45 @@
         <!-- Language -->
         <fileType
                 name="Teo File"
-                implementationClass="io.teocloud.teointellijidea.TeoFileType"
+                implementationClass="io.teocloud.teointellijidea.lang.TeoFileType"
                 fieldName="INSTANCE"
                 language="Teo"
                 extensions="teo"/>
         <lang.parserDefinition
                 language="Teo"
-                implementationClass="io.teocloud.teointellijidea.TeoParserDefinition"/>
+                implementationClass="io.teocloud.teointellijidea.lang.parser.TeoParserDefinition"/>
         <!-- Syntax highlighting -->
         <lang.syntaxHighlighterFactory
                 language="Teo"
-                implementationClass="io.teocloud.teointellijidea.TeoSyntaxHighlighterFactory"/>
+                implementationClass="io.teocloud.teointellijidea.ide.highlight.TeoSyntaxHighlighterFactory"/>
         <annotator
                 language="Teo"
-                implementationClass="io.teocloud.teointellijidea.TeoAnnotator"/>
+                implementationClass="io.teocloud.teointellijidea.ide.highlight.TeoHighlightAnnotator"/>
         <!-- Code completion -->
         <completion.contributor
                 language="Teo"
-                implementationClass="io.teocloud.teointellijidea.completion.TeoCompletionContributor" />
-        <typedHandler implementation="io.teocloud.teointellijidea.completion.handler.TeoTypedHandler"
+                implementationClass="io.teocloud.teointellijidea.ide.completion.TeoCompletionContributor" />
+        <typedHandler implementation="io.teocloud.teointellijidea.ide.completion.handler.TeoTypedHandler"
                       order="first, before completionAutoPopup"/>
         <!-- Editor -->
         <lang.commenter language="Teo"
-                        implementationClass="io.teocloud.teointellijidea.editor.TeoCommenter"/>
+                        implementationClass="io.teocloud.teointellijidea.ide.editor.TeoCommenter"/>
         <lang.braceMatcher language="Teo"
-                           implementationClass="io.teocloud.teointellijidea.editor.TeoBraceMatcher"/>
-        <lang.quoteHandler language="Teo" implementationClass="io.teocloud.teointellijidea.editor.TeoQuoteHandler" />
+                           implementationClass="io.teocloud.teointellijidea.ide.editor.TeoBraceMatcher"/>
+        <lang.quoteHandler language="Teo" implementationClass="io.teocloud.teointellijidea.ide.editor.TeoQuoteHandler" />
         <enterBetweenBracesDelegate language="Teo"
                                     implementationClass="com.intellij.codeInsight.editorActions.enter.EnterBetweenBracesAndBracketsDelegate"/>
-        <lineIndentProvider implementation="io.teocloud.teointellijidea.editor.TeoLineIndentProvider"/>
+        <lineIndentProvider implementation="io.teocloud.teointellijidea.ide.editor.TeoLineIndentProvider"/>
         <langCodeStyleSettingsProvider
-                implementation="io.teocloud.teointellijidea.formatter.TeoLanguageCodeStyleSettingsProvider"/>
+                implementation="io.teocloud.teointellijidea.ide.formatter.TeoLanguageCodeStyleSettingsProvider"/>
         <lang.foldingBuilder language="Teo"
-                             implementationClass="io.teocloud.teointellijidea.folding.TeoFoldingBuilder"/>
-        <lang.psiStructureViewFactory language="Teo" implementationClass="io.teocloud.teointellijidea.structure.TeoStructureViewFactory"/>
+                             implementationClass="io.teocloud.teointellijidea.ide.folding.TeoFoldingBuilder"/>
+        <lang.psiStructureViewFactory language="Teo" implementationClass="io.teocloud.teointellijidea.ide.structure.TeoStructureViewFactory"/>
         <!-- Documentation -->
         <lang.documentationProvider language="Teo"
-                                    implementationClass="io.teocloud.teointellijidea.documentation.TeoDocumentationProvider"/>
+                                    implementationClass="io.teocloud.teointellijidea.ide.documentation.TeoDocumentationProvider"/>
         <!-- Templates -->
         <defaultLiveTemplates file="/liveTemplates/Teo.xml"/>
-        <liveTemplateContext implementation="io.teocloud.teointellijidea.snippets.TeoTopLevelTemplateProvider"/>
+        <liveTemplateContext implementation="io.teocloud.teointellijidea.ide.snippets.TeoTopLevelTemplateProvider"/>
     </extensions>
 </idea-plugin>

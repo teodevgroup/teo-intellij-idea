@@ -4,6 +4,8 @@ package io.teocloud.teointellijidea.psi;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
+import io.teocloud.teointellijidea.lang.psi.TeoElementType;
+import io.teocloud.teointellijidea.lang.psi.TeoTokenType;
 import io.teocloud.teointellijidea.psi.impl.*;
 
 public interface TeoTypes {
