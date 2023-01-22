@@ -6,7 +6,6 @@ import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import static com.intellij.psi.TokenType.*;
-import com.intellij.openapi.util.text.StringUtil;
 import java.util.Stack;
 
 
@@ -683,18 +682,19 @@ public class _TeoLexer implements FlexLexer {
     }
 
     protected void intoEnumMemberModeIfNeeded() {
-        if (!previousTokenIsIdentifier) {
-            yybegin(ENUM_MEMBER);
-        }
+//        if (!previousTokenIsIdentifier) {
+//            yybegin(ENUM_MEMBER);
+//        }
     }
 
     protected void cancelEnumMemberMode() {
-        if (stack.empty()) {
-            yybegin(YYINITIAL);
-        } else {
-            yybegin(stack.peek());
-        }
+//        if (stack.empty()) {
+//            yybegin(YYINITIAL);
+//        } else {
+//            yybegin(stack.peek());
+//        }
     }
+
 
 
   /**
