@@ -37,6 +37,7 @@ public interface TeoTypes {
   IElementType EOL_WSC = new TeoElementType("EOL_WSC");
   IElementType EXPRESSION = new TeoElementType("EXPRESSION");
   IElementType FIELD_DEFINITION = new TeoElementType("FIELD_DEFINITION");
+  IElementType FIELD_NAME = new TeoElementType("FIELD_NAME");
   IElementType FIELD_TYPE = new TeoElementType("FIELD_TYPE");
   IElementType GROUP = new TeoElementType("GROUP");
   IElementType IDENTIFIER_UNIT = new TeoElementType("IDENTIFIER_UNIT");
@@ -80,7 +81,6 @@ public interface TeoTypes {
   IElementType EOL = new TeoTokenType("EOL");
   IElementType EQ = new TeoTokenType("EQ");
   IElementType EXCL = new TeoTokenType("EXCL");
-  IElementType FIELD_NAME = new TeoTokenType("FIELD_NAME");
   IElementType FROM_KEYWORD = new TeoTokenType("FROM_KEYWORD");
   IElementType IDENTIFIER = new TeoTokenType("IDENTIFIER");
   IElementType IMPORT_KEYWORD = new TeoTokenType("IMPORT_KEYWORD");
@@ -191,6 +191,9 @@ public interface TeoTypes {
       }
       else if (type == FIELD_DEFINITION) {
         return new TeoFieldDefinitionImpl(node);
+      }
+      else if (type == FIELD_NAME) {
+        return new TeoFieldNameImpl(node);
       }
       else if (type == FIELD_TYPE) {
         return new TeoFieldTypeImpl(node);

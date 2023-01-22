@@ -72,9 +72,10 @@ config_block ::= padded_lbrace (WS? (config_item|comment) EOL)* padded_rbrace
 config_item ::= doc_comment_block? config_item_name WS+ expression
 config_item_name ::= IDENTIFIER
 
-field_definition ::= doc_comment_block? item_decorator_list? FIELD_NAME WS* COLON WS* field_type
+field_definition ::= doc_comment_block? item_decorator_list? field_name WS* COLON WS* field_type
+field_name ::= IDENTIFIER
 field_type ::= (builtin_type | user_type) ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
-builtin_type ::= "String" | "ObjectId" | "Int" | "Float" | "Date" | "DateTime"
+builtin_type ::= "Bool" | "String" | "ObjectId" | "Int" | "Int32" | "Int64" | "Float" | "Float32" | "Float64" | "Date" | "DateTime"
 user_type ::= IDENTIFIER
 ARITY ::= (LBRACE RBRACE)|(LBRACKET RBRACKET)
 

@@ -131,6 +131,10 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFieldName(@NotNull TeoFieldName o) {
+    visitPsiElement(o);
+  }
+
   public void visitFieldType(@NotNull TeoFieldType o) {
     visitPsiElement(o);
   }
