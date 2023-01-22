@@ -16,6 +16,9 @@ public interface TeoEnumDefinition extends PsiElement {
   @NotNull
   TeoEnumDefinitionBlock getEnumDefinitionBlock();
 
+  @NotNull
+  TeoEnumName getEnumName();
+
   @Nullable
   TeoItemDecoratorList getItemDecoratorList();
 

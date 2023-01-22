@@ -16,4 +16,7 @@ public interface TeoConfigDefinition extends PsiElement {
   @NotNull
   TeoConfigBlock getConfigBlock();
 
+  @Nullable
+  TeoConfigName getConfigName();
+
 }

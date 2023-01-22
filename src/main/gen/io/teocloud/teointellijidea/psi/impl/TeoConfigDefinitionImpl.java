@@ -45,4 +45,10 @@ public class TeoConfigDefinitionImpl extends ASTWrapperPsiElement implements Teo
     return findNotNullChildByClass(TeoConfigBlock.class);
   }
 
+  @Override
+  @Nullable
+  public TeoConfigName getConfigName() {
+    return findChildByClass(TeoConfigName.class);
+  }
+
 }

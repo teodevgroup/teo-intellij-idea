@@ -13,6 +13,9 @@ public interface TeoEnumValueDeclaration extends PsiElement {
   @Nullable
   TeoDocCommentBlock getDocCommentBlock();
 
+  @NotNull
+  TeoEnumIdentifier getEnumIdentifier();
+
   @Nullable
   TeoItemDecoratorList getItemDecoratorList();
 

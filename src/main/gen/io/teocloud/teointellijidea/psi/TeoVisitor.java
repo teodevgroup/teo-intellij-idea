@@ -59,6 +59,10 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBuiltinType(@NotNull TeoBuiltinType o) {
+    visitPsiElement(o);
+  }
+
   public void visitComment(@NotNull TeoComment o) {
     visitPsiElement(o);
   }
@@ -72,6 +76,14 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitConfigItem(@NotNull TeoConfigItem o) {
+    visitPsiElement(o);
+  }
+
+  public void visitConfigItemName(@NotNull TeoConfigItemName o) {
+    visitPsiElement(o);
+  }
+
+  public void visitConfigName(@NotNull TeoConfigName o) {
     visitPsiElement(o);
   }
 
@@ -92,6 +104,18 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitEnumDefinitionBlock(@NotNull TeoEnumDefinitionBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitEnumIdentifier(@NotNull TeoEnumIdentifier o) {
+    visitPsiElement(o);
+  }
+
+  public void visitEnumMemberName(@NotNull TeoEnumMemberName o) {
+    visitPsiElement(o);
+  }
+
+  public void visitEnumName(@NotNull TeoEnumName o) {
     visitPsiElement(o);
   }
 
@@ -159,6 +183,10 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitModelName(@NotNull TeoModelName o) {
+    visitPsiElement(o);
+  }
+
   public void visitNamedArgument(@NotNull TeoNamedArgument o) {
     visitPsiElement(o);
   }
@@ -188,6 +216,10 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitUnit(@NotNull TeoUnit o) {
+    visitPsiElement(o);
+  }
+
+  public void visitUserType(@NotNull TeoUserType o) {
     visitPsiElement(o);
   }
 

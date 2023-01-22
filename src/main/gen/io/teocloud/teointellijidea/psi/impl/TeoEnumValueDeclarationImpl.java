@@ -40,6 +40,12 @@ public class TeoEnumValueDeclarationImpl extends ASTWrapperPsiElement implements
   }
 
   @Override
+  @NotNull
+  public TeoEnumIdentifier getEnumIdentifier() {
+    return findNotNullChildByClass(TeoEnumIdentifier.class);
+  }
+
+  @Override
   @Nullable
   public TeoItemDecoratorList getItemDecoratorList() {
     return findChildByClass(TeoItemDecoratorList.class);

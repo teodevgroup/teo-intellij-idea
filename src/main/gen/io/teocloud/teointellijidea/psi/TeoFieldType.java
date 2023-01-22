@@ -16,4 +16,10 @@ public interface TeoFieldType extends PsiElement {
   @Nullable
   TeoItemOptional getItemOptional();
 
+  @Nullable
+  TeoBuiltinType getBuiltinType();
+
+  @Nullable
+  TeoUserType getUserType();
+
 }

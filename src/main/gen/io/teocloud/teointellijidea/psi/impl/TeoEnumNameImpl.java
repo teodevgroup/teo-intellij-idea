@@ -11,44 +11,20 @@ import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 
-public class TeoConfigItemImpl extends ASTWrapperPsiElement implements TeoConfigItem {
+public class TeoEnumNameImpl extends ASTWrapperPsiElement implements TeoEnumName {
 
-  public TeoConfigItemImpl(@NotNull ASTNode node) {
+  public TeoEnumNameImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitConfigItem(this);
+    visitor.visitEnumName(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TeoVisitor) accept((TeoVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<TeoWs> getWsList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoWs.class);
-  }
-
-  @Override
-  @NotNull
-  public TeoConfigItemName getConfigItemName() {
-    return findNotNullChildByClass(TeoConfigItemName.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoDocCommentBlock getDocCommentBlock() {
-    return findChildByClass(TeoDocCommentBlock.class);
-  }
-
-  @Override
-  @NotNull
-  public TeoExpression getExpression() {
-    return findNotNullChildByClass(TeoExpression.class);
   }
 
 }

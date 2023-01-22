@@ -27,4 +27,10 @@ public class TeoEnumChoiceLiteralImpl extends ASTWrapperPsiElement implements Te
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public TeoEnumMemberName getEnumMemberName() {
+    return findNotNullChildByClass(TeoEnumMemberName.class);
+  }
+
 }

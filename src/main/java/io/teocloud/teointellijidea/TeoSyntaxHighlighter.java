@@ -69,7 +69,7 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
     @Override
     public Lexer getHighlightingLexer() {
-        return new TeoLexer();
+        return new TeoFlexLexerAdapter();
     }
 
     @Override
@@ -106,10 +106,10 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(TeoTypes.LINE_COMMENT) || tokenType.equals(TeoTypes.DOC_COMMENT)) {
             return COMMENT_KEYS;
         }
-        if (tokenType.equals(TeoTypes.AT) || tokenType.equals(TeoTypes.ATAT) || tokenType.equals(TeoTypes.DECO_IDENTIFIER)) {
+        if (tokenType.equals(TeoTypes.AT) || tokenType.equals(TeoTypes.ATAT)) {
             return DECORATOR_KEYS;
         }
-        if (tokenType.equals(TeoTypes.DOLLAR) || tokenType.equals(TeoTypes.PPL_IDENTIFIER)) {
+        if (tokenType.equals(TeoTypes.DOLLAR)) {
             return PIPELINE_KEYS;
         }
         if (tokenType.equals(TeoTypes.DOT)) {
