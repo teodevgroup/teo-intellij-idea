@@ -188,7 +188,7 @@ import java.util.Stack;
 %unicode
 %function advance
 %type IElementType
-// %debug
+%debug
 
 // whitespaces
 EOL="\r"|"\n"|"\r\n"
