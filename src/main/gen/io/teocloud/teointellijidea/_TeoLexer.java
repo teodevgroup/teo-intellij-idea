@@ -22,7 +22,6 @@ public class _TeoLexer implements FlexLexer {
 
   /** initial size of the lookahead buffer */
   private static final int ZZ_BUFFERSIZE = 16384;
-  private static final String ZZ_NL = System.getProperty("line.separator");
 
   /** lexical states */
   public static final int YYINITIAL = 0;
@@ -526,15 +525,15 @@ public class _TeoLexer implements FlexLexer {
 
   /* user code: */
 
-    private Stack<Integer> stack = new Stack<Integer>();
+    protected Stack<Integer> stack = new Stack<Integer>();
 
-    private Stack<Integer> blockStack = new Stack<Integer>();
+    protected Stack<Integer> blockStack = new Stack<Integer>();
 
-    private boolean previousTokenIsIdentifier = false;
+    protected boolean previousTokenIsIdentifier = false;
 
     public void yypushState(int newState) {
-        System.out.format("CURRENT %s <<< ", stack.toString());
-        System.out.format("will push %d\n", yystate());
+//        System.out.format("CURRENT %s <<< ", stack.toString());
+//        System.out.format("will push %d\n", yystate());
         stack.push(newState);
         yybegin(newState);
     }
@@ -547,20 +546,21 @@ public class _TeoLexer implements FlexLexer {
 
     public void yypopState() {
         if (stack.size() == 1) {
-            System.out.format("OVERPOP WHEN 1\n");
+//            System.out.format("OVERPOP WHEN 1\n");
             yybegin(stack.peek());
         } else if (stack.size() == 0) {
-            System.out.format("OVERPOP WHEN 0\n");
+//            System.out.format("OVERPOP WHEN 0\n");
             yybegin(YYINITIAL);
         } else {
-            System.out.format("CURRENT %s >>> ", stack.toString());
+//            System.out.format("CURRENT %s >>> ", stack.toString());
             int a = stack.pop();
-            System.out.format("will pop %d\n", a);
+//            System.out.format("will pop %d\n", a);
             yybegin(stack.peek());
         }
     }
 
     public void yypopToState(int state) {
+        // System.out.format("POP TO STATE %s\n", state);
         if (yystate() == ENUM_MEMBER) {
             if (stack.empty()) {
                 yybegin(YYINITIAL);
@@ -583,7 +583,7 @@ public class _TeoLexer implements FlexLexer {
         stack.push(YYINITIAL);
     }
 
-    private void handleNewLine() {
+    protected void handleNewLine() {
         if ((yystate() == DECORATOR) || (yystate() == PPL)) {
             yypopState();
         }
@@ -600,71 +600,73 @@ public class _TeoLexer implements FlexLexer {
         }
     }
 
-    private void handleWhiteSpace() {
+    protected void handleWhiteSpace() {
         if (yystate() == DECORATOR) {
             yypopState();
         }
     }
 
-    private void cancelDeclState() {
+    protected void cancelDeclState() {
         if (yystate() == DECL) {
-            yybegin(stack.peek());
+            yybegin(stack.empty() ? YYINITIAL : stack.peek());
         }
         if (yystate() == MODEL_DECL) {
-            yybegin(stack.peek());
+            yybegin(stack.empty() ? YYINITIAL : stack.peek());
         }
         if (yystate() == ENUM_DECL) {
-            yybegin(stack.peek());
+            yybegin(stack.empty() ? YYINITIAL : stack.peek());
         }
         if (yystate() == LET_DECL) {
-            yybegin(stack.peek());
+            yybegin(stack.empty() ? YYINITIAL : stack.peek());
         }
         if (yystate() == CONFIG_DECL) {
-            yybegin(stack.peek());
+            yybegin(stack.empty() ? YYINITIAL : stack.peek());
         }
     }
 
-    private void pushBlock() {
+    protected void pushBlock() {
         if (yystate() == ENUM_DECL) {
-            blockStack.push(ENUM);
             cancelDeclState();
             yypushState(ENUM);
+            blockStack.push(ENUM);
         } else if (yystate() == MODEL_DECL) {
-            blockStack.push(MODEL);
             cancelDeclState();
             yypushState(MODEL);
+            blockStack.push(MODEL);
         } else if (yystate() == CONFIG_DECL) {
-            blockStack.push(CONFIG);
             cancelDeclState();
             yypushState(CONFIG);
+            blockStack.push(CONFIG);
         } else {
-            blockStack.push(BLOCK);
             cancelDeclState();
             yypushState(BLOCK);
+            blockStack.push(BLOCK);
         }
     }
 
-    private void yypopToCurrentBlock() {
-        if (blockStack.peek() == ENUM) {
-            yypopToState(ENUM);
-            blockStack.pop();
-        } else if (blockStack.peek() == MODEL) {
-            yypopToState(MODEL);
-            blockStack.pop();
-        } else if (blockStack.peek() == CONFIG) {
-            yypopToState(CONFIG);
-            blockStack.pop();
-        } else if (blockStack.peek() == BLOCK) {
-            yypopToState(BLOCK);
-            blockStack.pop();
+    protected void yypopToCurrentBlock() {
+        if (!blockStack.empty()) {
+            if (blockStack.peek() == ENUM) {
+                yypopToState(ENUM);
+                blockStack.pop();
+            } else if (blockStack.peek() == MODEL) {
+                yypopToState(MODEL);
+                blockStack.pop();
+            } else if (blockStack.peek() == CONFIG) {
+                yypopToState(CONFIG);
+                blockStack.pop();
+            } else if (blockStack.peek() == BLOCK) {
+                yypopToState(BLOCK);
+                blockStack.pop();
+            }
         }
     }
 
-    private void handleConfigItemDetected() {
+    protected void handleConfigItemDetected() {
         yybegin(YYINITIAL);
     }
 
-    private void intoTypeMode() {
+    protected void intoTypeMode() {
         if (yystate() == MODEL) {
             if (!blockStack.empty() && blockStack.peek() == MODEL) {
                 yybegin(TYPE);
@@ -672,21 +674,21 @@ public class _TeoLexer implements FlexLexer {
         }
     }
 
-    private void recordIdentifier() {
+    protected void recordIdentifier() {
         previousTokenIsIdentifier = true;
     }
 
-    private void recordNotIdentifier() {
+    protected void recordNotIdentifier() {
         previousTokenIsIdentifier = false;
     }
 
-    private void intoEnumMemberModeIfNeeded() {
+    protected void intoEnumMemberModeIfNeeded() {
         if (!previousTokenIsIdentifier) {
             yybegin(ENUM_MEMBER);
         }
     }
 
-    private void cancelEnumMemberMode() {
+    protected void cancelEnumMemberMode() {
         if (stack.empty()) {
             yybegin(YYINITIAL);
         } else {
@@ -725,23 +727,6 @@ public class _TeoLexer implements FlexLexer {
       do map[j++] = value; while (--count > 0);
     }
     return map;
-  }
-
-  private static String zzToPrintable(CharSequence str) {
-    StringBuilder builder = new StringBuilder();
-    for (int n = 0 ; n < str.length() ; ) {
-      int ch = Character.codePointAt(str, n);
-      int charCount = Character.charCount(ch);
-      n += charCount;
-      if (ch > 31 && ch < 127) {
-        builder.append((char)ch);
-      } else if (charCount == 1) {
-        builder.append(String.format("\\u%04X", ch));
-      } else {
-        builder.append(String.format("\\U%06X", ch));
-      }
-    }
-    return builder.toString();
   }
 
   public final int getTokenStart() {
@@ -957,337 +942,241 @@ public class _TeoLexer implements FlexLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [313] { return BAD_CHARACTER; }");
             { return BAD_CHARACTER;
             } 
             // fall through
           case 49: break;
           case 2: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [254] { cancelDeclState(); handleNewLine(); return EOL; }");
             { cancelDeclState(); handleNewLine(); return EOL;
             } 
             // fall through
           case 50: break;
           case 3: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [255] { handleWhiteSpace(); return WSC; }");
             { handleWhiteSpace(); return WSC;
             } 
             // fall through
           case 51: break;
           case 4: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [253] { recordIdentifier(); return STRING_LITERAL; }");
             { recordIdentifier(); return STRING_LITERAL;
             } 
             // fall through
           case 52: break;
           case 5: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [252] { recordIdentifier(); return NUMERIC_LITERAL; }");
             { recordIdentifier(); return NUMERIC_LITERAL;
             } 
             // fall through
           case 53: break;
           case 6: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [238] { intoEnumMemberModeIfNeeded(); return DOT; }");
             { intoEnumMemberModeIfNeeded(); return DOT;
             } 
             // fall through
           case 54: break;
           case 7: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [311] { recordIdentifier(); return IDENTIFIER; }");
             { recordIdentifier(); return IDENTIFIER;
             } 
             // fall through
           case 55: break;
           case 8: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [231] { pushBlock(); recordNotIdentifier(); return LBRACE; }");
             { pushBlock(); recordNotIdentifier(); return LBRACE;
             } 
             // fall through
           case 56: break;
           case 9: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [232] { recordIdentifier(); yypopToCurrentBlock(); return RBRACE; }");
             { recordIdentifier(); yypopToCurrentBlock(); return RBRACE;
             } 
             // fall through
           case 57: break;
           case 10: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [233] { yypushState(YYINITIAL); recordNotIdentifier(); return LPAREN; }");
             { yypushState(YYINITIAL); recordNotIdentifier(); return LPAREN;
             } 
             // fall through
           case 58: break;
           case 11: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [234] { recordIdentifier(); yypopToState(YYINITIAL); return RPAREN; }");
             { recordIdentifier(); yypopToState(YYINITIAL); return RPAREN;
             } 
             // fall through
           case 59: break;
           case 12: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [235] { yypushState(YYINITIAL); recordNotIdentifier(); return LBRACKET; }");
             { yypushState(YYINITIAL); recordNotIdentifier(); return LBRACKET;
             } 
             // fall through
           case 60: break;
           case 13: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [236] { yypopToState(YYINITIAL); recordIdentifier(); return RBRACKET; }");
             { yypopToState(YYINITIAL); recordIdentifier(); return RBRACKET;
             } 
             // fall through
           case 61: break;
           case 14: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [237] { cancelDeclState(); recordNotIdentifier(); return EQ; }");
             { cancelDeclState(); recordNotIdentifier(); return EQ;
             } 
             // fall through
           case 62: break;
           case 15: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [239] { intoTypeMode(); recordNotIdentifier(); return COLON; }");
             { intoTypeMode(); recordNotIdentifier(); return COLON;
             } 
             // fall through
           case 63: break;
           case 16: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [241] { recordNotIdentifier(); return QM; }");
             { recordNotIdentifier(); return QM;
             } 
             // fall through
           case 64: break;
           case 17: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [242] { recordNotIdentifier(); return EXCL; }");
             { recordNotIdentifier(); return EXCL;
             } 
             // fall through
           case 65: break;
           case 18: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [244] { yypushStateWhenDifferent(DECORATOR); recordNotIdentifier(); return AT; }");
             { yypushStateWhenDifferent(DECORATOR); recordNotIdentifier(); return AT;
             } 
             // fall through
           case 66: break;
           case 19: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [245] { recordNotIdentifier(); return COMMA; }");
             { recordNotIdentifier(); return COMMA;
             } 
             // fall through
           case 67: break;
           case 20: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [248] { yypushState(PPL); recordNotIdentifier(); return DOLLAR; }");
             { yypushState(PPL); recordNotIdentifier(); return DOLLAR;
             } 
             // fall through
           case 68: break;
           case 21: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [261] { recordIdentifier(); return DECO_IDENTIFIER; }");
             { recordIdentifier(); return DECO_IDENTIFIER;
             } 
             // fall through
           case 69: break;
           case 22: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [265] { recordIdentifier(); return PPL_IDENTIFIER; }");
             { recordIdentifier(); return PPL_IDENTIFIER;
             } 
             // fall through
           case 70: break;
           case 23: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [281] { recordIdentifier(); return ENUM_IDENTIFIER; }");
             { recordIdentifier(); return ENUM_IDENTIFIER;
             } 
             // fall through
           case 71: break;
           case 24: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [273] { recordIdentifier(); return ENUM_NAME; }");
             { recordIdentifier(); return ENUM_NAME;
             } 
             // fall through
           case 72: break;
           case 25: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [289] { recordIdentifier(); return FIELD_NAME; }");
             { recordIdentifier(); return FIELD_NAME;
             } 
             // fall through
           case 73: break;
           case 26: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [269] { recordIdentifier(); return MODEL_NAME; }");
             { recordIdentifier(); return MODEL_NAME;
             } 
             // fall through
           case 74: break;
           case 27: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [285] { recordNotIdentifier(); handleConfigItemDetected(); return CONFIG_ITEM_NAME; }");
             { recordNotIdentifier(); handleConfigItemDetected(); return CONFIG_ITEM_NAME;
             } 
             // fall through
           case 75: break;
           case 28: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [277] { recordIdentifier(); return CONFIG_NAME; }");
             { recordIdentifier(); return CONFIG_NAME;
             } 
             // fall through
           case 76: break;
           case 29: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [308] { return USER_TYPE; }");
             { return USER_TYPE;
             } 
             // fall through
           case 77: break;
           case 30: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [293] { recordIdentifier(); cancelEnumMemberMode(); return ENUM_MEMBER_NAME; }");
             { recordIdentifier(); cancelEnumMemberMode(); return ENUM_MEMBER_NAME;
             } 
             // fall through
           case 78: break;
           case 31: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [247] { recordNotIdentifier(); return ORANGE; }");
             { recordNotIdentifier(); return ORANGE;
             } 
             // fall through
           case 79: break;
           case 32: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [258] { recordNotIdentifier(); return LINE_COMMENT; }");
             { recordNotIdentifier(); return LINE_COMMENT;
             } 
             // fall through
           case 80: break;
           case 33: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [240] { recordNotIdentifier(); return QMQM; }");
             { recordNotIdentifier(); return QMQM;
             } 
             // fall through
           case 81: break;
           case 34: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [243] { yypushStateWhenDifferent(DECORATOR); recordNotIdentifier(); return ATAT; }");
             { yypushStateWhenDifferent(DECORATOR); recordNotIdentifier(); return ATAT;
             } 
             // fall through
           case 82: break;
           case 35: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [246] { recordNotIdentifier(); return CRANGE; }");
             { recordNotIdentifier(); return CRANGE;
             } 
             // fall through
           case 83: break;
           case 36: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [228] { yybegin(LET_DECL); recordNotIdentifier(); return LET_KEYWORD; }");
             { yybegin(LET_DECL); recordNotIdentifier(); return LET_KEYWORD;
             } 
             // fall through
           case 84: break;
           case 37: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [257] { recordNotIdentifier(); return DOC_COMMENT; }");
             { recordNotIdentifier(); return DOC_COMMENT;
             } 
             // fall through
           case 85: break;
           case 38: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [299] { return BUILTIN_TYPE; }");
             { return BUILTIN_TYPE;
             } 
             // fall through
           case 86: break;
           case 39: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [251] { recordIdentifier(); return BOOL_LITERAL; }");
             { recordIdentifier(); return BOOL_LITERAL;
             } 
             // fall through
           case 87: break;
           case 40: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [221] { yybegin(ENUM_DECL); recordNotIdentifier(); return ENUM_KEYWORD; }");
             { yybegin(ENUM_DECL); recordNotIdentifier(); return ENUM_KEYWORD;
             } 
             // fall through
           case 88: break;
           case 41: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [227] { recordNotIdentifier(); return FROM_KEYWORD; }");
             { recordNotIdentifier(); return FROM_KEYWORD;
             } 
             // fall through
           case 89: break;
           case 42: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [250] { recordIdentifier(); return NULL_LITERAL; }");
             { recordIdentifier(); return NULL_LITERAL;
             } 
             // fall through
           case 90: break;
           case 43: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [220] { yybegin(MODEL_DECL); recordNotIdentifier(); return MODEL_KEYWORD; }");
             { yybegin(MODEL_DECL); recordNotIdentifier(); return MODEL_KEYWORD;
             } 
             // fall through
           case 91: break;
           case 44: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [225] { yybegin(CONFIG_DECL); recordNotIdentifier(); return ENTITY_KEYWORD; }");
             { yybegin(CONFIG_DECL); recordNotIdentifier(); return ENTITY_KEYWORD;
             } 
             // fall through
           case 92: break;
           case 45: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [224] { yybegin(CONFIG_DECL); recordNotIdentifier(); return CLIENT_KEYWORD; }");
             { yybegin(CONFIG_DECL); recordNotIdentifier(); return CLIENT_KEYWORD;
             } 
             // fall through
           case 93: break;
           case 46: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [222] { yybegin(CONFIG_DECL); recordNotIdentifier(); return CONFIG_KEYWORD; }");
             { yybegin(CONFIG_DECL); recordNotIdentifier(); return CONFIG_KEYWORD;
             } 
             // fall through
           case 94: break;
           case 47: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [226] { recordNotIdentifier(); return IMPORT_KEYWORD; }");
             { recordNotIdentifier(); return IMPORT_KEYWORD;
             } 
             // fall through
           case 95: break;
           case 48: 
-            System.out.println("match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [223] { yybegin(CONFIG_DECL); recordNotIdentifier(); return CONNECTOR_KEYWORD; }");
             { yybegin(CONFIG_DECL); recordNotIdentifier(); return CONNECTOR_KEYWORD;
             } 
             // fall through
@@ -1295,59 +1184,6 @@ public class _TeoLexer implements FlexLexer {
           default:
             zzScanError(ZZ_NO_MATCH);
           }
-      }
-    }
-  }
-
-  /**
-   * Runs the scanner on input files.
-   *
-   * This main method is the debugging routine for the scanner.
-   * It prints debugging information about each returned token to
-   * System.out until the end of file is reached, or an error occured.
-   *
-   * @param argv   the command line, contains the filenames to run
-   *               the scanner on.
-   */
-  public static void main(String argv[]) {
-    if (argv.length == 0) {
-      System.out.println("Usage : java _TeoLexer [ --encoding <name> ] <inputfile(s)>");
-    }
-    else {
-      int firstFilePos = 0;
-      String encodingName = "UTF-8";
-      if (argv[0].equals("--encoding")) {
-        firstFilePos = 2;
-        encodingName = argv[1];
-        try {
-          java.nio.charset.Charset.forName(encodingName); // Side-effect: is encodingName valid? 
-        } catch (Exception e) {
-          System.out.println("Invalid encoding '" + encodingName + "'");
-          return;
-        }
-      }
-      for (int i = firstFilePos; i < argv.length; i++) {
-        _TeoLexer scanner = null;
-        try {
-          java.io.FileInputStream stream = new java.io.FileInputStream(argv[i]);
-          java.io.Reader reader = new java.io.InputStreamReader(stream, encodingName);
-          scanner = new _TeoLexer(reader);
-          do {
-            System.out.println(scanner.advance());
-          } while (!scanner.zzAtEOF);
-
-        }
-        catch (java.io.FileNotFoundException e) {
-          System.out.println("File not found : \""+argv[i]+"\"");
-        }
-        catch (java.io.IOException e) {
-          System.out.println("IO error scanning file \""+argv[i]+"\"");
-          System.out.println(e);
-        }
-        catch (Exception e) {
-          System.out.println("Unexpected exception:");
-          e.printStackTrace();
-        }
       }
     }
   }

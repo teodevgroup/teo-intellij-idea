@@ -9,4 +9,10 @@ public class TeoLexer extends FlexAdapter {
         super(new _TeoLexer());
     }
 
+    @Override
+    public void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
+        if (buffer.length() != 0) {
+            super.start(buffer, 0, buffer.length(), 0);
+        }
+    }
 }

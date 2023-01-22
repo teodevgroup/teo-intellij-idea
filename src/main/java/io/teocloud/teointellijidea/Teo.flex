@@ -4,22 +4,21 @@ import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import static io.teocloud.teointellijidea.psi.TeoTypes.*;
 import static com.intellij.psi.TokenType.*;
-import com.intellij.openapi.util.text.StringUtil;
 import java.util.Stack;
 
 %%
 
 %{
 
-    private Stack<Integer> stack = new Stack<Integer>();
+    protected Stack<Integer> stack = new Stack<Integer>();
 
-    private Stack<Integer> blockStack = new Stack<Integer>();
+    protected Stack<Integer> blockStack = new Stack<Integer>();
 
-    private boolean previousTokenIsIdentifier = false;
+    protected boolean previousTokenIsIdentifier = false;
 
     public void yypushState(int newState) {
-        System.out.format("CURRENT %s <<< ", stack.toString());
-        System.out.format("will push %d\n", yystate());
+//        System.out.format("CURRENT %s <<< ", stack.toString());
+//        System.out.format("will push %d\n", yystate());
         stack.push(newState);
         yybegin(newState);
     }
@@ -32,20 +31,21 @@ import java.util.Stack;
 
     public void yypopState() {
         if (stack.size() == 1) {
-            System.out.format("OVERPOP WHEN 1\n");
+//            System.out.format("OVERPOP WHEN 1\n");
             yybegin(stack.peek());
         } else if (stack.size() == 0) {
-            System.out.format("OVERPOP WHEN 0\n");
+//            System.out.format("OVERPOP WHEN 0\n");
             yybegin(YYINITIAL);
         } else {
-            System.out.format("CURRENT %s >>> ", stack.toString());
+//            System.out.format("CURRENT %s >>> ", stack.toString());
             int a = stack.pop();
-            System.out.format("will pop %d\n", a);
+//            System.out.format("will pop %d\n", a);
             yybegin(stack.peek());
         }
     }
 
     public void yypopToState(int state) {
+        // System.out.format("POP TO STATE %s\n", state);
         if (yystate() == ENUM_MEMBER) {
             if (stack.empty()) {
                 yybegin(YYINITIAL);
@@ -68,7 +68,7 @@ import java.util.Stack;
         stack.push(YYINITIAL);
     }
 
-    private void handleNewLine() {
+    protected void handleNewLine() {
         if ((yystate() == DECORATOR) || (yystate() == PPL)) {
             yypopState();
         }
@@ -85,71 +85,73 @@ import java.util.Stack;
         }
     }
 
-    private void handleWhiteSpace() {
+    protected void handleWhiteSpace() {
         if (yystate() == DECORATOR) {
             yypopState();
         }
     }
 
-    private void cancelDeclState() {
+    protected void cancelDeclState() {
         if (yystate() == DECL) {
-            yybegin(stack.peek());
+            yybegin(stack.empty() ? YYINITIAL : stack.peek());
         }
         if (yystate() == MODEL_DECL) {
-            yybegin(stack.peek());
+            yybegin(stack.empty() ? YYINITIAL : stack.peek());
         }
         if (yystate() == ENUM_DECL) {
-            yybegin(stack.peek());
+            yybegin(stack.empty() ? YYINITIAL : stack.peek());
         }
         if (yystate() == LET_DECL) {
-            yybegin(stack.peek());
+            yybegin(stack.empty() ? YYINITIAL : stack.peek());
         }
         if (yystate() == CONFIG_DECL) {
-            yybegin(stack.peek());
+            yybegin(stack.empty() ? YYINITIAL : stack.peek());
         }
     }
 
-    private void pushBlock() {
+    protected void pushBlock() {
         if (yystate() == ENUM_DECL) {
-            blockStack.push(ENUM);
             cancelDeclState();
             yypushState(ENUM);
+            blockStack.push(ENUM);
         } else if (yystate() == MODEL_DECL) {
-            blockStack.push(MODEL);
             cancelDeclState();
             yypushState(MODEL);
+            blockStack.push(MODEL);
         } else if (yystate() == CONFIG_DECL) {
-            blockStack.push(CONFIG);
             cancelDeclState();
             yypushState(CONFIG);
+            blockStack.push(CONFIG);
         } else {
-            blockStack.push(BLOCK);
             cancelDeclState();
             yypushState(BLOCK);
+            blockStack.push(BLOCK);
         }
     }
 
-    private void yypopToCurrentBlock() {
-        if (blockStack.peek() == ENUM) {
-            yypopToState(ENUM);
-            blockStack.pop();
-        } else if (blockStack.peek() == MODEL) {
-            yypopToState(MODEL);
-            blockStack.pop();
-        } else if (blockStack.peek() == CONFIG) {
-            yypopToState(CONFIG);
-            blockStack.pop();
-        } else if (blockStack.peek() == BLOCK) {
-            yypopToState(BLOCK);
-            blockStack.pop();
+    protected void yypopToCurrentBlock() {
+        if (!blockStack.empty()) {
+            if (blockStack.peek() == ENUM) {
+                yypopToState(ENUM);
+                blockStack.pop();
+            } else if (blockStack.peek() == MODEL) {
+                yypopToState(MODEL);
+                blockStack.pop();
+            } else if (blockStack.peek() == CONFIG) {
+                yypopToState(CONFIG);
+                blockStack.pop();
+            } else if (blockStack.peek() == BLOCK) {
+                yypopToState(BLOCK);
+                blockStack.pop();
+            }
         }
     }
 
-    private void handleConfigItemDetected() {
+    protected void handleConfigItemDetected() {
         yybegin(YYINITIAL);
     }
 
-    private void intoTypeMode() {
+    protected void intoTypeMode() {
         if (yystate() == MODEL) {
             if (!blockStack.empty() && blockStack.peek() == MODEL) {
                 yybegin(TYPE);
@@ -157,21 +159,21 @@ import java.util.Stack;
         }
     }
 
-    private void recordIdentifier() {
+    protected void recordIdentifier() {
         previousTokenIsIdentifier = true;
     }
 
-    private void recordNotIdentifier() {
+    protected void recordNotIdentifier() {
         previousTokenIsIdentifier = false;
     }
 
-    private void intoEnumMemberModeIfNeeded() {
+    protected void intoEnumMemberModeIfNeeded() {
         if (!previousTokenIsIdentifier) {
             yybegin(ENUM_MEMBER);
         }
     }
 
-    private void cancelEnumMemberMode() {
+    protected void cancelEnumMemberMode() {
         if (stack.empty()) {
             yybegin(YYINITIAL);
         } else {
@@ -180,19 +182,13 @@ import java.util.Stack;
     }
 %}
 
-//%{
-//  private static String zzToPrintable(CharSequence cs) {
-//    return zzToPrintable(cs.toString());
-//  }
-//%}
-
 %class _TeoLexer
 %public
 %implements FlexLexer
 %unicode
 %function advance
 %type IElementType
-%debug
+// %debug
 
 // whitespaces
 EOL="\r"|"\n"|"\r\n"
