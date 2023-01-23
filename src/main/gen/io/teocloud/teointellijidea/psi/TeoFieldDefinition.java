@@ -4,17 +4,15 @@ package io.teocloud.teointellijidea.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
 
-public interface TeoFieldDefinition extends PsiElement {
+public interface TeoFieldDefinition extends TeoDeclaration {
 
   @NotNull
   List<TeoWs> getWsList();
 
   @Nullable
   TeoDocCommentBlock getDocCommentBlock();
-
-  @NotNull
-  TeoFieldName getFieldName();
 
   @NotNull
   TeoFieldType getFieldType();

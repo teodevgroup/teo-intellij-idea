@@ -8,13 +8,13 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static io.teocloud.teointellijidea.psi.TeoTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import io.teocloud.teointellijidea.lang.psi.impl.TeoDeclarationMixin;
 import io.teocloud.teointellijidea.psi.*;
 import io.teocloud.teointellijidea.lang.psi.impl.TeoPsiImplUtil;
 
-public class TeoFieldDefinitionImpl extends ASTWrapperPsiElement implements TeoFieldDefinition {
+public class TeoFieldDefinitionImpl extends TeoDeclarationMixin implements TeoFieldDefinition {
 
-  public TeoFieldDefinitionImpl(@NotNull ASTNode node) {
+  public TeoFieldDefinitionImpl(ASTNode node) {
     super(node);
   }
 
@@ -38,12 +38,6 @@ public class TeoFieldDefinitionImpl extends ASTWrapperPsiElement implements TeoF
   @Nullable
   public TeoDocCommentBlock getDocCommentBlock() {
     return findChildByClass(TeoDocCommentBlock.class);
-  }
-
-  @Override
-  @NotNull
-  public TeoFieldName getFieldName() {
-    return findNotNullChildByClass(TeoFieldName.class);
   }
 
   @Override

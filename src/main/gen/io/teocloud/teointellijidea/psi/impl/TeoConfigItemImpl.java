@@ -35,12 +35,6 @@ public class TeoConfigItemImpl extends ASTWrapperPsiElement implements TeoConfig
   }
 
   @Override
-  @NotNull
-  public TeoConfigItemName getConfigItemName() {
-    return findNotNullChildByClass(TeoConfigItemName.class);
-  }
-
-  @Override
   @Nullable
   public TeoDocCommentBlock getDocCommentBlock() {
     return findChildByClass(TeoDocCommentBlock.class);

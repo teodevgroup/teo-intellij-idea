@@ -24,19 +24,16 @@ public interface TeoTypes {
   IElementType CONFIG_BLOCK = new TeoElementType("CONFIG_BLOCK");
   IElementType CONFIG_DEFINITION = new TeoElementType("CONFIG_DEFINITION");
   IElementType CONFIG_ITEM = new TeoElementType("CONFIG_ITEM");
-  IElementType CONFIG_ITEM_NAME = new TeoElementType("CONFIG_ITEM_NAME");
   IElementType DICTIONARY_LITERAL = new TeoElementType("DICTIONARY_LITERAL");
   IElementType DOC_COMMENT_BLOCK = new TeoElementType("DOC_COMMENT_BLOCK");
   IElementType ENUM_CHOICE_LITERAL = new TeoElementType("ENUM_CHOICE_LITERAL");
   IElementType ENUM_DEFINITION = new TeoElementType("ENUM_DEFINITION");
   IElementType ENUM_DEFINITION_BLOCK = new TeoElementType("ENUM_DEFINITION_BLOCK");
-  IElementType ENUM_IDENTIFIER = new TeoElementType("ENUM_IDENTIFIER");
   IElementType ENUM_MEMBER_NAME = new TeoElementType("ENUM_MEMBER_NAME");
   IElementType ENUM_VALUE_DECLARATION = new TeoElementType("ENUM_VALUE_DECLARATION");
   IElementType EOL_WSC = new TeoElementType("EOL_WSC");
   IElementType EXPRESSION = new TeoElementType("EXPRESSION");
   IElementType FIELD_DEFINITION = new TeoElementType("FIELD_DEFINITION");
-  IElementType FIELD_NAME = new TeoElementType("FIELD_NAME");
   IElementType FIELD_TYPE = new TeoElementType("FIELD_TYPE");
   IElementType GROUP = new TeoElementType("GROUP");
   IElementType IDENTIFIER_UNIT = new TeoElementType("IDENTIFIER_UNIT");
@@ -145,9 +142,6 @@ public interface TeoTypes {
       else if (type == CONFIG_ITEM) {
         return new TeoConfigItemImpl(node);
       }
-      else if (type == CONFIG_ITEM_NAME) {
-        return new TeoConfigItemNameImpl(node);
-      }
       else if (type == DICTIONARY_LITERAL) {
         return new TeoDictionaryLiteralImpl(node);
       }
@@ -163,9 +157,6 @@ public interface TeoTypes {
       else if (type == ENUM_DEFINITION_BLOCK) {
         return new TeoEnumDefinitionBlockImpl(node);
       }
-      else if (type == ENUM_IDENTIFIER) {
-        return new TeoEnumIdentifierImpl(node);
-      }
       else if (type == ENUM_MEMBER_NAME) {
         return new TeoEnumMemberNameImpl(node);
       }
@@ -180,9 +171,6 @@ public interface TeoTypes {
       }
       else if (type == FIELD_DEFINITION) {
         return new TeoFieldDefinitionImpl(node);
-      }
-      else if (type == FIELD_NAME) {
-        return new TeoFieldNameImpl(node);
       }
       else if (type == FIELD_TYPE) {
         return new TeoFieldTypeImpl(node);

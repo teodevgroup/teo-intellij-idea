@@ -78,10 +78,6 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitConfigItemName(@NotNull TeoConfigItemName o) {
-    visitPsiElement(o);
-  }
-
   public void visitDictionaryLiteral(@NotNull TeoDictionaryLiteral o) {
     visitPsiElement(o);
   }
@@ -102,16 +98,12 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitEnumIdentifier(@NotNull TeoEnumIdentifier o) {
-    visitPsiElement(o);
-  }
-
   public void visitEnumMemberName(@NotNull TeoEnumMemberName o) {
     visitPsiElement(o);
   }
 
   public void visitEnumValueDeclaration(@NotNull TeoEnumValueDeclaration o) {
-    visitPsiElement(o);
+    visitDeclaration(o);
   }
 
   public void visitExpression(@NotNull TeoExpression o) {
@@ -119,11 +111,7 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitFieldDefinition(@NotNull TeoFieldDefinition o) {
-    visitPsiElement(o);
-  }
-
-  public void visitFieldName(@NotNull TeoFieldName o) {
-    visitPsiElement(o);
+    visitDeclaration(o);
   }
 
   public void visitFieldType(@NotNull TeoFieldType o) {
