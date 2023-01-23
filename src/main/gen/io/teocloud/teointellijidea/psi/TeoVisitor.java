@@ -173,7 +173,7 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitLetDeclaration(@NotNull TeoLetDeclaration o) {
-    visitPsiElement(o);
+    visitDeclaration(o);
   }
 
   public void visitLiteral(@NotNull TeoLiteral o) {

@@ -14,8 +14,8 @@
 
   psiImplUtilClass="io.teocloud.teointellijidea.lang.psi.impl.TeoPsiImplUtil"
 
-  implements('(model_|enum_|config_)definition')='io.teocloud.teointellijidea.lang.psi.TeoDeclaration'
-  mixin('(model_|enum_|config_)definition')='io.teocloud.teointellijidea.lang.psi.impl.TeoDeclarationMixin'
+  implements('(model_|enum_|config_)definition|let_declaration')='io.teocloud.teointellijidea.lang.psi.TeoDeclaration'
+  mixin('(model_|enum_|config_)definition|let_declaration')='io.teocloud.teointellijidea.lang.psi.impl.TeoDeclarationMixin'
 }
 
 teoFile ::= item_*

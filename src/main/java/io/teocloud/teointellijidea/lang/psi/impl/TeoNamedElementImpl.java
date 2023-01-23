@@ -2,7 +2,6 @@ package io.teocloud.teointellijidea.lang.psi.impl;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
-import com.intellij.openapi.util.NlsSafe;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.search.LocalSearchScope;
 import com.intellij.psi.search.SearchScope;
@@ -23,7 +22,7 @@ public class TeoNamedElementImpl extends TeoElementImpl implements TeoNameIdenti
 
     @Override
     public String getName() {
-        return super.getName();
+        return "NAME";
     }
 
     @Override
@@ -43,11 +42,13 @@ public class TeoNamedElementImpl extends TeoElementImpl implements TeoNameIdenti
 
     @Override
     public ItemPresentation getPresentation() {
+        System.out.println("GET PRESENTATION");
         return TeoPresentationUtils.INSTANCE.getPresentation(this);
     }
 
     @Override
     public @Nullable Icon getIcon(int flags) {
+        System.out.format("SEE ICON FETCH OR NOT? %s\n", this);
         return TeoPresentationUtils.INSTANCE.getIcon(this);
     }
 

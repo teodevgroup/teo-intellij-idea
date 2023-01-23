@@ -8,13 +8,13 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static io.teocloud.teointellijidea.psi.TeoTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import io.teocloud.teointellijidea.lang.psi.impl.TeoDeclarationMixin;
 import io.teocloud.teointellijidea.psi.*;
 import io.teocloud.teointellijidea.lang.psi.impl.TeoPsiImplUtil;
 
-public class TeoLetDeclarationImpl extends ASTWrapperPsiElement implements TeoLetDeclaration {
+public class TeoLetDeclarationImpl extends TeoDeclarationMixin implements TeoLetDeclaration {
 
-  public TeoLetDeclarationImpl(@NotNull ASTNode node) {
+  public TeoLetDeclarationImpl(ASTNode node) {
     super(node);
   }
 

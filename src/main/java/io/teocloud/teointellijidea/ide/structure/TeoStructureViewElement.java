@@ -48,9 +48,11 @@ public class TeoStructureViewElement implements StructureViewTreeElement, Sortab
     public TreeElement @NotNull [] getChildren() {
         if (element instanceof TeoFile) {
             List<TeoStructureViewElement> eles = PsiTreeUtil.findChildrenOfAnyType(element,
-                    TeoModelDefinitionBlockImpl.class,
-                    TeoEnumDefinitionBlockImpl.class,
-                    TeoConfigBlockImpl.class).stream().map(TeoStructureViewElement::new).collect(Collectors.toList());
+                    TeoLetDeclaration.class,
+                    TeoModelDefinition.class,
+                    TeoEnumDefinition.class,
+                    TeoConfigDefinition.class).stream().map(TeoStructureViewElement::new).collect(Collectors.toList());
+            System.out.format("see get children: %s\n", eles);
             TeoStructureViewElement[] array = new TeoStructureViewElement[eles.size()];
             return eles.toArray(array);
         } else if (element instanceof TeoModelDefinition) {
@@ -75,5 +77,10 @@ public class TeoStructureViewElement implements StructureViewTreeElement, Sortab
     @Override
     public boolean canNavigateToSource() {
         return element.canNavigateToSource();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("TeoStructureViewElement(%s)", element.toString());
     }
 }

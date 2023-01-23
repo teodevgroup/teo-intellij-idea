@@ -5,6 +5,7 @@ import com.intellij.navigation.ItemPresentation;
 import com.intellij.openapi.util.NlsSafe;
 import io.teocloud.teointellijidea.lang.psi.TeoElement;
 import io.teocloud.teointellijidea.lang.psi.TeoNamedElement;
+import io.teocloud.teointellijidea.lang.psi.impl.TeoNamedElementImpl;
 import io.teocloud.teointellijidea.psi.TeoConfigDefinition;
 import io.teocloud.teointellijidea.psi.TeoEnumDefinition;
 import io.teocloud.teointellijidea.psi.TeoModelDefinition;
@@ -19,15 +20,19 @@ public class TeoPresentationUtils {
         return new ItemPresentation() {
             @Override
             public @Nullable String getPresentableText() {
-                if (element instanceof TeoNamedElement) {
+                System.out.format("see element: %s\n", element);
+                if (TeoNamedElement.class.isAssignableFrom(element.getClass())) {
+                    System.out.format("see name: %s\n", ((TeoNamedElement) element).getName());
                     return ((TeoNamedElement) element).getName();
                 }
-                return null;
+                return "HERE";
+                // return null;
             }
 
             @Override
             public String getLocationString() {
-                return element.getContainingFile().getName();
+                return "here location";
+                // return element.getContainingFile().getName();
             }
 
             @Override
