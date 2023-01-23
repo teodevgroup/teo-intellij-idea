@@ -5,11 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
+import io.teocloud.teointellijidea.lang.psi.TeoKeyValuePairDeclaration;
 
-public interface TeoConfigDefinition extends TeoDeclaration {
-
-  @NotNull
-  TeoConfigKeywords getConfigKeywords();
+public interface TeoConfigDefinition extends TeoDeclaration, TeoKeyValuePairDeclaration {
 
   @NotNull
   List<TeoWs> getWsList();

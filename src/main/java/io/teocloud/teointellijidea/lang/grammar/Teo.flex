@@ -20,7 +20,6 @@ import java.util.Stack;
 %unicode
 %function advance
 %type IElementType
-// %debug
 
 // whitespaces
 EOL="\r"|"\n"|"\r\n"

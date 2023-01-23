@@ -25,7 +25,6 @@ public interface TeoTypes {
   IElementType CONFIG_DEFINITION = new TeoElementType("CONFIG_DEFINITION");
   IElementType CONFIG_ITEM = new TeoElementType("CONFIG_ITEM");
   IElementType CONFIG_ITEM_NAME = new TeoElementType("CONFIG_ITEM_NAME");
-  IElementType CONFIG_KEYWORDS = new TeoElementType("CONFIG_KEYWORDS");
   IElementType DICTIONARY_LITERAL = new TeoElementType("DICTIONARY_LITERAL");
   IElementType DOC_COMMENT_BLOCK = new TeoElementType("DOC_COMMENT_BLOCK");
   IElementType ENUM_CHOICE_LITERAL = new TeoElementType("ENUM_CHOICE_LITERAL");
@@ -148,9 +147,6 @@ public interface TeoTypes {
       }
       else if (type == CONFIG_ITEM_NAME) {
         return new TeoConfigItemNameImpl(node);
-      }
-      else if (type == CONFIG_KEYWORDS) {
-        return new TeoConfigKeywordsImpl(node);
       }
       else if (type == DICTIONARY_LITERAL) {
         return new TeoDictionaryLiteralImpl(node);

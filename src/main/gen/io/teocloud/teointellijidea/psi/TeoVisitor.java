@@ -5,6 +5,7 @@ import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiElement;
 import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
+import io.teocloud.teointellijidea.lang.psi.TeoKeyValuePairDeclaration;
 
 public class TeoVisitor extends PsiElementVisitor {
 
@@ -13,10 +14,6 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitCollectionOptional(@NotNull TeoCollectionOptional o) {
-    visitPsiElement(o);
-  }
-
-  public void visitConfigKeywords(@NotNull TeoConfigKeywords o) {
     visitPsiElement(o);
   }
 
@@ -74,6 +71,7 @@ public class TeoVisitor extends PsiElementVisitor {
 
   public void visitConfigDefinition(@NotNull TeoConfigDefinition o) {
     visitDeclaration(o);
+    // visitKeyValuePairDeclaration(o);
   }
 
   public void visitConfigItem(@NotNull TeoConfigItem o) {

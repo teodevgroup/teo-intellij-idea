@@ -42,13 +42,11 @@ public class TeoNamedElementImpl extends TeoElementImpl implements TeoNameIdenti
 
     @Override
     public ItemPresentation getPresentation() {
-        System.out.println("GET PRESENTATION");
         return TeoPresentationUtils.INSTANCE.getPresentation(this);
     }
 
     @Override
     public @Nullable Icon getIcon(int flags) {
-        System.out.format("SEE ICON FETCH OR NOT? %s\n", this);
         return TeoPresentationUtils.INSTANCE.getIcon(this);
     }
 

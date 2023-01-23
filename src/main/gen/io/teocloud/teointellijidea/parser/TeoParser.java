@@ -81,20 +81,6 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD
-  public static boolean CONFIG_KEYWORDS(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "CONFIG_KEYWORDS")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, CONFIG_KEYWORDS, "<config keywords>");
-    r = consumeToken(b, CONFIG_KEYWORD);
-    if (!r) r = consumeToken(b, CONNECTOR_KEYWORD);
-    if (!r) r = consumeToken(b, CLIENT_KEYWORD);
-    if (!r) r = consumeToken(b, ENTITY_KEYWORD);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
   // EOL | WSC
   public static boolean EOL_WSC(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "EOL_WSC")) return false;
@@ -433,16 +419,27 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONFIG_KEYWORDS (WS+ IDENTIFIER)? WS+ config_block
+  // (CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD) (WS+ IDENTIFIER)? WS+ config_block
   public static boolean config_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "config_definition")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, CONFIG_DEFINITION, "<config definition>");
-    r = CONFIG_KEYWORDS(b, l + 1);
+    r = config_definition_0(b, l + 1);
     r = r && config_definition_1(b, l + 1);
     r = r && config_definition_2(b, l + 1);
     r = r && config_block(b, l + 1);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD
+  private static boolean config_definition_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "config_definition_0")) return false;
+    boolean r;
+    r = consumeToken(b, CONFIG_KEYWORD);
+    if (!r) r = consumeToken(b, CONNECTOR_KEYWORD);
+    if (!r) r = consumeToken(b, CLIENT_KEYWORD);
+    if (!r) r = consumeToken(b, ENTITY_KEYWORD);
     return r;
   }
 

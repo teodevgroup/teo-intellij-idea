@@ -15,7 +15,9 @@
   psiImplUtilClass="io.teocloud.teointellijidea.lang.psi.impl.TeoPsiImplUtil"
 
   implements('(model_|enum_|config_)definition|let_declaration')='io.teocloud.teointellijidea.lang.psi.TeoDeclaration'
-  mixin('(model_|enum_|config_)definition|let_declaration')='io.teocloud.teointellijidea.lang.psi.impl.TeoDeclarationMixin'
+  implements('config_definition')='io.teocloud.teointellijidea.lang.psi.TeoKeyValuePairDeclaration'
+  mixin('(model_|enum_)definition|let_declaration')='io.teocloud.teointellijidea.lang.psi.impl.TeoDeclarationMixin'
+  mixin('config_definition')='io.teocloud.teointellijidea.lang.psi.impl.TeoKeyValuePairDeclarationMixin'
 }
 
 teoFile ::= item_*
@@ -65,9 +67,7 @@ block_decorator ::= ATAT identifier_unit
 
 pipeline ::= DOLLAR identifier_unit
 
-CONFIG_KEYWORDS ::= CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD
-
-config_definition ::= CONFIG_KEYWORDS (WS+ IDENTIFIER)? WS+ config_block
+config_definition ::= (CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD) (WS+ IDENTIFIER)? WS+ config_block
 config_block ::= padded_lbrace (WS? (config_item|comment) EOL)* padded_rbrace
 config_item ::= doc_comment_block? config_item_name WS+ expression
 config_item_name ::= IDENTIFIER
