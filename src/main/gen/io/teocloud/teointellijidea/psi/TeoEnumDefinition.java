@@ -4,8 +4,9 @@ package io.teocloud.teointellijidea.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
 
-public interface TeoEnumDefinition extends PsiElement {
+public interface TeoEnumDefinition extends TeoDeclaration {
 
   @NotNull
   List<TeoWs> getWsList();

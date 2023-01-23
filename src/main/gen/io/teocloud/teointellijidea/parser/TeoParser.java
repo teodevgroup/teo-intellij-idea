@@ -347,15 +347,20 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // "String" | "ObjectId" | "Int" | "Float" | "Date" | "DateTime"
+  // "Bool" | "String" | "ObjectId" | "Int" | "Int32" | "Int64" | "Float" | "Float32" | "Float64" | "Date" | "DateTime"
   public static boolean builtin_type(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "builtin_type")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, BUILTIN_TYPE, "<builtin type>");
-    r = consumeToken(b, "String");
+    r = consumeToken(b, "Bool");
+    if (!r) r = consumeToken(b, "String");
     if (!r) r = consumeToken(b, "ObjectId");
     if (!r) r = consumeToken(b, "Int");
+    if (!r) r = consumeToken(b, "Int32");
+    if (!r) r = consumeToken(b, "Int64");
     if (!r) r = consumeToken(b, "Float");
+    if (!r) r = consumeToken(b, "Float32");
+    if (!r) r = consumeToken(b, "Float64");
     if (!r) r = consumeToken(b, "Date");
     if (!r) r = consumeToken(b, "DateTime");
     exit_section_(b, l, m, r, false, null);

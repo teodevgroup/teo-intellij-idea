@@ -37,11 +37,11 @@ public class TeoStructureViewElement implements StructureViewTreeElement, Sortab
 
     @Override
     public @NotNull ItemPresentation getPresentation() {
-        PresentationData data = new PresentationData();
-        if (element instanceof TeoFile) {
-            return Objects.requireNonNull(element.getPresentation());
+        ItemPresentation data = element.getPresentation();
+        if (data != null) {
+            return data;
         }
-        return data;
+        return new PresentationData();
     }
 
     @Override
