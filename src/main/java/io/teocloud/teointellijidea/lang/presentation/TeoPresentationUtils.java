@@ -6,10 +6,8 @@ import com.intellij.openapi.util.NlsSafe;
 import io.teocloud.teointellijidea.lang.psi.TeoElement;
 import io.teocloud.teointellijidea.lang.psi.TeoNamedElement;
 import io.teocloud.teointellijidea.lang.psi.impl.TeoNamedElementImpl;
-import io.teocloud.teointellijidea.psi.TeoConfigDefinition;
-import io.teocloud.teointellijidea.psi.TeoEnumDefinition;
-import io.teocloud.teointellijidea.psi.TeoLetDeclaration;
-import io.teocloud.teointellijidea.psi.TeoModelDefinition;
+import io.teocloud.teointellijidea.psi.*;
+import org.apache.xmlbeans.impl.xb.xsdschema.All;
 import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 
@@ -49,6 +47,12 @@ public class TeoPresentationUtils {
             return AllIcons.Nodes.Plugin;
         } else if (element instanceof TeoLetDeclaration) {
             return AllIcons.Nodes.Constant;
+        } else if (element instanceof TeoFieldDefinition) {
+            return AllIcons.Nodes.Field;
+        } else if (element instanceof TeoEnumValueDeclaration) {
+            return AllIcons.Nodes.Variable;
+        } else if (element instanceof TeoConfigItem) {
+            return AllIcons.Nodes.Variable;
         }
         return null;
     }
