@@ -8,6 +8,7 @@ import io.teocloud.teointellijidea.lang.psi.TeoNamedElement;
 import io.teocloud.teointellijidea.lang.psi.impl.TeoNamedElementImpl;
 import io.teocloud.teointellijidea.psi.TeoConfigDefinition;
 import io.teocloud.teointellijidea.psi.TeoEnumDefinition;
+import io.teocloud.teointellijidea.psi.TeoLetDeclaration;
 import io.teocloud.teointellijidea.psi.TeoModelDefinition;
 import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
@@ -41,11 +42,13 @@ public class TeoPresentationUtils {
 
     public @Nullable Icon getIcon(TeoNamedElement element) {
         if (element instanceof TeoModelDefinition) {
-            return AllIcons.Nodes.ModelClass;
+            return AllIcons.Nodes.Method;
         } else if (element instanceof TeoEnumDefinition) {
             return AllIcons.Nodes.Enum;
         } else if (element instanceof TeoConfigDefinition) {
-            return AllIcons.Nodes.ConfigFolder;
+            return AllIcons.Nodes.Plugin;
+        } else if (element instanceof TeoLetDeclaration) {
+            return AllIcons.Nodes.Constant;
         }
         return null;
     }
