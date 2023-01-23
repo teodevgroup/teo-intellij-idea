@@ -56,11 +56,10 @@ public class TeoStructureViewElement implements StructureViewTreeElement, Sortab
                     TeoConfigDefinition.class).stream().map(TeoStructureViewElement::new).collect(Collectors.toList());
             TeoStructureViewElement[] array = new TeoStructureViewElement[eles.size()];
             return eles.toArray(array);
-        } else if (element instanceof TeoModelDefinition) {
-
-            return new TreeElement[]{};
-        } else if (element instanceof TeoEnumDefinition) {
-            return new TreeElement[]{};
+        } else if (element instanceof TeoDeclaration) {
+            List<TeoStructureViewElement> eles = ((TeoDeclaration) element).getMembers().stream().map(TeoStructureViewElement::new).collect(Collectors.toList());
+            TeoStructureViewElement[] array = new TeoStructureViewElement[eles.size()];
+            return eles.toArray(array);
         } else {
             return new TreeElement[]{};
         }

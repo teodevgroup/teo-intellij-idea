@@ -29,11 +29,11 @@ public class TeoDeclarationMixin extends TeoNamedElementImpl implements TeoDecla
 
     @Override
     public List<TeoMemberDeclaration> getMembers() {
-        return null;
-//        if (getBlock() != null) {
-//            getBlock().getMembers().filterIsInstance
-//        }
-//        getBlock()?.getMembers()?.filterIsInstance<PrismaMemberDeclaration>() ?: emptyList()
+        TeoBlock block = getBlock();
+        if (block != null) {
+            return block.getMemberDeclarations();
+        }
+        return List.of(new TeoMemberDeclaration[]{});
     }
 
     @Override

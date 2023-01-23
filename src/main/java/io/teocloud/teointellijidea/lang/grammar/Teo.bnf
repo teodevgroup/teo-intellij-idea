@@ -20,6 +20,9 @@
   mixin('(model_|enum_)definition|(let_)declaration')='io.teocloud.teointellijidea.lang.psi.impl.TeoDeclarationMixin'
   mixin('field_definition|enum_value_declaration|config_item')='io.teocloud.teointellijidea.lang.psi.impl.TeoMemberDeclarationMixin'
   mixin('config_definition')='io.teocloud.teointellijidea.lang.psi.impl.TeoKeyValuePairDeclarationMixin'
+
+  implements('((model|enum|)_definition|config)_block|')='io.teocloud.teointellijidea.lang.psi.TeoBlock'
+  mixin('((model|enum|)_definition|config)_block|')='io.teocloud.teointellijidea.lang.psi.impl.TeoBlockMixin'
 }
 
 teoFile ::= item_*

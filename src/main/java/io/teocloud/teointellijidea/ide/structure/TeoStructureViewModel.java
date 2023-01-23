@@ -40,6 +40,7 @@ public class TeoStructureViewModel extends StructureViewModelBase implements Str
                 TeoConfigDefinition.class,
                 TeoFieldDefinition.class,
                 TeoEnumValueDeclaration.class,
+                TeoConfigItem.class,
         };
     }
 }
