@@ -7,6 +7,7 @@ import com.intellij.psi.PsiElement;
 import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
 import io.teocloud.teointellijidea.lang.psi.TeoKeyValuePairDeclaration;
 import io.teocloud.teointellijidea.lang.psi.TeoMemberDeclaration;
+import io.teocloud.teointellijidea.lang.psi.TeoBlock;
 
 public class TeoVisitor extends PsiElementVisitor {
 
@@ -67,7 +68,7 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitConfigBlock(@NotNull TeoConfigBlock o) {
-    visitPsiElement(o);
+    visitBlock(o);
   }
 
   public void visitConfigDefinition(@NotNull TeoConfigDefinition o) {
@@ -96,7 +97,7 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitEnumDefinitionBlock(@NotNull TeoEnumDefinitionBlock o) {
-    visitPsiElement(o);
+    visitBlock(o);
   }
 
   public void visitEnumMemberName(@NotNull TeoEnumMemberName o) {
@@ -164,7 +165,7 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitModelDefinitionBlock(@NotNull TeoModelDefinitionBlock o) {
-    visitPsiElement(o);
+    visitBlock(o);
   }
 
   public void visitNamedArgument(@NotNull TeoNamedArgument o) {
@@ -200,6 +201,10 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitUserType(@NotNull TeoUserType o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBlock(@NotNull TeoBlock o) {
     visitPsiElement(o);
   }
 
