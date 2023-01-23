@@ -23,21 +23,27 @@ public class TeoHighlightAnnotator implements Annotator {
                         .range(nameElement.getTextRange())
                         .textAttributes(TeoSyntaxHighlighter.MODEL_NAME).create();
             }
-        } else if (element instanceof TeoConfigItemName) {
-            holder
-                    .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                    .range(element.getTextRange())
-                    .textAttributes(TeoSyntaxHighlighter.CONFIG_ITEM_NAME).create();
+        } else if (element instanceof TeoConfigItemImpl) {
+            PsiElement nameElement = ((TeoConfigItemImpl)element).getNameIdentifier();
+            if (nameElement != null) {
+                holder
+                        .newSilentAnnotation(HighlightSeverity.INFORMATION)
+                        .range(element.getTextRange())
+                        .textAttributes(TeoSyntaxHighlighter.CONFIG_ITEM_NAME).create();
+            }
         } else if (element instanceof TeoEnumChoiceLiteral) {
             holder
                     .newSilentAnnotation(HighlightSeverity.INFORMATION)
                     .range(element.getTextRange())
                     .textAttributes(TeoSyntaxHighlighter.ENUM_MEMBER).create();
-        } else if (element instanceof TeoFieldName) {
-            holder
-                    .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                    .range(element.getTextRange())
-                    .textAttributes(TeoSyntaxHighlighter.FIELD_NAME).create();
+        } else if (element instanceof TeoFieldDefinitionImpl) {
+            PsiElement nameElement = ((TeoFieldDefinitionImpl)element).getNameIdentifier();
+            if (nameElement != null) {
+                holder
+                        .newSilentAnnotation(HighlightSeverity.INFORMATION)
+                        .range(element.getTextRange())
+                        .textAttributes(TeoSyntaxHighlighter.FIELD_NAME).create();
+            }
         } else if (element instanceof TeoUserTypeImpl) {
             holder
                     .newSilentAnnotation(HighlightSeverity.INFORMATION)

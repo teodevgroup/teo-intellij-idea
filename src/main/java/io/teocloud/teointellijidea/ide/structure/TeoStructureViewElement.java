@@ -57,6 +57,7 @@ public class TeoStructureViewElement implements StructureViewTreeElement, Sortab
             TeoStructureViewElement[] array = new TeoStructureViewElement[eles.size()];
             return eles.toArray(array);
         } else if (element instanceof TeoModelDefinition) {
+
             return new TreeElement[]{};
         } else if (element instanceof TeoEnumDefinition) {
             return new TreeElement[]{};

@@ -98,9 +98,6 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(TeoTypes.NULL_LITERAL)) {
             return NULL_KEYS;
         }
-        if (tokenType.equals(TeoTypes.CONFIG_ITEM_NAME)) {
-            return CONFIG_ITEM_KEYS;
-        }
         if (tokenType.equals(TeoTypes.LINE_COMMENT) || tokenType.equals(TeoTypes.DOC_COMMENT)) {
             return COMMENT_KEYS;
         }
@@ -121,9 +118,6 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
         }
         if (tokenType.equals(TeoTypes.LBRACE) || tokenType.equals(TeoTypes.RBRACE)) {
             return BRACE_KEYS;
-        }
-        if (tokenType.equals(TeoTypes.FIELD_NAME)) {
-            return FIELD_NAME_KEYS;
         }
         if (tokenType.equals(TeoTypes.USER_TYPE)) {
             return USER_TYPE_KEYS;

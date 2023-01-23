@@ -8,11 +8,11 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static io.teocloud.teointellijidea.psi.TeoTypes.*;
-import io.teocloud.teointellijidea.lang.psi.impl.TeoDeclarationMixin;
+import io.teocloud.teointellijidea.lang.psi.impl.TeoMemberDeclarationMixin;
 import io.teocloud.teointellijidea.psi.*;
 import io.teocloud.teointellijidea.lang.psi.impl.TeoPsiImplUtil;
 
-public class TeoFieldDefinitionImpl extends TeoDeclarationMixin implements TeoFieldDefinition {
+public class TeoFieldDefinitionImpl extends TeoMemberDeclarationMixin implements TeoFieldDefinition {
 
   public TeoFieldDefinitionImpl(ASTNode node) {
     super(node);

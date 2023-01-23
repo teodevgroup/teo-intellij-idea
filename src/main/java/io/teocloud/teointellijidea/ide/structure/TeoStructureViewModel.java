@@ -6,10 +6,7 @@ import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.util.treeView.smartTree.Sorter;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiFile;
-import io.teocloud.teointellijidea.psi.TeoConfigDefinition;
-import io.teocloud.teointellijidea.psi.TeoEnumDefinition;
-import io.teocloud.teointellijidea.psi.TeoLetDeclaration;
-import io.teocloud.teointellijidea.psi.TeoModelDefinition;
+import io.teocloud.teointellijidea.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,6 +38,8 @@ public class TeoStructureViewModel extends StructureViewModelBase implements Str
                 TeoModelDefinition.class,
                 TeoEnumDefinition.class,
                 TeoConfigDefinition.class,
+                TeoFieldDefinition.class,
+                TeoEnumValueDeclaration.class,
         };
     }
 }
