@@ -26,7 +26,6 @@ public interface TeoTypes {
   IElementType CONFIG_ITEM = new TeoElementType("CONFIG_ITEM");
   IElementType CONFIG_ITEM_NAME = new TeoElementType("CONFIG_ITEM_NAME");
   IElementType CONFIG_KEYWORDS = new TeoElementType("CONFIG_KEYWORDS");
-  IElementType CONFIG_NAME = new TeoElementType("CONFIG_NAME");
   IElementType DICTIONARY_LITERAL = new TeoElementType("DICTIONARY_LITERAL");
   IElementType DOC_COMMENT_BLOCK = new TeoElementType("DOC_COMMENT_BLOCK");
   IElementType ENUM_CHOICE_LITERAL = new TeoElementType("ENUM_CHOICE_LITERAL");
@@ -34,7 +33,6 @@ public interface TeoTypes {
   IElementType ENUM_DEFINITION_BLOCK = new TeoElementType("ENUM_DEFINITION_BLOCK");
   IElementType ENUM_IDENTIFIER = new TeoElementType("ENUM_IDENTIFIER");
   IElementType ENUM_MEMBER_NAME = new TeoElementType("ENUM_MEMBER_NAME");
-  IElementType ENUM_NAME = new TeoElementType("ENUM_NAME");
   IElementType ENUM_VALUE_DECLARATION = new TeoElementType("ENUM_VALUE_DECLARATION");
   IElementType EOL_WSC = new TeoElementType("EOL_WSC");
   IElementType EXPRESSION = new TeoElementType("EXPRESSION");
@@ -54,7 +52,6 @@ public interface TeoTypes {
   IElementType LITERAL = new TeoElementType("LITERAL");
   IElementType MODEL_DEFINITION = new TeoElementType("MODEL_DEFINITION");
   IElementType MODEL_DEFINITION_BLOCK = new TeoElementType("MODEL_DEFINITION_BLOCK");
-  IElementType MODEL_NAME = new TeoElementType("MODEL_NAME");
   IElementType NAMED_ARGUMENT = new TeoElementType("NAMED_ARGUMENT");
   IElementType NAMED_EXPRESSION = new TeoElementType("NAMED_EXPRESSION");
   IElementType NULLISH_COALESCING = new TeoElementType("NULLISH_COALESCING");
@@ -155,9 +152,6 @@ public interface TeoTypes {
       else if (type == CONFIG_KEYWORDS) {
         return new TeoConfigKeywordsImpl(node);
       }
-      else if (type == CONFIG_NAME) {
-        return new TeoConfigNameImpl(node);
-      }
       else if (type == DICTIONARY_LITERAL) {
         return new TeoDictionaryLiteralImpl(node);
       }
@@ -178,9 +172,6 @@ public interface TeoTypes {
       }
       else if (type == ENUM_MEMBER_NAME) {
         return new TeoEnumMemberNameImpl(node);
-      }
-      else if (type == ENUM_NAME) {
-        return new TeoEnumNameImpl(node);
       }
       else if (type == ENUM_VALUE_DECLARATION) {
         return new TeoEnumValueDeclarationImpl(node);
@@ -238,9 +229,6 @@ public interface TeoTypes {
       }
       else if (type == MODEL_DEFINITION_BLOCK) {
         return new TeoModelDefinitionBlockImpl(node);
-      }
-      else if (type == MODEL_NAME) {
-        return new TeoModelNameImpl(node);
       }
       else if (type == NAMED_ARGUMENT) {
         return new TeoNamedArgumentImpl(node);

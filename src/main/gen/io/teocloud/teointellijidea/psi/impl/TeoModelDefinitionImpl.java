@@ -52,10 +52,4 @@ public class TeoModelDefinitionImpl extends TeoDeclarationMixin implements TeoMo
     return findNotNullChildByClass(TeoModelDefinitionBlock.class);
   }
 
-  @Override
-  @NotNull
-  public TeoModelName getModelName() {
-    return findNotNullChildByClass(TeoModelName.class);
-  }
-
 }

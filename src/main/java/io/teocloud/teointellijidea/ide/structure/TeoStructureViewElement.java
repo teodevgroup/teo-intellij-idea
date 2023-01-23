@@ -7,7 +7,9 @@ import com.intellij.ide.util.treeView.smartTree.TreeElement;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.NavigatablePsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
+import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
 import io.teocloud.teointellijidea.lang.psi.TeoFile;
+import io.teocloud.teointellijidea.lang.psi.TeoNamedElement;
 import io.teocloud.teointellijidea.psi.*;
 import io.teocloud.teointellijidea.psi.impl.TeoConfigBlockImpl;
 import io.teocloud.teointellijidea.psi.impl.TeoEnumDefinitionBlockImpl;
@@ -52,7 +54,6 @@ public class TeoStructureViewElement implements StructureViewTreeElement, Sortab
                     TeoModelDefinition.class,
                     TeoEnumDefinition.class,
                     TeoConfigDefinition.class).stream().map(TeoStructureViewElement::new).collect(Collectors.toList());
-            System.out.format("see get children: %s\n", eles);
             TeoStructureViewElement[] array = new TeoStructureViewElement[eles.size()];
             return eles.toArray(array);
         } else if (element instanceof TeoModelDefinition) {

@@ -1,9 +1,11 @@
 package io.teocloud.teointellijidea.lang.psi.impl;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import io.teocloud.teointellijidea.lang.psi.TeoBlock;
 import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
 import io.teocloud.teointellijidea.lang.psi.TeoMemberDeclaration;
+import io.teocloud.teointellijidea.lang.psi.TeoTokenSets;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -14,6 +16,11 @@ public class TeoDeclarationMixin extends TeoNamedElementImpl implements TeoDecla
         super(node);
     }
 
+
+    @Override
+    public PsiElement getKeywordElement() {
+        return findChildByType(TeoTokenSets.DECLARATION_KEYWORDS);
+    }
 
     @Override
     public @Nullable TeoBlock getBlock() {

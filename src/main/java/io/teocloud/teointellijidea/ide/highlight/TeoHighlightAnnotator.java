@@ -3,6 +3,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import io.teocloud.teointellijidea.lang.psi.TeoTokenSets;
 import io.teocloud.teointellijidea.psi.*;
@@ -14,11 +15,14 @@ import java.util.Objects;
 public class TeoHighlightAnnotator implements Annotator {
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (element instanceof TeoModelNameImpl) {
-            holder
-                    .newSilentAnnotation(HighlightSeverity.INFORMATION.INFORMATION)
-                    .range(element.getTextRange())
-                    .textAttributes(TeoSyntaxHighlighter.MODEL_NAME).create();
+        if (element instanceof TeoModelDefinitionImpl) {
+            PsiElement nameElement = ((TeoModelDefinitionImpl)element).getNameIdentifier();
+            if (nameElement != null) {
+                holder
+                        .newSilentAnnotation(HighlightSeverity.INFORMATION)
+                        .range(nameElement.getTextRange())
+                        .textAttributes(TeoSyntaxHighlighter.MODEL_NAME).create();
+            }
         } else if (element instanceof TeoConfigItemName) {
             holder
                     .newSilentAnnotation(HighlightSeverity.INFORMATION)

@@ -17,9 +17,6 @@ public interface TeoEnumDefinition extends TeoDeclaration {
   @NotNull
   TeoEnumDefinitionBlock getEnumDefinitionBlock();
 
-  @NotNull
-  TeoEnumName getEnumName();
-
   @Nullable
   TeoItemDecoratorList getItemDecoratorList();
 

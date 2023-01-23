@@ -21,8 +21,13 @@ public class TeoNamedElementImpl extends TeoElementImpl implements TeoNameIdenti
     }
 
     @Override
-    public String getName() {
-        return "NAME";
+    public @Nullable String getName() {
+        PsiElement child = getNameIdentifier();
+        if (child != null) {
+            return child.getText();
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -33,11 +38,6 @@ public class TeoNamedElementImpl extends TeoElementImpl implements TeoNameIdenti
     @Override
     public @Nullable PsiElement getNameIdentifier() {
         return findChildByType(TeoTypes.IDENTIFIER);
-    }
-
-    @Override
-    public int getTextOffset() {
-        return getNameIdentifier() != null ? getNameIdentifier().getStartOffsetInParent() : super.getStartOffsetInParent();
     }
 
     @Override

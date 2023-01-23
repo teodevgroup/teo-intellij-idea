@@ -17,7 +17,4 @@ public interface TeoConfigDefinition extends TeoDeclaration {
   @NotNull
   TeoConfigBlock getConfigBlock();
 
-  @Nullable
-  TeoConfigName getConfigName();
-
 }

@@ -12,4 +12,13 @@ public interface TeoTokenSets {
     TokenSet DECORATOR_SET = TokenSet.create(TeoTypes.AT, TeoTypes.ATAT, TeoTypes.INITIAL_UNIT_IDENTIFIER, TeoTypes.IDENTIFIER);
     TokenSet PIPELINE_SET = TokenSet.create(TeoTypes.DOLLAR, TeoTypes.INITIAL_UNIT_IDENTIFIER, TeoTypes.IDENTIFIER);
 
+    TokenSet DECLARATION_KEYWORDS = TokenSet.create(
+            TeoTypes.CLIENT_KEYWORD,
+            TeoTypes.ENTITY_KEYWORD,
+            TeoTypes.CONFIG_KEYWORD,
+            TeoTypes.CONNECTOR_KEYWORD,
+            TeoTypes.MODEL_KEYWORD,
+            TeoTypes.ENUM_KEYWORD,
+            TeoTypes.LET_KEYWORD);
+
 }

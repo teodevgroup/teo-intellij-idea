@@ -46,10 +46,4 @@ public class TeoConfigDefinitionImpl extends TeoDeclarationMixin implements TeoC
     return findNotNullChildByClass(TeoConfigBlock.class);
   }
 
-  @Override
-  @Nullable
-  public TeoConfigName getConfigName() {
-    return findChildByClass(TeoConfigName.class);
-  }
-
 }

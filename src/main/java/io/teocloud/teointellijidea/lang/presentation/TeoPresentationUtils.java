@@ -20,19 +20,16 @@ public class TeoPresentationUtils {
         return new ItemPresentation() {
             @Override
             public @Nullable String getPresentableText() {
-                System.out.format("see element: %s\n", element);
-                if (TeoNamedElement.class.isAssignableFrom(element.getClass())) {
-                    System.out.format("see name: %s\n", ((TeoNamedElement) element).getName());
+                if (element instanceof TeoNamedElement) {
                     return ((TeoNamedElement) element).getName();
                 }
-                return "HERE";
-                // return null;
+                return null;
             }
 
             @Override
             public String getLocationString() {
-                return "here location";
                 // return element.getContainingFile().getName();
+                return null;
             }
 
             @Override

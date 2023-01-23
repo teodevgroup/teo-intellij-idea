@@ -20,7 +20,4 @@ public interface TeoModelDefinition extends TeoDeclaration {
   @NotNull
   TeoModelDefinitionBlock getModelDefinitionBlock();
 
-  @NotNull
-  TeoModelName getModelName();
-
 }

@@ -86,9 +86,6 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
                 tokenType.equals(TeoTypes.ENTITY_KEYWORD)) {
             return KEYWORD_KEYS;
         }
-        if (tokenType.equals(TeoTypes.MODEL_NAME)) {
-            return MODEL_NAME_KEYS;
-        }
         if (tokenType.equals(TeoTypes.BOOL_LITERAL)) {
             return BOOL_KEYS;
         }
