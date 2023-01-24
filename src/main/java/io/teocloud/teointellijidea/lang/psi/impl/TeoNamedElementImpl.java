@@ -7,6 +7,7 @@ import com.intellij.psi.search.LocalSearchScope;
 import com.intellij.psi.search.SearchScope;
 import com.intellij.util.IncorrectOperationException;
 import io.teocloud.teointellijidea.lang.presentation.TeoPresentationUtils;
+import io.teocloud.teointellijidea.lang.psi.TeoElementFactory;
 import io.teocloud.teointellijidea.lang.psi.TeoNameIdentifierOwner;
 import io.teocloud.teointellijidea.psi.TeoTypes;
 import org.jetbrains.annotations.NotNull;
@@ -32,6 +33,17 @@ public class TeoNamedElementImpl extends TeoElementImpl implements TeoNameIdenti
 
     @Override
     public PsiElement setName(@NotNull String name) throws IncorrectOperationException {
+        PsiElement identifier = findChildByType(TeoTypes.IDENTIFIER);
+        if (identifier != null) {
+            identifier.replace(TeoElementFactory.createIdentifier(name, getProject()));
+        }
+//        ASTNode keyNode = element.getNode().findChildByType(SimpleTypes.KEY);
+//        if (keyNode != null) {
+//            SimpleProperty property = SimpleElementFactory.createProperty(element.getProject(), newName);
+//            ASTNode newKeyNode = property.getFirstChild().getNode();
+//            element.getNode().replaceChild(keyNode, newKeyNode);
+//        }
+//        return element;
         return null;
     }
 
