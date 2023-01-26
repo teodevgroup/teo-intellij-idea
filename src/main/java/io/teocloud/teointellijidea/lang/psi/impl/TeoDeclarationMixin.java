@@ -40,4 +40,14 @@ public class TeoDeclarationMixin extends TeoNamedElementImpl implements TeoDecla
     public TeoMemberDeclaration findMemberByName(String name) {
         return null;
     }
+
+    @Override
+    public int getTextOffset() {
+        PsiElement identifier = getNameIdentifier();
+        if (identifier != null) {
+            return identifier.getTextOffset();
+        } else {
+            return getKeywordElement().getTextOffset();
+        }
+    }
 }
