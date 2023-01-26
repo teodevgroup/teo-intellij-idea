@@ -3,12 +3,14 @@ package io.teocloud.teointellijidea.lang.psi.impl;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReference;
 import com.intellij.psi.search.LocalSearchScope;
 import com.intellij.psi.search.SearchScope;
 import com.intellij.util.IncorrectOperationException;
 import io.teocloud.teointellijidea.lang.presentation.TeoPresentationUtils;
 import io.teocloud.teointellijidea.lang.psi.TeoElementFactory;
 import io.teocloud.teointellijidea.lang.psi.TeoNameIdentifierOwner;
+import io.teocloud.teointellijidea.lang.resolve.TeoReference;
 import io.teocloud.teointellijidea.psi.TeoTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,6 +32,20 @@ public class TeoNamedElementImpl extends TeoElementImpl implements TeoNameIdenti
             return null;
         }
     }
+
+//    @Override
+//    public PsiReference getReference() {
+//        PsiElement identifyingElement = this.getIdentifyingElement();
+//        if (identifyingElement == null) {
+//            return null;
+//        }
+//        return new TeoReference(this, identifyingElement.getTextRange(), true);
+//    }
+//
+//    @Override
+//    public PsiReference @NotNull [] getReferences() {
+//        return new PsiReference[]{};
+//    }
 
     @Override
     public PsiElement setName(@NotNull String name) throws IncorrectOperationException {

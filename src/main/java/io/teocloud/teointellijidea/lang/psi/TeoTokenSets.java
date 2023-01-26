@@ -5,6 +5,8 @@ import io.teocloud.teointellijidea.psi.TeoTypes;
 
 public interface TeoTokenSets {
 
+    TokenSet IDENTIFIERS = TokenSet.create(TeoTypes.IDENTIFIER);
+
     TokenSet COMMENTS = TokenSet.create(TeoTypes.LINE_COMMENT);
 
     TokenSet STRING_LITERAL = TokenSet.create(TeoTypes.STRING_LITERAL);

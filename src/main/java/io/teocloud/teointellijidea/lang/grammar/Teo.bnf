@@ -76,7 +76,9 @@ config_block ::= padded_lbrace (WS? (config_item|comment) EOL)* padded_rbrace
 config_item ::= doc_comment_block? IDENTIFIER WS+ expression
 
 field_definition ::= doc_comment_block? item_decorator_list? IDENTIFIER WS* COLON WS* field_type
-field_type ::= (builtin_type | user_type) ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
+field_type ::= (builtin_type | user_type) ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)? {
+    mixin = "io.teocloud.teointellijidea.lang.psi.impl.TeoFieldTypeMixin"
+}
 builtin_type ::= "Bool" | "String" | "ObjectId" | "Int" | "Int32" | "Int64" | "Float" | "Float32" | "Float64" | "Date" | "DateTime"
 user_type ::= IDENTIFIER
 ARITY ::= (LBRACE RBRACE)|(LBRACKET RBRACKET)

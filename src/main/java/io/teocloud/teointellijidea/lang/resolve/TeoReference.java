@@ -44,10 +44,11 @@ public class TeoReference extends PsiPolyVariantReferenceBase<PsiElement> {
         List<LookupElement> variants = new ArrayList<>();
         for (final TeoModelDefinition def : defs) {
             variants.add(LookupElementBuilder
-                    .create(def).withIcon(AllIcons.Nodes.Class)
+                    .create(Objects.requireNonNull(def.getIdentifyingElement())).withIcon(AllIcons.Nodes.Class)
                     .withTypeText("Model")
             );
         }
+        System.out.println(variants);
         return variants.toArray();
     }
 }

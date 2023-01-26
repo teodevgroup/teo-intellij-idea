@@ -68,5 +68,9 @@
         <!-- Templates -->
         <defaultLiveTemplates file="/liveTemplates/Teo.xml"/>
         <liveTemplateContext implementation="io.teocloud.teointellijidea.ide.snippets.TeoTopLevelTemplateProvider"/>
+        <!-- Navigation & References -->
+        <lang.findUsagesProvider
+                language="Teo"
+                implementationClass="io.teocloud.teointellijidea.lang.usage.TeoFindUsagesProvider"/>
     </extensions>
 </idea-plugin>
