@@ -13,17 +13,4 @@ public class TeoKeyValuePairDeclarationMixin extends TeoDeclarationMixin impleme
         super(node);
     }
 
-    @Override
-    public @Nullable String getName() {
-        String name = super.getName();
-        if (name != null) {
-            return name;
-        }
-        PsiElement element = findChildByType(TeoTokenSets.DECLARATION_KEYWORDS);
-        if (element != null) {
-            String text = element.getText();
-            return text.substring(0, 1).toUpperCase() + text.substring(1);
-        }
-        return null;
-    }
 }

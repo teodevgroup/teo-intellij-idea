@@ -33,4 +33,27 @@ public abstract class TeoFieldTypeMixin extends TeoElementImpl implements TeoNam
         return null;
     }
 
+    @Override
+    public int getTextLength() {
+        if (this.getBuiltinType() == null) {
+            return super.getTextLength();
+        }
+        return 0;
+    }
+
+    @Override
+    public String getText() {
+        if (this.getBuiltinType() == null) {
+            return super.getText();
+        }
+        return "";
+    }
+
+    @Override
+    public TextRange getTextRange() {
+        if (this.getBuiltinType() == null) {
+            return super.getTextRange();
+        }
+        return new TextRange(0, 0);
+    }
 }
