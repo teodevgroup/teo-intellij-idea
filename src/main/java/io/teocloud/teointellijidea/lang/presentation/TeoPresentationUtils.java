@@ -2,14 +2,16 @@ package io.teocloud.teointellijidea.lang.presentation;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.navigation.ItemPresentation;
-import com.intellij.openapi.util.NlsSafe;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiFile;
 import io.teocloud.teointellijidea.lang.psi.TeoElement;
 import io.teocloud.teointellijidea.lang.psi.TeoNamedElement;
-import io.teocloud.teointellijidea.lang.psi.impl.TeoNamedElementImpl;
 import io.teocloud.teointellijidea.psi.*;
-import org.apache.xmlbeans.impl.xb.xsdschema.All;
 import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class TeoPresentationUtils {
 
@@ -27,8 +29,16 @@ public class TeoPresentationUtils {
 
             @Override
             public String getLocationString() {
-                // return element.getContainingFile().getName();
-                return null;
+                PsiFile file = element.getContainingFile();
+                Project project = file.getProject();
+                String projectPath = file.getProject().getBasePath();
+                VirtualFile virtualFile = file.getOriginalFile().getVirtualFile();
+                String path = virtualFile.getPath();
+                Path pathAbsolute = Paths.get(path);
+                assert projectPath != null;
+                Path pathBase = Paths.get(projectPath);
+                Path pathRelative = pathBase.relativize(pathAbsolute);
+                return pathRelative.toString();
             }
 
             @Override
