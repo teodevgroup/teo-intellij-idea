@@ -36,6 +36,12 @@ public class TeoEnumDefinitionBlockImpl extends TeoBlockMixin implements TeoEnum
 
   @Override
   @NotNull
+  public List<TeoBadEnumMemberIdentifier> getBadEnumMemberIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoBadEnumMemberIdentifier.class);
+  }
+
+  @Override
+  @NotNull
   public List<TeoBlockDecorator> getBlockDecoratorList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoBlockDecorator.class);
   }

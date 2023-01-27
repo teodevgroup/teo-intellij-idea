@@ -29,9 +29,9 @@ public class TeoBlockDecoratorImpl extends ASTWrapperPsiElement implements TeoBl
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TeoIdentifierUnit getIdentifierUnit() {
-    return findNotNullChildByClass(TeoIdentifierUnit.class);
+    return findChildByClass(TeoIdentifierUnit.class);
   }
 
 }

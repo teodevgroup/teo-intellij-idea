@@ -29,9 +29,9 @@ public class TeoBadTopDecoratorImpl extends ASTWrapperPsiElement implements TeoB
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TeoIdentifierUnit getIdentifierUnit() {
-    return findNotNullChildByClass(TeoIdentifierUnit.class);
+    return findChildByClass(TeoIdentifierUnit.class);
   }
 
 }

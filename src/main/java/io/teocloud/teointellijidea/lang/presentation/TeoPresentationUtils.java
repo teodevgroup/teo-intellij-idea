@@ -30,8 +30,11 @@ public class TeoPresentationUtils {
             @Override
             public String getLocationString() {
                 PsiFile file = element.getContainingFile();
+                if (file == null) {
+                    return null;
+                }
                 Project project = file.getProject();
-                String projectPath = file.getProject().getBasePath();
+                String projectPath = project.getBasePath();
                 VirtualFile virtualFile = file.getOriginalFile().getVirtualFile();
                 String path = virtualFile.getPath();
                 Path pathAbsolute = Paths.get(path);

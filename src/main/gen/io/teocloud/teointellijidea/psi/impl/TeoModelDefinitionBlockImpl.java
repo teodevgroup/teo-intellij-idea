@@ -36,6 +36,18 @@ public class TeoModelDefinitionBlockImpl extends TeoBlockMixin implements TeoMod
 
   @Override
   @NotNull
+  public List<TeoBadFieldIdentifier> getBadFieldIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoBadFieldIdentifier.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TeoBadModelIdentifier> getBadModelIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoBadModelIdentifier.class);
+  }
+
+  @Override
+  @NotNull
   public List<TeoBlockDecorator> getBlockDecoratorList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TeoBlockDecorator.class);
   }

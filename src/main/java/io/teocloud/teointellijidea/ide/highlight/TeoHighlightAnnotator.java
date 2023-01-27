@@ -128,9 +128,11 @@ public class TeoHighlightAnnotator implements Annotator {
 
     private void highlightDecorator(@NotNull TeoDecorator element, @NotNull AnnotationHolder holder) {
         ASTNode node = element.getNode();
-        @NotNull ASTNode identifierUnit = Objects.requireNonNull(element.getNode().findChildByType(TeoTypes.IDENTIFIER_UNIT));
         decoratorHighlight(node, holder);
-        decoratorHighlight(identifierUnit, holder);
+        ASTNode identifierUnit = element.getNode().findChildByType(TeoTypes.IDENTIFIER_UNIT);
+        if (identifierUnit != null) {
+            decoratorHighlight(identifierUnit, holder);
+        }
     }
 
     private void highlightPipeline(@NotNull TeoPipelineImpl element, @NotNull AnnotationHolder holder) {

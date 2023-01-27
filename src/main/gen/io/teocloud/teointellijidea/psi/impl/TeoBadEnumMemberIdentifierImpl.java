@@ -12,14 +12,14 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.teocloud.teointellijidea.psi.*;
 import io.teocloud.teointellijidea.lang.psi.impl.TeoPsiImplUtil;
 
-public class TeoItemDecoratorImpl extends ASTWrapperPsiElement implements TeoItemDecorator {
+public class TeoBadEnumMemberIdentifierImpl extends ASTWrapperPsiElement implements TeoBadEnumMemberIdentifier {
 
-  public TeoItemDecoratorImpl(@NotNull ASTNode node) {
+  public TeoBadEnumMemberIdentifierImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TeoVisitor visitor) {
-    visitor.visitItemDecorator(this);
+    visitor.visitBadEnumMemberIdentifier(this);
   }
 
   @Override

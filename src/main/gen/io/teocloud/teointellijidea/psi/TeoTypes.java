@@ -15,6 +15,9 @@ public interface TeoTypes {
   IElementType ARITY = new TeoElementType("ARITY");
   IElementType ARRAY_LITERAL = new TeoElementType("ARRAY_LITERAL");
   IElementType BAD_DOC_COMMENT = new TeoElementType("BAD_DOC_COMMENT");
+  IElementType BAD_ENUM_MEMBER_IDENTIFIER = new TeoElementType("BAD_ENUM_MEMBER_IDENTIFIER");
+  IElementType BAD_FIELD_IDENTIFIER = new TeoElementType("BAD_FIELD_IDENTIFIER");
+  IElementType BAD_MODEL_IDENTIFIER = new TeoElementType("BAD_MODEL_IDENTIFIER");
   IElementType BAD_TOP_DECORATOR = new TeoElementType("BAD_TOP_DECORATOR");
   IElementType BAD_TOP_IDENTIFIER = new TeoElementType("BAD_TOP_IDENTIFIER");
   IElementType BLOCK_DECORATOR = new TeoElementType("BLOCK_DECORATOR");
@@ -114,6 +117,15 @@ public interface TeoTypes {
       }
       else if (type == BAD_DOC_COMMENT) {
         return new TeoBadDocCommentImpl(node);
+      }
+      else if (type == BAD_ENUM_MEMBER_IDENTIFIER) {
+        return new TeoBadEnumMemberIdentifierImpl(node);
+      }
+      else if (type == BAD_FIELD_IDENTIFIER) {
+        return new TeoBadFieldIdentifierImpl(node);
+      }
+      else if (type == BAD_MODEL_IDENTIFIER) {
+        return new TeoBadModelIdentifierImpl(node);
       }
       else if (type == BAD_TOP_DECORATOR) {
         return new TeoBadTopDecoratorImpl(node);

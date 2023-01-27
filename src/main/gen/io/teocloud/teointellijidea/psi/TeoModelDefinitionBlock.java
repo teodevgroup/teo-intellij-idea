@@ -12,6 +12,12 @@ public interface TeoModelDefinitionBlock extends TeoBlock {
   List<TeoWs> getWsList();
 
   @NotNull
+  List<TeoBadFieldIdentifier> getBadFieldIdentifierList();
+
+  @NotNull
+  List<TeoBadModelIdentifier> getBadModelIdentifierList();
+
+  @NotNull
   List<TeoBlockDecorator> getBlockDecoratorList();
 
   @NotNull

@@ -8,7 +8,7 @@ import io.teocloud.teointellijidea.lang.psi.TeoDecorator;
 
 public interface TeoItemDecorator extends TeoDecorator {
 
-  @NotNull
+  @Nullable
   TeoIdentifierUnit getIdentifierUnit();
 
 }

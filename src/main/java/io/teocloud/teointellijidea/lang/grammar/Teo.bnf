@@ -35,8 +35,10 @@ EOL_WSC ::= EOL | WSC
 WS ::= EOL_WSC+
 
 bad_top_identifier ::= IDENTIFIER
-
-bad_top_decorator ::= AT identifier_unit
+bad_top_decorator ::= AT identifier_unit?
+bad_field_identifier ::= AT identifier_unit?
+bad_model_identifier ::= ATAT identifier_unit?
+bad_enum_member_identifier ::= AT identifier_unit?
 
 private padded_comma ::= WS? COMMA WS?
 private padded_colon ::= WS? COLON WS?
@@ -60,16 +62,16 @@ import_identifiers_block ::= padded_lbrace (IDENTIFIER (COMMA IDENTIFIER)* COMMA
 let_declaration ::= doc_comment_block? LET_KEYWORD WS+ IDENTIFIER WS* EQ WS* expression
 
 model_definition ::= doc_comment_block? item_decorator_list? MODEL_KEYWORD WS IDENTIFIER WS? model_definition_block
-model_definition_block ::= padded_lbrace (block_decorator | field_definition | comment | WS)* padded_rbrace
+model_definition_block ::= padded_lbrace (block_decorator | field_definition | bad_field_identifier | bad_model_identifier | comment | WS)* padded_rbrace
 item_decorator_list ::= item_decorator (WS item_decorator)* WS
 
 enum_definition ::= doc_comment_block? item_decorator_list? ENUM_KEYWORD WS IDENTIFIER WS? enum_definition_block
-enum_definition_block ::= padded_lbrace (block_decorator | enum_value_declaration | comment | WS)* padded_rbrace
+enum_definition_block ::= padded_lbrace (block_decorator | enum_value_declaration | bad_enum_member_identifier | comment | WS)* padded_rbrace
 enum_value_declaration ::= doc_comment_block? item_decorator_list? WS? IDENTIFIER EOL
 
-item_decorator ::= AT identifier_unit
+item_decorator ::= AT identifier_unit?
 
-block_decorator ::= ATAT identifier_unit
+block_decorator ::= ATAT identifier_unit?
 
 pipeline ::= DOLLAR identifier_unit
 

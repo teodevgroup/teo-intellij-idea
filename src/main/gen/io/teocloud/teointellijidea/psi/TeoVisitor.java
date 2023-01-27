@@ -4,11 +4,11 @@ package io.teocloud.teointellijidea.psi;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiElement;
-import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
-import io.teocloud.teointellijidea.lang.psi.TeoKeyValuePairDeclaration;
 import io.teocloud.teointellijidea.lang.psi.TeoDecorator;
 import io.teocloud.teointellijidea.lang.psi.TeoMemberDeclaration;
+import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
 import io.teocloud.teointellijidea.lang.psi.TeoBlock;
+import io.teocloud.teointellijidea.lang.psi.TeoKeyValuePairDeclaration;
 
 public class TeoVisitor extends PsiElementVisitor {
 
@@ -45,6 +45,18 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitBadDocComment(@NotNull TeoBadDocComment o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBadEnumMemberIdentifier(@NotNull TeoBadEnumMemberIdentifier o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBadFieldIdentifier(@NotNull TeoBadFieldIdentifier o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBadModelIdentifier(@NotNull TeoBadModelIdentifier o) {
     visitPsiElement(o);
   }
 

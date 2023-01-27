@@ -12,6 +12,9 @@ public interface TeoEnumDefinitionBlock extends TeoBlock {
   List<TeoWs> getWsList();
 
   @NotNull
+  List<TeoBadEnumMemberIdentifier> getBadEnumMemberIdentifierList();
+
+  @NotNull
   List<TeoBlockDecorator> getBlockDecoratorList();
 
   @NotNull

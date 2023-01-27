@@ -4,9 +4,8 @@ package io.teocloud.teointellijidea.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
-import io.teocloud.teointellijidea.lang.psi.TeoDecorator;
 
-public interface TeoBlockDecorator extends TeoDecorator {
+public interface TeoBadEnumMemberIdentifier extends PsiElement {
 
   @Nullable
   TeoIdentifierUnit getIdentifierUnit();
