@@ -24,10 +24,10 @@ public class TeoFindUsagesProvider implements FindUsagesProvider {
                 TeoTokenSets.COMMENTS,
                 TokenSet.EMPTY);
     }
+
     @Override
     public boolean canFindUsagesFor(@NotNull PsiElement psiElement) {
         return true;
-        //return psiElement.getNode().getElementType() == TeoTypes.;
     }
 
     @Override

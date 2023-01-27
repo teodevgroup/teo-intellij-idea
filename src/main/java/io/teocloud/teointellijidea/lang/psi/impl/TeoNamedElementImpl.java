@@ -33,20 +33,6 @@ public class TeoNamedElementImpl extends TeoElementImpl implements TeoNameIdenti
         }
     }
 
-//    @Override
-//    public PsiReference getReference() {
-//        PsiElement identifyingElement = this.getIdentifyingElement();
-//        if (identifyingElement == null) {
-//            return null;
-//        }
-//        return new TeoReference(this, identifyingElement.getTextRange(), true);
-//    }
-//
-//    @Override
-//    public PsiReference @NotNull [] getReferences() {
-//        return new PsiReference[]{};
-//    }
-
     @Override
     public PsiElement setName(@NotNull String name) throws IncorrectOperationException {
         PsiElement identifier = findChildByType(TeoTypes.IDENTIFIER);
