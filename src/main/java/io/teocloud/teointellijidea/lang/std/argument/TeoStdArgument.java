@@ -1,29 +1,29 @@
 package io.teocloud.teointellijidea.lang.std.argument;
 
-import io.teocloud.teointellijidea.lang.std.argument.types.TeoStdArgumentType;
+import io.teocloud.teointellijidea.lang.std.type.TeoStdType;
 import org.jetbrains.annotations.Nullable;
 
 public class TeoStdArgument {
 
-    private final TeoStdArgumentType type;
+    private final TeoStdType type;
 
     private final boolean optional;
 
     private @Nullable final String name;
 
-    public TeoStdArgument(TeoStdArgumentType type, boolean optional) {
+    public TeoStdArgument(TeoStdType type, boolean optional) {
         this.type = type;
         this.optional = optional;
         this.name = null;
     }
 
-    public TeoStdArgument(TeoStdArgumentType type, boolean optional, @Nullable String name) {
+    public TeoStdArgument(TeoStdType type, boolean optional, @Nullable String name) {
         this.type = type;
         this.optional = optional;
         this.name = name;
     }
 
-    public TeoStdArgumentType getType() {
+    public TeoStdType getType() {
         return this.type;
     }
 
