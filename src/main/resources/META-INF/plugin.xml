@@ -72,5 +72,8 @@
         <lang.findUsagesProvider
                 language="Teo"
                 implementationClass="io.teocloud.teointellijidea.lang.usage.TeoFindUsagesProvider"/>
+        <gotoSymbolContributor
+                implementation="io.teocloud.teointellijidea.ide.symbols.GoToSymbolContributor"/>
+
     </extensions>
 </idea-plugin>
