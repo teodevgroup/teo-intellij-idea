@@ -23,6 +23,8 @@
 
   implements('((model|enum|)_definition|config)_block|')='io.teocloud.teointellijidea.lang.psi.TeoBlock'
   mixin('((model|enum|)_definition|config)_block|')='io.teocloud.teointellijidea.lang.psi.impl.TeoBlockMixin'
+
+  implements('(block|item|bad_top)_decorator')='io.teocloud.teointellijidea.lang.psi.TeoDecorator'
 }
 
 teoFile ::= item_*

@@ -6,6 +6,7 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiElement;
 import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
 import io.teocloud.teointellijidea.lang.psi.TeoKeyValuePairDeclaration;
+import io.teocloud.teointellijidea.lang.psi.TeoDecorator;
 import io.teocloud.teointellijidea.lang.psi.TeoMemberDeclaration;
 import io.teocloud.teointellijidea.lang.psi.TeoBlock;
 
@@ -48,7 +49,7 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitBadTopDecorator(@NotNull TeoBadTopDecorator o) {
-    visitPsiElement(o);
+    visitDecorator(o);
   }
 
   public void visitBadTopIdentifier(@NotNull TeoBadTopIdentifier o) {
@@ -56,7 +57,7 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitBlockDecorator(@NotNull TeoBlockDecorator o) {
-    visitPsiElement(o);
+    visitDecorator(o);
   }
 
   public void visitBuiltinType(@NotNull TeoBuiltinType o) {
@@ -145,7 +146,7 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitItemDecorator(@NotNull TeoItemDecorator o) {
-    visitPsiElement(o);
+    visitDecorator(o);
   }
 
   public void visitItemDecoratorList(@NotNull TeoItemDecoratorList o) {
@@ -209,6 +210,10 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitDeclaration(@NotNull TeoDeclaration o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDecorator(@NotNull TeoDecorator o) {
     visitPsiElement(o);
   }
 
