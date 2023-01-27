@@ -5,6 +5,7 @@ import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
+import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
 import io.teocloud.teointellijidea.lang.psi.TeoTokenSets;
 import io.teocloud.teointellijidea.psi.*;
 import io.teocloud.teointellijidea.psi.impl.*;
@@ -16,54 +17,104 @@ public class TeoHighlightAnnotator implements Annotator {
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
         if (element instanceof TeoModelDefinitionImpl) {
-            PsiElement nameElement = ((TeoModelDefinitionImpl)element).getNameIdentifier();
-            if (nameElement != null) {
-                holder
-                        .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                        .range(nameElement.getTextRange())
-                        .textAttributes(TeoSyntaxHighlighter.MODEL_NAME).create();
-            }
+            highlightModelDeclarationName((TeoModelDefinitionImpl) element, holder);
+        } else if (element instanceof TeoEnumDefinitionImpl) {
+            highlightEnumDeclarationName((TeoEnumDefinitionImpl) element, holder);
+        } else if (element instanceof TeoConfigDefinitionImpl) {
+            highlightConfigDeclarationName((TeoConfigDefinitionImpl) element, holder);
         } else if (element instanceof TeoConfigItemImpl) {
-            PsiElement nameElement = ((TeoConfigItemImpl)element).getNameIdentifier();
-            if (nameElement != null) {
-                holder
-                        .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                        .range(element.getTextRange())
-                        .textAttributes(TeoSyntaxHighlighter.CONFIG_ITEM_NAME).create();
-            }
-        } else if (element instanceof TeoEnumChoiceLiteral) {
-            holder
-                    .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                    .range(element.getTextRange())
+            highlightConfigItemName((TeoConfigItemImpl) element, holder);
+        } else if (element instanceof TeoEnumValueDeclarationImpl) {
+            highlightEnumMemberDeclarationName((TeoEnumValueDeclarationImpl) element, holder);
+        }
+//        if (element instanceof TeoModelDefinitionImpl) {
+//            PsiElement nameElement = ((TeoModelDefinitionImpl)element).getNameIdentifier();
+//            if (nameElement != null) {
+//                holder
+//                        .newSilentAnnotation(HighlightSeverity.INFORMATION)
+//                        .range(nameElement.getTextRange())
+//                        .textAttributes(TeoSyntaxHighlighter.MODEL_NAME).create();
+//            }
+//        } else if (element instanceof TeoConfigItemImpl) {
+//
+//        } else if (element instanceof TeoEnumChoiceLiteral) {
+//            holder
+//                    .newSilentAnnotation(HighlightSeverity.INFORMATION)
+//                    .range(element.getTextRange())
+//                    .textAttributes(TeoSyntaxHighlighter.ENUM_MEMBER).create();
+//        } else if (element instanceof TeoFieldDefinitionImpl) {
+//            PsiElement nameElement = ((TeoFieldDefinitionImpl)element).getNameIdentifier();
+//            if (nameElement != null) {
+//                holder
+//                        .newSilentAnnotation(HighlightSeverity.INFORMATION)
+//                        .range(element.getTextRange())
+//                        .textAttributes(TeoSyntaxHighlighter.FIELD_NAME).create();
+//            }
+//        } else if (element instanceof TeoUserTypeImpl) {
+//            holder
+//                    .newSilentAnnotation(HighlightSeverity.INFORMATION)
+//                    .range(element.getTextRange())
+//                    .textAttributes(TeoSyntaxHighlighter.USER_TYPE).create();
+//        } else if (element instanceof TeoBuiltinTypeImpl) {
+//            holder
+//                    .newSilentAnnotation(HighlightSeverity.INFORMATION)
+//                    .range(element.getTextRange())
+//                    .textAttributes(TeoSyntaxHighlighter.BUILTIN_TYPE).create();
+//        }else if (element instanceof TeoBlockDecoratorImpl || element instanceof TeoItemDecoratorImpl || element instanceof TeoBadTopDecoratorImpl) {
+//            ASTNode node = element.getNode();
+//            @NotNull ASTNode identifierUnit = Objects.requireNonNull(element.getNode().findChildByType(TeoTypes.IDENTIFIER_UNIT));
+//            decoratorHighlight(node, holder);
+//            decoratorHighlight(identifierUnit, holder);
+//        } else if (element instanceof TeoPipelineImpl) {
+//            ASTNode node = element.getNode();
+//            @NotNull ASTNode identifierUnit = Objects.requireNonNull(element.getNode().findChildByType(TeoTypes.IDENTIFIER_UNIT));
+//            pipelineHighlight(node, holder);
+//            pipelineHighlight(identifierUnit, holder);
+//        }
+    }
+
+    private void highlightModelDeclarationName(@NotNull TeoModelDefinitionImpl model, @NotNull AnnotationHolder holder) {
+        PsiElement nameElement = model.getNameIdentifier();
+        if (nameElement != null) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .range(nameElement.getTextRange())
+                    .textAttributes(TeoSyntaxHighlighter.MODEL_NAME).create();
+        }
+    }
+
+    private void highlightEnumDeclarationName(@NotNull TeoEnumDefinitionImpl element, @NotNull AnnotationHolder holder) {
+        PsiElement nameElement = element.getNameIdentifier();
+        if (nameElement != null) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .range(nameElement.getTextRange())
+                    .textAttributes(TeoSyntaxHighlighter.ENUM_NAME).create();
+        }
+    }
+
+    private void highlightConfigDeclarationName(@NotNull TeoConfigDefinitionImpl element, @NotNull AnnotationHolder holder) {
+        PsiElement nameElement = element.getNameIdentifier();
+        if (nameElement != null) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .range(nameElement.getTextRange())
+                    .textAttributes(TeoSyntaxHighlighter.CONFIG_NAME).create();
+        }
+    }
+
+    private void highlightConfigItemName(@NotNull TeoConfigItemImpl element, @NotNull AnnotationHolder holder) {
+        PsiElement nameElement = element.getNameIdentifier();
+        if (nameElement != null) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .range(nameElement.getTextRange())
+                    .textAttributes(TeoSyntaxHighlighter.CONFIG_ITEM_NAME).create();
+        }
+    }
+
+    private void highlightEnumMemberDeclarationName(@NotNull TeoEnumValueDeclarationImpl element, @NotNull AnnotationHolder holder) {
+        PsiElement nameElement = element.getNameIdentifier();
+        if (nameElement != null) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .range(nameElement.getTextRange())
                     .textAttributes(TeoSyntaxHighlighter.ENUM_MEMBER).create();
-        } else if (element instanceof TeoFieldDefinitionImpl) {
-            PsiElement nameElement = ((TeoFieldDefinitionImpl)element).getNameIdentifier();
-            if (nameElement != null) {
-                holder
-                        .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                        .range(element.getTextRange())
-                        .textAttributes(TeoSyntaxHighlighter.FIELD_NAME).create();
-            }
-        } else if (element instanceof TeoUserTypeImpl) {
-            holder
-                    .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                    .range(element.getTextRange())
-                    .textAttributes(TeoSyntaxHighlighter.USER_TYPE).create();
-        } else if (element instanceof TeoBuiltinTypeImpl) {
-            holder
-                    .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                    .range(element.getTextRange())
-                    .textAttributes(TeoSyntaxHighlighter.BUILTIN_TYPE).create();
-        }else if (element instanceof TeoBlockDecoratorImpl || element instanceof TeoItemDecoratorImpl || element instanceof TeoBadTopDecoratorImpl) {
-            ASTNode node = element.getNode();
-            @NotNull ASTNode identifierUnit = Objects.requireNonNull(element.getNode().findChildByType(TeoTypes.IDENTIFIER_UNIT));
-            decoratorHighlight(node, holder);
-            decoratorHighlight(identifierUnit, holder);
-        } else if (element instanceof TeoPipelineImpl) {
-            ASTNode node = element.getNode();
-            @NotNull ASTNode identifierUnit = Objects.requireNonNull(element.getNode().findChildByType(TeoTypes.IDENTIFIER_UNIT));
-            pipelineHighlight(node, holder);
-            pipelineHighlight(identifierUnit, holder);
         }
     }
 

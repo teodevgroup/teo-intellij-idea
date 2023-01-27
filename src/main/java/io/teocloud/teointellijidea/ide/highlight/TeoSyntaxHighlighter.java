@@ -16,10 +16,10 @@ import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAtt
 public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
 
     public static final TextAttributesKey KEYWORD = createTextAttributesKey("TEO_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
-
-    public static final TextAttributesKey CONFIG_ITEM_NAME = createTextAttributesKey("TEO_CONFIG_ITEM_NAME", DefaultLanguageHighlighterColors.CONSTANT);
-
+    public static final TextAttributesKey CONFIG_ITEM_NAME = createTextAttributesKey("TEO_CONFIG_ITEM_NAME", DefaultLanguageHighlighterColors.LOCAL_VARIABLE);
     public static final TextAttributesKey MODEL_NAME = createTextAttributesKey("TEO_MODEL_NAME", DefaultLanguageHighlighterColors.CLASS_NAME);
+    public static final TextAttributesKey ENUM_NAME = createTextAttributesKey("TEO_ENUM_NAME", DefaultLanguageHighlighterColors.CLASS_NAME);
+    public static final TextAttributesKey CONFIG_NAME = createTextAttributesKey("TEO_CONFIG_NAME", DefaultLanguageHighlighterColors.CLASS_NAME);
     public static final TextAttributesKey FIELD_NAME = createTextAttributesKey("TEO_FIELD_NAME", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
     public static final TextAttributesKey BUILTIN_TYPE = createTextAttributesKey("TEO_BUILTIN_TYPE", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey USER_TYPE = createTextAttributesKey("TEO_USER_TYPE", DefaultLanguageHighlighterColors.CLASS_REFERENCE);
