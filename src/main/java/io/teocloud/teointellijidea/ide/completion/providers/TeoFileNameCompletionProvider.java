@@ -12,6 +12,7 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.util.ProcessingContext;
 import io.teocloud.teointellijidea.ide.completion.handler.TeoInsertHandler;
 import io.teocloud.teointellijidea.lang.TeoFileType;
+import io.teocloud.teointellijidea.lang.TeoIcons;
 import org.jetbrains.annotations.NotNull;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -51,6 +52,8 @@ public class TeoFileNameCompletionProvider extends CompletionProvider<Completion
         return LookupElementBuilder
                 .create(name)
                 .withPresentableText(name)
+                .withIcon(TeoIcons.FILE)
+                .withTypeText("Teo schema file")
                 .withInsertHandler(TeoInsertHandler.CLEAR_STRING);
     }
 }
