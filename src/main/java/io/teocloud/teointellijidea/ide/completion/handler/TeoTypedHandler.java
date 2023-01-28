@@ -14,7 +14,7 @@ public class TeoTypedHandler extends TypedHandlerDelegate {
         if (!(file instanceof TeoFile)) {
             return Result.CONTINUE;
         }
-        if (charTyped == '@' || charTyped == '.' || charTyped == '$') {
+        if (charTyped == '@' || charTyped == '.' || charTyped == '$' || charTyped == '"') {
             AutoPopupController.getInstance(project).scheduleAutoPopup(editor);
             return Result.STOP;
         }

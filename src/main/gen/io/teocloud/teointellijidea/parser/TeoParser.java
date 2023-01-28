@@ -1767,16 +1767,23 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOLLAR identifier_unit
+  // DOLLAR identifier_unit?
   public static boolean pipeline(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "pipeline")) return false;
     if (!nextTokenIs(b, DOLLAR)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, DOLLAR);
-    r = r && identifier_unit(b, l + 1);
+    r = r && pipeline_1(b, l + 1);
     exit_section_(b, m, PIPELINE, r);
     return r;
+  }
+
+  // identifier_unit?
+  private static boolean pipeline_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "pipeline_1")) return false;
+    identifier_unit(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */

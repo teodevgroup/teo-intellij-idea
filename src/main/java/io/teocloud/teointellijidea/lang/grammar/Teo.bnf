@@ -73,7 +73,7 @@ item_decorator ::= AT identifier_unit?
 
 block_decorator ::= ATAT identifier_unit?
 
-pipeline ::= DOLLAR identifier_unit
+pipeline ::= DOLLAR identifier_unit?
 
 config_definition ::= (CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD) (WS+ IDENTIFIER)? WS+ config_block
 config_block ::= padded_lbrace (WS? (config_item|comment) EOL)* padded_rbrace

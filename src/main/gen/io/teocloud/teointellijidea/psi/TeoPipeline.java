@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface TeoPipeline extends PsiElement {
 
-  @NotNull
+  @Nullable
   TeoIdentifierUnit getIdentifierUnit();
 
 }
