@@ -31,10 +31,8 @@ public class TeoHighlightAnnotator implements Annotator {
             highlightEnumMemberDeclarationName((TeoEnumValueDeclarationImpl) element, holder);
         } else if (element instanceof TeoEnumChoiceLiteralImpl) {
             highlightEnumMemberLiteral((TeoEnumChoiceLiteralImpl) element, holder);
-        } else if (element instanceof TeoUserTypeImpl) {
-            highlightUserType((TeoUserTypeImpl) element, holder);
-        } else if (element instanceof TeoBuiltinTypeImpl) {
-            highlightBuiltinType((TeoBuiltinTypeImpl) element, holder);
+        } else if (element instanceof TeoFieldType) {
+            highlightFieldType((TeoFieldType) element, holder);
         } else if (element instanceof TeoDecorator) {
             highlightDecorator((TeoDecorator) element, holder);
         } else if (element instanceof TeoPipelineImpl) {
@@ -111,19 +109,18 @@ public class TeoHighlightAnnotator implements Annotator {
         }
     }
 
-    private void highlightUserType(@NotNull TeoUserTypeImpl element, @NotNull AnnotationHolder holder) {
-        holder
-                .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                .range(element.getTextRange())
-                .textAttributes(TeoSyntaxHighlighter.USER_TYPE).create();
-    }
-
-    private void highlightBuiltinType(@NotNull TeoBuiltinTypeImpl element, @NotNull AnnotationHolder holder) {
-        holder
-                .newSilentAnnotation(HighlightSeverity.INFORMATION)
-                .range(element.getTextRange())
-                .textAttributes(TeoSyntaxHighlighter.BUILTIN_TYPE).create();
-
+    private void highlightFieldType(@NotNull TeoFieldType element, @NotNull AnnotationHolder holder) {
+        if (element.isBuiltinType()) {
+            holder
+                    .newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .range(element.getTypeTextRange())
+                    .textAttributes(TeoSyntaxHighlighter.BUILTIN_TYPE).create();
+        } else {
+            holder
+                    .newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .range(element.getTypeTextRange())
+                    .textAttributes(TeoSyntaxHighlighter.USER_TYPE).create();
+        }
     }
 
     private void highlightDecorator(@NotNull TeoDecorator element, @NotNull AnnotationHolder holder) {

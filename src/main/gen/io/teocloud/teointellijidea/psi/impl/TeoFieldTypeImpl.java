@@ -46,16 +46,4 @@ public class TeoFieldTypeImpl extends TeoFieldTypeMixin implements TeoFieldType 
     return findChildByClass(TeoItemOptional.class);
   }
 
-  @Override
-  @Nullable
-  public TeoBuiltinType getBuiltinType() {
-    return findChildByClass(TeoBuiltinType.class);
-  }
-
-  @Override
-  @Nullable
-  public TeoUserType getUserType() {
-    return findChildByClass(TeoUserType.class);
-  }
-
 }

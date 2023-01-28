@@ -407,27 +407,6 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // "Bool" | "String" | "ObjectId" | "Int" | "Int32" | "Int64" | "Float" | "Float32" | "Float64" | "Date" | "DateTime"
-  public static boolean builtin_type(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "builtin_type")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, BUILTIN_TYPE, "<builtin type>");
-    r = consumeToken(b, "Bool");
-    if (!r) r = consumeToken(b, "String");
-    if (!r) r = consumeToken(b, "ObjectId");
-    if (!r) r = consumeToken(b, "Int");
-    if (!r) r = consumeToken(b, "Int32");
-    if (!r) r = consumeToken(b, "Int64");
-    if (!r) r = consumeToken(b, "Float");
-    if (!r) r = consumeToken(b, "Float32");
-    if (!r) r = consumeToken(b, "Float64");
-    if (!r) r = consumeToken(b, "Date");
-    if (!r) r = consumeToken(b, "DateTime");
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
   // LINE_COMMENT
   public static boolean comment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "comment")) return false;
@@ -946,24 +925,16 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (builtin_type | user_type) ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
+  // IDENTIFIER ITEM_OPTIONAL? (ARITY COLLECTION_OPTIONAL?)?
   public static boolean field_type(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "field_type")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, FIELD_TYPE, "<field type>");
-    r = field_type_0(b, l + 1);
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
     r = r && field_type_1(b, l + 1);
     r = r && field_type_2(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // builtin_type | user_type
-  private static boolean field_type_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "field_type_0")) return false;
-    boolean r;
-    r = builtin_type(b, l + 1);
-    if (!r) r = user_type(b, l + 1);
+    exit_section_(b, m, FIELD_TYPE, r);
     return r;
   }
 
@@ -1972,18 +1943,6 @@ public class TeoParser implements PsiParser, LightPsiParser {
     if (!r) r = parseTokens(b, 0, DOT, IDENTIFIER);
     if (!r) r = argument_list(b, l + 1);
     exit_section_(b, m, null, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // IDENTIFIER
-  public static boolean user_type(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "user_type")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    exit_section_(b, m, USER_TYPE, r);
     return r;
   }
 

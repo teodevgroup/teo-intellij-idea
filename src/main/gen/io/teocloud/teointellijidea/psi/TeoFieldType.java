@@ -4,8 +4,9 @@ package io.teocloud.teointellijidea.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import io.teocloud.teointellijidea.lang.psi.TeoFieldTypeInterface;
 
-public interface TeoFieldType extends PsiElement {
+public interface TeoFieldType extends TeoFieldTypeInterface {
 
   @Nullable
   TeoArity getArity();
@@ -15,11 +16,5 @@ public interface TeoFieldType extends PsiElement {
 
   @Nullable
   TeoItemOptional getItemOptional();
-
-  @Nullable
-  TeoBuiltinType getBuiltinType();
-
-  @Nullable
-  TeoUserType getUserType();
 
 }

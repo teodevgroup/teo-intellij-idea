@@ -4,11 +4,12 @@ package io.teocloud.teointellijidea.psi;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiElement;
+import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
+import io.teocloud.teointellijidea.lang.psi.TeoKeyValuePairDeclaration;
 import io.teocloud.teointellijidea.lang.psi.TeoDecorator;
 import io.teocloud.teointellijidea.lang.psi.TeoMemberDeclaration;
-import io.teocloud.teointellijidea.lang.psi.TeoDeclaration;
 import io.teocloud.teointellijidea.lang.psi.TeoBlock;
-import io.teocloud.teointellijidea.lang.psi.TeoKeyValuePairDeclaration;
+import io.teocloud.teointellijidea.lang.psi.TeoFieldTypeInterface;
 
 public class TeoVisitor extends PsiElementVisitor {
 
@@ -72,10 +73,6 @@ public class TeoVisitor extends PsiElementVisitor {
     visitDecorator(o);
   }
 
-  public void visitBuiltinType(@NotNull TeoBuiltinType o) {
-    visitPsiElement(o);
-  }
-
   public void visitComment(@NotNull TeoComment o) {
     visitPsiElement(o);
   }
@@ -130,7 +127,7 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitFieldType(@NotNull TeoFieldType o) {
-    visitPsiElement(o);
+    visitFieldTypeInterface(o);
   }
 
   public void visitGroup(@NotNull TeoGroup o) {
@@ -213,10 +210,6 @@ public class TeoVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitUserType(@NotNull TeoUserType o) {
-    visitPsiElement(o);
-  }
-
   public void visitBlock(@NotNull TeoBlock o) {
     visitPsiElement(o);
   }
@@ -226,6 +219,10 @@ public class TeoVisitor extends PsiElementVisitor {
   }
 
   public void visitDecorator(@NotNull TeoDecorator o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFieldTypeInterface(@NotNull TeoFieldTypeInterface o) {
     visitPsiElement(o);
   }
 

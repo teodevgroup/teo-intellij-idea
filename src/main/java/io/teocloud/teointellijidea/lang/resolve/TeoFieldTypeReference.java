@@ -7,6 +7,7 @@ import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.ResolveResult;
 import io.teocloud.teointellijidea.lang.TeoUtil;
 import io.teocloud.teointellijidea.psi.TeoFieldType;
+import io.teocloud.teointellijidea.psi.impl.TeoFieldTypeImpl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,23 +19,22 @@ public class TeoFieldTypeReference extends PsiReferenceBase<TeoFieldType> {
         super(psiElement, textRange);
     }
 
-    @Override
-    protected TextRange calculateDefaultRangeInElement() {
-        PsiElement userType = getElement().getUserType();
-        if (userType != null) {
-            return userType.getTextRange();
-        } else {
-            return null;
-        }
-        //return Objects.requireNonNullElseGet(userType, () -> Objects.requireNonNull(getElement().getBuiltinType())).getTextRange();
-    }
+//    @Override
+//    protected TextRange calculateDefaultRangeInElement() {
+//        PsiElement userType = getElement().getUserType();
+//        if (userType != null) {
+//            return userType.getTextRange();
+//        } else {
+//            return null;
+//        }
+//        //return Objects.requireNonNullElseGet(userType, () -> Objects.requireNonNull(getElement().getBuiltinType())).getTextRange();
+//    }
 
     @Override
     public @Nullable PsiElement resolve() {
-        if (getElement().getBuiltinType() != null) {
+        if (getElement().isBuiltinType()) {
             return null;
         }
-        String name = Objects.requireNonNull(getElement().getUserType()).getText();
-        return TeoUtil.findModelOrEnumDefinitionByName(getElement().getProject(), name);
+        return TeoUtil.findModelOrEnumDefinitionByName(getElement().getProject(), getElement().getTypeText());
     }
 }

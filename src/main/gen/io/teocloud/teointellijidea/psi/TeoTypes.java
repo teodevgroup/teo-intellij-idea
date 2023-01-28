@@ -21,7 +21,6 @@ public interface TeoTypes {
   IElementType BAD_TOP_DECORATOR = new TeoElementType("BAD_TOP_DECORATOR");
   IElementType BAD_TOP_IDENTIFIER = new TeoElementType("BAD_TOP_IDENTIFIER");
   IElementType BLOCK_DECORATOR = new TeoElementType("BLOCK_DECORATOR");
-  IElementType BUILTIN_TYPE = new TeoElementType("BUILTIN_TYPE");
   IElementType COLLECTION_OPTIONAL = new TeoElementType("COLLECTION_OPTIONAL");
   IElementType COMMENT = new TeoElementType("COMMENT");
   IElementType CONFIG_BLOCK = new TeoElementType("CONFIG_BLOCK");
@@ -59,7 +58,6 @@ public interface TeoTypes {
   IElementType SUBSCRIPT = new TeoElementType("SUBSCRIPT");
   IElementType TUPLE_LITERAL = new TeoElementType("TUPLE_LITERAL");
   IElementType UNIT = new TeoElementType("UNIT");
-  IElementType USER_TYPE = new TeoElementType("USER_TYPE");
   IElementType WS = new TeoElementType("WS");
 
   IElementType AT = new TeoTokenType("AT");
@@ -135,9 +133,6 @@ public interface TeoTypes {
       }
       else if (type == BLOCK_DECORATOR) {
         return new TeoBlockDecoratorImpl(node);
-      }
-      else if (type == BUILTIN_TYPE) {
-        return new TeoBuiltinTypeImpl(node);
       }
       else if (type == COLLECTION_OPTIONAL) {
         return new TeoCollectionOptionalImpl(node);
@@ -249,9 +244,6 @@ public interface TeoTypes {
       }
       else if (type == UNIT) {
         return new TeoUnitImpl(node);
-      }
-      else if (type == USER_TYPE) {
-        return new TeoUserTypeImpl(node);
       }
       else if (type == WS) {
         return new TeoWsImpl(node);
