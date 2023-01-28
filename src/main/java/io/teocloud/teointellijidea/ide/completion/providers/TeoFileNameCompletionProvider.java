@@ -10,12 +10,12 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.util.ProcessingContext;
+import io.teocloud.teointellijidea.ide.completion.handler.TeoInsertHandler;
 import io.teocloud.teointellijidea.lang.TeoFileType;
 import org.jetbrains.annotations.NotNull;
-
 import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.List;
+
 
 public class TeoFileNameCompletionProvider extends CompletionProvider<CompletionParameters> {
 
@@ -50,6 +50,7 @@ public class TeoFileNameCompletionProvider extends CompletionProvider<Completion
     private static LookupElementBuilder createFilePath(String name) {
         return LookupElementBuilder
                 .create(name)
-                .withPresentableText(name);
+                .withPresentableText(name)
+                .withInsertHandler(TeoInsertHandler.CLEAR_STRING);
     }
 }
