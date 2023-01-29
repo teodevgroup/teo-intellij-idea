@@ -15,6 +15,7 @@ import com.intellij.icons.AllIcons;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class TeoFieldTypeCompletionProvider extends CompletionProvider<CompletionParameters> {
@@ -52,26 +53,26 @@ public class TeoFieldTypeCompletionProvider extends CompletionProvider<Completio
     private static ArrayList<LookupElementBuilder> getModelTypeCandidates(Project project) {
         final List<TeoModelDefinition> modelDefinitions = TeoUtil.findModelDefinitions(project);
         ArrayList<LookupElementBuilder> elements = new ArrayList<>();
-//        for (TeoModelDefinition modelDefinition : modelDefinitions) {
-//            elements.add(LookupElementBuilder
-//                    .create(modelDefinition.getNode().findChildByType(TeoTypes.MODEL_NAME).getText())
-//                    .withTypeText(modelDefinition.getContainingFile().getName())
-//                    .withIcon(AllIcons.Nodes.ModelClass)
-//                    .bold());
-//        }
+        for (TeoModelDefinition modelDefinition : modelDefinitions) {
+            elements.add(LookupElementBuilder
+                    .create(Objects.requireNonNull(modelDefinition.getNameIdentifier()).getText())
+                    .withTypeText(modelDefinition.getContainingFile().getName())
+                    .withIcon(AllIcons.Nodes.ModelClass)
+                    .bold());
+        }
         return elements;
     }
 
     private static ArrayList<LookupElementBuilder> getEnumTypeCandidates(Project project) {
         final List<TeoEnumDefinition> enumDefinitions = TeoUtil.findEnumDefinitions(project);
         ArrayList<LookupElementBuilder> elements = new ArrayList<>();
-//        for (TeoEnumDefinition enumDefinition : enumDefinitions) {
-//            elements.add(LookupElementBuilder
-//                    .create(enumDefinition.getNode().findChildByType(TeoTypes.ENUM_NAME).getText())
-//                    .withTypeText(enumDefinition.getContainingFile().getName())
-//                    .withIcon(AllIcons.Nodes.Enum)
-//                    .bold());
-//        }
+        for (TeoEnumDefinition enumDefinition : enumDefinitions) {
+            elements.add(LookupElementBuilder
+                    .create(Objects.requireNonNull(enumDefinition.getNameIdentifier()).getText())
+                    .withTypeText(enumDefinition.getContainingFile().getName())
+                    .withIcon(AllIcons.Nodes.Enum)
+                    .bold());
+        }
         return elements;
     }
 }
