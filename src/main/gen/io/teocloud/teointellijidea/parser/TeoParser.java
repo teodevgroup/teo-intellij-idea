@@ -472,7 +472,7 @@ public class TeoParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD) (WS+ IDENTIFIER)? WS+ config_block
+  // (SERVER_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD) (WS+ IDENTIFIER)? WS+ config_block
   public static boolean config_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "config_definition")) return false;
     boolean r;
@@ -485,11 +485,11 @@ public class TeoParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // CONFIG_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD
+  // SERVER_KEYWORD | CONNECTOR_KEYWORD | CLIENT_KEYWORD | ENTITY_KEYWORD
   private static boolean config_definition_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "config_definition_0")) return false;
     boolean r;
-    r = consumeToken(b, CONFIG_KEYWORD);
+    r = consumeToken(b, SERVER_KEYWORD);
     if (!r) r = consumeToken(b, CONNECTOR_KEYWORD);
     if (!r) r = consumeToken(b, CLIENT_KEYWORD);
     if (!r) r = consumeToken(b, ENTITY_KEYWORD);

@@ -46,7 +46,7 @@ LINE_COMMENT="//" .*
 <YYINITIAL> {
     "model"            { return MODEL_KEYWORD; }
     "enum"             { return ENUM_KEYWORD; }
-    "config"           { return CONFIG_KEYWORD; }
+    "server"           { return SERVER_KEYWORD; }
     "connector"        { return CONNECTOR_KEYWORD; }
     "client"           { return CLIENT_KEYWORD; }
     "entity"           { return ENTITY_KEYWORD; }

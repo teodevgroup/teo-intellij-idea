@@ -80,7 +80,7 @@ public class TeoSyntaxHighlighter extends SyntaxHighlighterBase {
                 tokenType.equals(TeoTypes.IMPORT_KEYWORD) ||
                 tokenType.equals(TeoTypes.FROM_KEYWORD) ||
                 tokenType.equals(TeoTypes.LET_KEYWORD) ||
-                tokenType.equals(TeoTypes.CONFIG_KEYWORD) ||
+                tokenType.equals(TeoTypes.SERVER_KEYWORD) ||
                 tokenType.equals(TeoTypes.CONNECTOR_KEYWORD) ||
                 tokenType.equals(TeoTypes.CLIENT_KEYWORD) ||
                 tokenType.equals(TeoTypes.ENTITY_KEYWORD)) {

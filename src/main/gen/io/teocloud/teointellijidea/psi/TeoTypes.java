@@ -66,7 +66,6 @@ public interface TeoTypes {
   IElementType CLIENT_KEYWORD = new TeoTokenType("CLIENT_KEYWORD");
   IElementType COLON = new TeoTokenType("COLON");
   IElementType COMMA = new TeoTokenType("COMMA");
-  IElementType CONFIG_KEYWORD = new TeoTokenType("CONFIG_KEYWORD");
   IElementType CONNECTOR_KEYWORD = new TeoTokenType("CONNECTOR_KEYWORD");
   IElementType CRANGE = new TeoTokenType("CRANGE");
   IElementType DOC_COMMENT = new TeoTokenType("DOC_COMMENT");
@@ -95,6 +94,7 @@ public interface TeoTypes {
   IElementType RBRACE = new TeoTokenType("RBRACE");
   IElementType RBRACKET = new TeoTokenType("RBRACKET");
   IElementType RPAREN = new TeoTokenType("RPAREN");
+  IElementType SERVER_KEYWORD = new TeoTokenType("SERVER_KEYWORD");
   IElementType STRING_LITERAL = new TeoTokenType("STRING_LITERAL");
   IElementType WSC = new TeoTokenType("WSC");
 

@@ -17,7 +17,7 @@ public interface TeoTokenSets {
     TokenSet DECLARATION_KEYWORDS = TokenSet.create(
             TeoTypes.CLIENT_KEYWORD,
             TeoTypes.ENTITY_KEYWORD,
-            TeoTypes.CONFIG_KEYWORD,
+            TeoTypes.SERVER_KEYWORD,
             TeoTypes.CONNECTOR_KEYWORD,
             TeoTypes.MODEL_KEYWORD,
             TeoTypes.ENUM_KEYWORD,
