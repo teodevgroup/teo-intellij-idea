@@ -31,7 +31,7 @@ DIGIT            = [:digit:]
 NUMERIC_LITERAL  = "-"? {DIGIT}+ ("." {DIGIT}+)?
 BOOL_LITERAL     = "true" | "false"
 NULL_LITERAL     = "null"
-NAME_START       = [a-zA-Z]
+NAME_START       = [a-zA-Z_]
 NAME_BODY        = [a-zA-Z0-9_]
 IDENTIFIER       = {NAME_START} ({NAME_BODY})*
 
