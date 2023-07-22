@@ -2,7 +2,6 @@ package io.teocloud.teointellijidea.lang.std.type;
 
 import io.teocloud.teointellijidea.lang.std.argument.TeoStdArgument;
 
-import javax.annotation.Nullable;
 
 public class TeoStdType {
     private final boolean optional;
